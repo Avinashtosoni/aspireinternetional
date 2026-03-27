@@ -55,9 +55,7 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-white font-heading font-bold text-xl shadow-lg">
-                A
-              </div>
+              <img src="/logo.png" alt="Aspire Logo" className="w-12 h-12 rounded-full shadow-lg object-contain" />
               <div className="flex flex-col">
                 <span className="font-heading font-extrabold text-xl leading-tight text-secondary">ASPIRE</span>
                 <span className="text-[10px] font-bold tracking-widest text-primary uppercase">Universal</span>
