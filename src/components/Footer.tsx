@@ -12,9 +12,9 @@ export default function Footer() {
         <div>
           <h3 className="text-xl font-bold mb-4">Contact</h3>
           <div className="space-y-2 text-gray-400">
-            <p className="flex items-center gap-2"><Phone size={18} /> +1 (555) 123-4567</p>
-            <p className="flex items-center gap-2"><Mail size={18} /> info@aspire.edu</p>
-            <p className="flex items-center gap-2"><MapPin size={18} /> 123 Education Lane, City</p>
+            <p className="flex items-center gap-2"><Phone size={18} /> +91 9431867366</p>
+            <p className="flex items-center gap-2"><Mail size={18} /> info@aspireuniversalinternational.com</p>
+            <p className="flex items-center gap-2"><MapPin size={18} /> Radha Krishana Colony Pakari, Patna, 800002</p>
           </div>
         </div>
         <div>
@@ -27,7 +27,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
-        <p>&copy; {new Date().getFullYear()} Aspire International School. All rights reserved.</p>
+        <p>Developed and Designed by <a href="https://digitalcomrade.in">Digital Comrade</a> &copy; {new Date().getFullYear()} Aspire International School. All rights reserved.</p>
       </div>
     </footer>
   );
