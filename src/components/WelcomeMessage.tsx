@@ -25,12 +25,12 @@ export default function WelcomeMessage() {
                 <Quote className="w-8 h-8 text-blue-600" />
               </div>
               <div>
-                <h4 className="font-bold text-gray-900">Dr. Sarah Mitchell</h4>
-                <p className="text-gray-500">Principal</p>
+                <h4 className="font-bold text-gray-900">Mr. Deepak Kumar Vidyarthi</h4>
+                <p className="text-gray-500">Director</p>
               </div>
             </div>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -39,9 +39,9 @@ export default function WelcomeMessage() {
             className="relative"
           >
             <div className="aspect-w-4 aspect-h-3 rounded-2xl overflow-hidden shadow-2xl">
-              <img 
-                src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                alt="Principal with students" 
+              <img
+                src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                alt="Principal with students"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
