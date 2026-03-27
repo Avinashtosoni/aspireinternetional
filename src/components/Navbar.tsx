@@ -27,9 +27,8 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled || location.pathname !== '/' ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || location.pathname !== '/' ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
+        }`}
     >
       {/* Top Bar (Hidden on mobile) */}
       <div className={`hidden md:flex justify-between items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-2 border-b border-gray-200/30 transition-all duration-300 ${isScrolled || location.pathname !== '/' ? 'h-0 overflow-hidden opacity-0 pb-0 border-none' : 'opacity-100'}`}>
@@ -57,8 +56,8 @@ export default function Navbar() {
             <Link to="/" className="flex items-center gap-2">
               <img src="/logo.png" alt="Aspire Logo" className="w-12 h-12 rounded-full shadow-lg object-contain" />
               <div className="flex flex-col">
-                <span className="font-heading font-extrabold text-xl leading-tight text-secondary">ASPIRE</span>
-                <span className="text-[10px] font-bold tracking-widest text-primary uppercase">Universal</span>
+                <span className="font-heading font-extrabold text-xl leading-tight text-secondary">ASPIRE Universal</span>
+                <span className="text-[10px] font-bold tracking-widest text-primary uppercase">International School</span>
               </div>
             </Link>
           </div>
@@ -69,9 +68,8 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 to={link.href}
-                className={`font-semibold transition-colors ${
-                  location.pathname === link.href ? 'text-primary' : 'text-gray-700 hover:text-primary'
-                }`}
+                className={`font-semibold transition-colors ${location.pathname === link.href ? 'text-primary' : 'text-gray-700 hover:text-primary'
+                  }`}
               >
                 {link.name}
               </Link>
@@ -108,9 +106,8 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 to={link.href}
-                className={`block px-3 py-3 text-base font-medium rounded-md ${
-                  location.pathname === link.href ? 'text-primary bg-primary/5' : 'text-gray-700 hover:text-primary hover:bg-gray-50'
-                }`}
+                className={`block px-3 py-3 text-base font-medium rounded-md ${location.pathname === link.href ? 'text-primary bg-primary/5' : 'text-gray-700 hover:text-primary hover:bg-gray-50'
+                  }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}

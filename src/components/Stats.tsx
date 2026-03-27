@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { Map, Monitor, Trophy, Users } from 'lucide-react';
 
 const stats = [
-  { id: 1, name: 'Acres of Green Campus', value: '10+', icon: Map },
-  { id: 2, name: 'Smart Classrooms', value: '50+', icon: Monitor },
+  { id: 1, name: 'Green Campus', value: '100%', icon: Map },
+  { id: 2, name: 'Smart Classrooms', value: '10+', icon: Monitor },
   { id: 3, name: 'Sports Facilities', value: '20+', icon: Trophy },
   { id: 4, name: 'Student-Teacher Ratio', value: '15:1', icon: Users },
 ];
