@@ -1,0 +1,72 @@
+<div>
+  <div class="bg-gray-900 py-12 md:py-20 text-center border-b border-gray-800 transition-colors duration-300">
+    <h1 class="text-4xl md:text-5xl font-heading font-bold text-white transition-colors duration-300">Facilities</h1>
+    <p class="text-gray-400 mt-4 max-w-2xl mx-auto px-4 transition-colors duration-300">Take a look at our state-of-the-art campus and world-class infrastructure.</p>
+  </div>
+
+  <section id="infrastructure" class="py-20 bg-gray-900 text-white relative overflow-hidden transition-colors duration-300">
+    <!-- Abstract Background -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20">
+      <div class="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-blue-500 mix-blend-screen filter blur-[100px]"></div>
+      <div class="absolute top-[60%] -right-[10%] w-[40%] h-[60%] rounded-full bg-indigo-500 mix-blend-screen filter blur-[100px]"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-yellow-400 font-bold tracking-wider uppercase text-sm mb-2 block transition-colors duration-300">Infrastructure & Facilities</span>
+        <h2 class="text-4xl font-heading font-bold mb-6 transition-colors duration-300">
+          A Campus That Inspires
+        </h2>
+        <p class="text-gray-300 text-lg transition-colors duration-300">
+          Our state-of-the-art facilities provide the perfect environment for holistic development, ensuring every child has the resources they need to excel.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="dyn-fac-page-grid">
+        <!-- Static Fallbacks (Will be overwritten by JS if connected to CMS) -->
+        <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-6 text-center hover:bg-white/20 transition-colors group">
+          <div class="w-14 h-14 mx-auto bg-white/10 rounded-full flex items-center justify-center mb-4 text-yellow-400 group-hover:scale-110 transition-transform">
+            <i data-lucide="book" class="w-7 h-7"></i>
+          </div>
+          <h3 class="font-semibold text-gray-100 mb-2">Modern Library</h3>
+        </div>
+        
+        <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-6 text-center hover:bg-white/20 transition-colors group">
+          <div class="w-14 h-14 mx-auto bg-white/10 rounded-full flex items-center justify-center mb-4 text-yellow-400 group-hover:scale-110 transition-transform">
+            <i data-lucide="monitor" class="w-7 h-7"></i>
+          </div>
+          <h3 class="font-semibold text-gray-100 mb-2">Computer Labs</h3>
+        </div>
+        
+        <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-6 text-center hover:bg-white/20 transition-colors group">
+          <div class="w-14 h-14 mx-auto bg-white/10 rounded-full flex items-center justify-center mb-4 text-yellow-400 group-hover:scale-110 transition-transform">
+            <i data-lucide="flask-conical" class="w-7 h-7"></i>
+          </div>
+          <h3 class="font-semibold text-gray-100 mb-2">Science Labs</h3>
+        </div>
+        
+        <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-6 text-center hover:bg-white/20 transition-colors group">
+          <div class="w-14 h-14 mx-auto bg-white/10 rounded-full flex items-center justify-center mb-4 text-yellow-400 group-hover:scale-110 transition-transform">
+            <i data-lucide="bus" class="w-7 h-7"></i>
+          </div>
+          <h3 class="font-semibold text-gray-100 mb-2">Transport</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Script to load CMS dynamic values perfectly mapping user's setup -->
+  <script>
+    document.addEventListener('appDataLoaded', function() {
+      var grid = document.getElementById('dyn-fac-page-grid');
+      if (grid && window.appData && window.appData.facilities.length > 0) {
+        grid.innerHTML = window.appData.facilities.map(function(f) {
+           var iconHtml = f.icon ? '<i data-lucide="' + f.icon.toLowerCase() + '" class="w-7 h-7"></i>' : '<i data-lucide="building" class="w-7 h-7"></i>';
+           var descHtml = f.description ? '<p class="text-xs text-gray-400">' + f.description + '</p>' : '';
+           return '<div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-6 text-center hover:bg-white/20 transition-colors group"><div class="w-14 h-14 mx-auto bg-white/10 rounded-full flex items-center justify-center mb-4 text-yellow-400 group-hover:scale-110 transition-transform">' + iconHtml + '</div><h3 class="font-semibold text-gray-100 mb-2">' + f.title + '</h3>' + descHtml + '</div>';
+        }).join('');
+        lucide.createIcons();
+      }
+    });
+  </script>
+</div>

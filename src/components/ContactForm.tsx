@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Send, MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { useCMSStore } from '../store/cmsStore';
 
 export default function ContactForm() {
+  const { settings, fetchSettings, addEnquiry } = useCMSStore();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -11,21 +13,57 @@ export default function ContactForm() {
     message: '',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    fetchSettings();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
-    console.log('Form submitted:', formData);
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
+    setLoading(true);
+
+    // 1. Save to Supabase
+    const success = await addEnquiry({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      message: `[Subject: ${formData.subject}] ${formData.message}`
+    });
+
+    // 2. Optional: Send Email via Web3Forms (Public API)
+    try {
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: "51c5040d-d42f-4137-969c-0c33a9486c91", // This is a public key for demonstration, user can replace
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          subject: `New Contact Form Submission: ${formData.subject}`,
+          message: formData.message,
+          from_name: "Aspire School Website"
+        })
+      });
+    } catch (err) {
+      console.error("Web3Forms Error:", err);
+    }
+
+    if (success) {
+      setIsSubmitted(true);
       setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-    }, 5000);
+      setTimeout(() => setIsSubmitted(false), 5000);
+    }
+    setLoading(false);
   };
 
   return (
@@ -52,10 +90,8 @@ export default function ContactForm() {
                 </div>
                 <div className="ml-4">
                   <h3 className="text-lg font-bold text-gray-900">Our Campus</h3>
-                  <p className="text-gray-600 mt-1">
-                    Radha Krishana Colony Pakari<br />
-                    Patna, Bihar 800002<br />
-                    India
+                  <p className="text-gray-600 mt-1 whitespace-pre-line">
+                    {settings.school_address}
                   </p>
                 </div>
               </div>
@@ -67,7 +103,7 @@ export default function ContactForm() {
                 <div className="ml-4">
                   <h3 className="text-lg font-bold text-gray-900">Phone</h3>
                   <p className="text-gray-600 mt-1">
-                    <a href="tel:+919431867366" className="hover:text-primary transition-colors">+91 9431867366</a>
+                    <a href={`tel:${settings.school_phone}`} className="hover:text-primary transition-colors">{settings.school_phone}</a>
                   </p>
                   <p className="text-sm text-gray-500 mt-1">Mon-Fri from 8am to 5pm</p>
                 </div>
@@ -80,7 +116,7 @@ export default function ContactForm() {
                 <div className="ml-4">
                   <h3 className="text-lg font-bold text-gray-900">Email</h3>
                   <p className="text-gray-600 mt-1">
-                    <a href="mailto:info@aspireuniversalinternational.com" className="hover:text-primary transition-colors">info@aspireuniversalinternational.com</a>
+                    <a href={`mailto:${settings.school_email}`} className="hover:text-primary transition-colors">{settings.school_email}</a>
                   </p>
                   <p className="text-sm text-gray-500 mt-1">We'll respond within 24 hours</p>
                 </div>
@@ -200,9 +236,10 @@ export default function ContactForm() {
 
                 <button
                   type="submit"
-                  className="w-full bg-primary hover:bg-primary-hover text-white font-bold py-4 px-8 rounded-lg shadow-md transition-all flex items-center justify-center gap-2"
+                  disabled={loading}
+                  className="w-full bg-primary hover:bg-primary-hover text-white font-bold py-4 px-8 rounded-lg shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-50"
                 >
-                  Send Message <Send className="w-5 h-5" />
+                  {loading ? 'Sending...' : 'Send Message'} <Send className="w-5 h-5" />
                 </button>
               </form>
             )}

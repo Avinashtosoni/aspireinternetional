@@ -1,0 +1,434 @@
+<!-- ===== ASPIRE LOGIN GUARD v3 – Supabase Auth ===== -->
+<script>
+  (function () {
+    'use strict';
+    var SU = 'https://mhwszwdhyluraydnexyn.supabase.co', SK = 'sb_publishable_jZFjyR57wQumHEQ8pjFPRg_zZh8PMp0';
+    function killChrome() {
+      ['#main-header', 'header', 'footer', '#aspireMenu', '#aspireTicker', '.ticker-wrap', '#navbar-iframe', '.blog-pager', '.status-msg-wrap', '.quickedit'].forEach(function (s) {
+        try { document.querySelectorAll(s).forEach(function (e) { if (e.parentNode) e.parentNode.removeChild(e); }); } catch (x) { }
+      });
+      document.querySelectorAll('div').forEach(function (d) {
+        var a = d.getAttribute('style') || '', c = d.className || '';
+        if (a.indexOf('height:42px') != -1 || (c.indexOf('bg-primary') != -1 && c.indexOf('fixed') != -1 && c.indexOf('top-0') != -1)) { if (d.parentNode) d.parentNode.removeChild(d); }
+      });
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      killChrome(); setTimeout(killChrome, 300); setTimeout(killChrome, 800);
+      var sb = window.supabase.createClient(SU, SK);
+      window.sbClient = sb;
+      // If already logged in → go to dashboard
+      sb.auth.getSession().then(function (r) {
+        if (r.data && r.data.session) window.location.replace('https://hgvghfhg.blogspot.com/p/dashboard.html');
+      });
+    });
+
+    function killBloggerChrome() {
+      var selectors = ['#main-header', 'header[id="main-header"]', 'footer', '#aspireMenu', '#aspireTicker', '.ticker-wrap', '#navbar-iframe', '.blog-pager', '.status-msg-wrap', '.quickedit'];
+      document.querySelectorAll('div').forEach(function (d) {
+        var st = d.getAttribute('style') || '';
+        var cls = d.className || '';
+        if (st.indexOf('height:42px') !== -1 || (cls.indexOf('bg-primary') !== -1 && cls.indexOf('fixed') !== -1 && cls.indexOf('top-0') !== -1)) {
+          d.style.setProperty('display', 'none', 'important');
+          if (d.parentNode) d.parentNode.removeChild(d);
+        }
+      });
+      selectors.forEach(function (sel) {
+        try { document.querySelectorAll(sel).forEach(function (el) { el.style.setProperty('display', 'none', 'important'); if (el.parentNode) el.parentNode.removeChild(el); }); } catch (e) { }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () { killBloggerChrome(); setTimeout(killBloggerChrome, 100); setTimeout(killBloggerChrome, 500); });
+    if (document.readyState !== 'loading') killBloggerChrome();
+  })();
+</script>
+<!-- ===== END ===== -->
+
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login – Aspire CMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <style>
+    body,
+    .login-fullscreen-wrap {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8fafc;
+      /* Safe light background */
+      padding: 1rem;
+      width: 100%;
+    }
+
+    /* Force wrapper to fill screen if inside blogger */
+    .login-fullscreen-wrap {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 999999;
+      background: #f8fafc;
+    }
+
+    .login-wrapper {
+      width: 100%;
+      max-width: 440px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .brand-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .brand-logo {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+    }
+
+    .brand-logo svg {
+      color: #fff;
+      width: 32px;
+      height: 32px;
+    }
+
+    .brand-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #1e293b;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-sub {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-top: 0.25rem;
+      font-weight: 500;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05), 0 10px 20px -5px rgba(99, 102, 241, 0.04);
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-subtitle {
+      font-size: 0.875rem;
+      color: #64748b;
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.875rem 1.1rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #0f172a;
+      font-size: 0.95rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+
+    .form-input::placeholder {
+      color: #94a3b8;
+    }
+
+    .form-input:focus {
+      border-color: #6366f1;
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    }
+
+    .password-toggle {
+      position: relative;
+    }
+
+    .password-toggle .form-input {
+      padding-right: 3rem;
+    }
+
+    .toggle-btn {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #94a3b8;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+
+    .toggle-btn:hover {
+      color: #475569;
+    }
+
+    .error-box {
+      padding: 0.875rem 1rem;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 10px;
+      color: #b91c1c;
+      font-size: 0.875rem;
+      margin-bottom: 1.25rem;
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+    }
+
+    .error-box.show {
+      display: flex;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4);
+      margin-top: 0.5rem;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      opacity: 0.95;
+      transform: translateY(-1px);
+      box-shadow: 0 15px 35px -5px rgba(99, 102, 241, 0.5);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-fullscreen-wrap">
+    <div class="login-wrapper">
+      <div class="brand-header">
+        <div class="brand-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+        </div>
+        <div class="brand-name">Aspire CMS</div>
+        <div class="brand-sub">Aspire Universal International School</div>
+      </div>
+
+      <div class="card">
+        <h1 class="card-title">Welcome back 👋</h1>
+        <p class="card-subtitle">Sign in to access your admin dashboard</p>
+
+        <div class="error-box" id="errorBox">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+          <span id="errorMsg">Invalid username or password</span>
+        </div>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label class="form-label" for="adminEmail">Email Address</label>
+            <input class="form-input" type="email" id="adminEmail" placeholder="admin@aspireschool.in" required
+              autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <div class="password-toggle">
+              <input class="form-input" type="password" id="password" placeholder="••••••••" required
+                autocomplete="current-password" />
+              <button type="button" class="toggle-btn" id="toggleBtn">
+                <svg id="eyeShow" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                <svg id="eyeHide" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+                  <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+                  <line x1="1" y1="1" x2="23" y2="23" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">Sign In to Dashboard</button>
+        </form>
+        <div class="footer-note">Secure admin access · Digital Comrade CMS v1.0</div>
+      </div>
+    </div>
+
+    <script>
+      // sbClient is set by guard script above
+      function togglePassword() {
+        const pwd = document.getElementById('password');
+        const show = document.getElementById('eyeShow');
+        const hide = document.getElementById('eyeHide');
+        if (pwd.type === 'password') {
+          pwd.type = 'text'; show.style.display = 'none'; hide.style.display = 'block';
+        } else {
+          pwd.type = 'password'; show.style.display = 'block'; hide.style.display = 'none';
+        }
+      }
+
+      function showError(msg) {
+        const box = document.getElementById('errorBox');
+        document.getElementById('errorMsg').textContent = msg;
+        box.classList.add('show');
+      }
+
+      function hideError() { document.getElementById('errorBox').classList.remove('show'); }
+
+      async function handleLogin(e) {
+        e.preventDefault();
+        hideError();
+        const email = document.getElementById('adminEmail').value.trim();
+        const password = document.getElementById('password').value;
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span>Authenticating...';
+
+        try {
+          // Use Supabase Auth — real JWT session
+          const sb = window.sbClient || window.supabase.createClient(
+            'https://mhwszwdhyluraydnexyn.supabase.co',
+            'sb_publishable_jZFjyR57wQumHEQ8pjFPRg_zZh8PMp0'
+          );
+          const { data, error } = await sb.auth.signInWithPassword({ email, password });
+
+          if (error || !data.session) {
+            showError(error ? error.message : 'Invalid email or password.');
+          } else {
+            // Session saved by Supabase automatically
+            btn.innerHTML = '✓ Success! Redirecting...';
+            setTimeout(() => {
+              window.location.replace('https://hgvghfhg.blogspot.com/p/dashboard.html');
+            }, 600);
+            return;
+          }
+        } catch (err) {
+          showError('Network error. Please check your connection.');
+        }
+
+        btn.disabled = false;
+        btn.innerHTML = 'Sign In to Dashboard';
+      }
+
+      // Attach Event Listeners to bypass Blogger's inline script stripping
+      document.addEventListener('DOMContentLoaded', function () {
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) loginForm.addEventListener('submit', handleLogin);
+
+        const tbtn = document.getElementById('toggleBtn');
+        if (tbtn) tbtn.addEventListener('click', togglePassword);
+      });
+
+      // Sub-fallback in case DOMContentLoaded already fired
+      setTimeout(function () {
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm && !loginForm.getAttribute('data-bound')) {
+          loginForm.addEventListener('submit', handleLogin);
+          loginForm.setAttribute('data-bound', 'true');
+        }
+        const tbtn = document.getElementById('toggleBtn');
+        if (tbtn && !tbtn.getAttribute('data-bound')) {
+          tbtn.addEventListener('click', togglePassword);
+          tbtn.setAttribute('data-bound', 'true');
+        }
+      }, 500);
+
+    </script>
+</body>
+
+</html>

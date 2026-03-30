@@ -1,0 +1,119 @@
+import React, { useEffect, useState } from 'react';
+import { useCMSStore, Blog } from '../store/cmsStore';
+import { Plus, Trash2, BookOpen, User, Tag } from 'lucide-react';
+
+export default function ManageBlogs() {
+  const { blogs, fetchBlogs, addBlog, deleteBlog, isLoading } = useCMSStore();
+  const [formData, setFormData] = useState({ title: '', content: '', author: 'Admin', category: 'General', image_url: '' });
+  const [isAdding, setIsAdding] = useState(false);
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.title || !formData.content) return;
+    setIsAdding(true);
+    const ok = await addBlog(formData);
+    if (ok) {
+      setFormData({ title: '', content: '', author: 'Admin', category: 'General', image_url: '' });
+      setIsAdding(false);
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="bg-white p-6 rounded-xl shadow-sm">
+        <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <BookOpen className="text-indigo-600" /> Write New Blog/News
+        </h2>
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input
+            type="text"
+            className="md:col-span-2 p-3 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-600"
+            placeholder="Post Title"
+            value={formData.title}
+            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+            required
+          />
+          <input
+            type="text"
+            className="p-3 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-600"
+            placeholder="Author Name"
+            value={formData.author}
+            onChange={(e) => setFormData({ ...formData, author: e.target.value })}
+          />
+          <input
+            type="text"
+            className="p-3 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-600"
+            placeholder="Category (e.g. Science, Sports)"
+            value={formData.category}
+            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+          />
+          <input
+            type="url"
+            className="md:col-span-2 p-3 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-600"
+            placeholder="Cover Image URL"
+            value={formData.image_url}
+            onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+          />
+          <textarea
+            className="md:col-span-2 p-3 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-600 h-40"
+            placeholder="Post content (Markdown supported)..."
+            value={formData.content}
+            onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+            required
+          />
+          <button
+            type="submit"
+            disabled={isAdding}
+            className="md:col-span-2 bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition disabled:opacity-50 flex justify-center items-center gap-2"
+          >
+            <Plus size={20} /> {isAdding ? 'Publishing...' : 'Publish Blog Post'}
+          </button>
+        </form>
+      </div>
+
+      <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+        <div className="p-6 border-b border-gray-100 flex justify-between items-center">
+          <h2 className="text-xl font-bold text-gray-800">Published Posts</h2>
+          <span className="text-sm text-gray-500">{blogs.length} Posts Total</span>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
+            <thead className="bg-gray-50 text-gray-600 text-sm uppercase font-semibold">
+              <tr>
+                <th className="px-6 py-4">Title</th>
+                <th className="px-6 py-4">Category</th>
+                <th className="px-6 py-4">Author</th>
+                <th className="px-6 py-4">Date</th>
+                <th className="px-6 py-4">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {blogs.map((blog) => (
+                <tr key={blog.id} className="hover:bg-gray-50 transition">
+                  <td className="px-6 py-4 font-medium text-gray-800">{blog.title}</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 uppercase">{blog.category}</td>
+                  <td className="px-6 py-4 text-sm text-gray-600">{blog.author}</td>
+                  <td className="px-6 py-4 text-sm text-gray-500">
+                    {new Date(blog.created_at).toLocaleDateString()}
+                  </td>
+                  <td className="px-6 py-4">
+                    <button
+                      onClick={() => deleteBlog(blog.id)}
+                      className="text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition"
+                    >
+                      <Trash2 size={18} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,433 @@
+﻿<!-- ===== ASPIRE ADMIN GUARD v3 – Supabase Auth ===== -->
+<script>
+(function(){
+  'use strict';
+  var SU='https://mhwszwdhyluraydnexyn.supabase.co',SK='sb_publishable_jZFjyR57wQumHEQ8pjFPRg_zZh8PMp0',LU='https://hgvghfhg.blogspot.com/p/login.html';
+  // 1. Inject fullscreen overlay instantly
+  var sEl=document.createElement('style');
+  sEl.textContent='#ag-ov{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#0a0f1e;z-index:2147483647;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-family:Inter,sans-serif}#ag-sp{width:44px;height:44px;border:3px solid rgba(99,102,241,.2);border-top-color:#6366f1;border-radius:50%;animation:ag-s .8s linear infinite}@keyframes ag-s{to{transform:rotate(360deg)}}#ag-lb{color:rgba(255,255,255,.35);font-size:.8rem;letter-spacing:.05em}';
+  document.documentElement.appendChild(sEl);
+  var ov=document.createElement('div');ov.id='ag-ov';
+  ov.innerHTML='<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.5" style="margin-bottom:4px"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg><div id="ag-sp"></div><div id="ag-lb">Verifying session\u2026</div>';
+  document.documentElement.appendChild(ov);
+
+  // 2. Kill Blogger chrome
+  function killChrome(){
+    ['#main-header','header','footer','#aspireMenu','#aspireTicker','.ticker-wrap','#navbar-iframe','.blog-pager','.status-msg-wrap','.quickedit'].forEach(function(s){
+      try{document.querySelectorAll(s).forEach(function(e){if(e.parentNode)e.parentNode.removeChild(e);});}catch(x){}
+    });
+    document.querySelectorAll('div').forEach(function(d){
+      var a=d.getAttribute('style')||'',c=d.className||'';
+      if(a.indexOf('height:42px')!=-1||(c.indexOf('bg-primary')!=-1&&c.indexOf('fixed')!=-1&&c.indexOf('top-0')!=-1)){
+        if(d.parentNode)d.parentNode.removeChild(d);
+      }
+    });
+  }
+
+  // 3. On DOMContentLoaded — Supabase SDK is loaded by then
+  document.addEventListener('DOMContentLoaded',function(){
+    killChrome();setTimeout(killChrome,300);setTimeout(killChrome,800);
+    var sb=window.supabase.createClient(SU,SK);
+    sb.auth.getSession().then(function(r){
+      if(!r.data||!r.data.session){
+        window.location.replace(LU);
+        return;
+      }
+      // Session valid
+      window.sbClient=sb;
+      window.sbSession=r.data.session;
+      var g=document.getElementById('ag-ov');
+      if(g&&g.parentNode)g.parentNode.removeChild(g);
+      // Call page init
+      if(typeof window.__pageInit==='function') window.__pageInit();
+      else window.__aspireReady=true;
+    });
+  });
+})();
+</script>
+<!-- ===== END GUARD ===== -->
+
+<!DOCTYPE html><<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard – Aspire CMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --sidebar-bg: #0f172a;
+      --sidebar-border: rgba(255,255,255,0.07);
+      --sidebar-text: rgba(255,255,255,0.6);
+      --sidebar-active: rgba(99,102,241,0.15);
+      --bg: #f1f5f9;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-main); min-height: 100vh; display: flex; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px; min-height: 100vh; background: var(--sidebar-bg);
+      display: flex; flex-direction: column; flex-shrink: 0;
+      position: fixed; top: 0; left: 0; bottom: 0; z-index: 100;
+      border-right: 1px solid var(--sidebar-border);
+    }
+    .sidebar-brand {
+      padding: 1.5rem 1.5rem 1.25rem;
+      border-bottom: 1px solid var(--sidebar-border);
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .brand-icon {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(99,102,241,0.4);
+      flex-shrink: 0;
+    }
+    .brand-icon svg { color: white; }
+    .brand-text { }
+    .brand-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 900; color: #fff; }
+    .brand-sub { font-size: 0.7rem; color: var(--sidebar-text); margin-top: 1px; }
+
+    .sidebar-nav { flex: 1; padding: 1rem 0.75rem; overflow-y: auto; }
+    .nav-section-label {
+      font-size: 0.65rem; font-weight: 700; color: rgba(255,255,255,0.25);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 0.5rem 0.75rem; margin-top: 0.5rem;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.7rem 0.875rem; border-radius: 10px;
+      color: var(--sidebar-text); text-decoration: none;
+      font-size: 0.875rem; font-weight: 500;
+      transition: all 0.15s; margin-bottom: 2px;
+      cursor: pointer; border: none; background: none; width: 100%; text-align: left;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
+    .nav-item.active { background: var(--sidebar-active); color: var(--primary); font-weight: 600; }
+    .nav-item svg { flex-shrink: 0; }
+    .nav-badge {
+      margin-left: auto; min-width: 20px; height: 20px;
+      background: #ef4444; color: #fff; font-size: 0.7rem;
+      font-weight: 700; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; padding: 0 6px;
+    }
+
+    .sidebar-footer {
+      padding: 0.75rem; border-top: 1px solid var(--sidebar-border);
+    }
+    .logout-btn {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.7rem 0.875rem; border-radius: 10px;
+      color: var(--sidebar-text); cursor: pointer;
+      font-size: 0.875rem; font-weight: 500;
+      transition: all 0.15s; border: none; background: none; width: 100%;
+    }
+    .logout-btn:hover { background: rgba(239,68,68,0.1); color: #ef4444; }
+
+    /* MAIN */
+    .main { margin-left: 260px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+    .topbar {
+      background: var(--card-bg); border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;
+      position: sticky; top: 0; z-index: 50;
+    }
+    .page-title { font-size: 1.25rem; font-weight: 800; color: var(--text-main); }
+    .topbar-right { display: flex; align-items: center; gap: 1rem; }
+    .admin-chip {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: #f8fafc; border: 1px solid var(--border);
+      padding: 0.4rem 0.875rem 0.4rem 0.5rem; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 600; color: var(--text-main);
+    }
+    .admin-avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 0.7rem; font-weight: 700;
+    }
+
+    .content { padding: 2rem; flex: 1; }
+
+    /* STATS GRID */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+    .stat-card {
+      background: var(--card-bg); border-radius: 16px; padding: 1.5rem;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; gap: 1rem;
+      transition: box-shadow 0.2s;
+    }
+    .stat-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+    .stat-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .stat-icon svg { color: white; }
+    .stat-label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; }
+    .stat-value { font-size: 1.75rem; font-weight: 800; color: var(--text-main); line-height: 1; }
+
+    /* TABLE CARD */
+    .table-card {
+      background: var(--card-bg); border-radius: 16px;
+      border: 1px solid var(--border); overflow: hidden;
+    }
+    .card-header {
+      padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .card-title { font-size: 1rem; font-weight: 700; color: var(--text-main); }
+    .view-all-btn {
+      font-size: 0.8rem; font-weight: 600; color: var(--primary);
+      text-decoration: none; cursor: pointer;
+      background: none; border: none; padding: 0;
+    }
+    .view-all-btn:hover { text-decoration: underline; }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: #f8fafc; }
+    thead th { padding: 0.875rem 1.25rem; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; text-align: left; }
+    tbody tr { border-top: 1px solid var(--border); transition: background 0.15s; }
+    tbody tr:hover { background: #f8fafc; }
+    tbody td { padding: 1rem 1.25rem; font-size: 0.875rem; color: var(--text-main); }
+    .badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.25rem 0.625rem; border-radius: 100px;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .badge-unread { background: #fef2f2; color: #b91c1c; }
+    .badge-read { background: #fefce8; color: #a16207; }
+    .badge-resolved { background: #f0fdf4; color: #15803d; }
+    .badge-contact { background: #f3e8ff; color: #7c3aed; }
+    .badge-admission { background: #eff6ff; color: #1d4ed8; }
+    .empty-state { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.875rem; }
+
+    .loading { display: flex; align-items: center; justify-content: center; padding: 3rem; }
+    .spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 1100px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) {
+      .sidebar { width: 72px; }
+      .brand-text, .nav-item span, .sidebar-footer .logout-label, .nav-badge, .nav-section-label { display: none; }
+      .nav-item { justify-content: center; padding: 0.7rem; }
+      .brand-icon { margin: 0 auto; }
+      .sidebar-brand { justify-content: center; }
+      .main { margin-left: 72px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+    </div>
+    <div class="brand-text">
+      <div class="brand-title">Aspire CMS</div>
+      <div class="brand-sub">Admin Panel</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <a href="dashboard.html" class="nav-item active">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span>Dashboard</span>
+    </a>
+    <a href="enquiries.html" class="nav-item" id="navEnquiries">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>Enquiries</span>
+      <span class="nav-badge" id="unreadBadge" style="display:none">0</span>
+    </a>
+    <div class="nav-section-label">Content</div>
+    <a href="blogs.html" class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      <span>Blogs / News</span>
+    </a>
+    <a href="events.html" class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span>Events</span>
+    </a>
+    <a href="notices.html" class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span>Notices</span>
+    </a>
+    <div class="nav-section-label">People</div>
+    <a href="team.html" class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span>Manage Team</span>
+    </a>
+    <a href="testimonials.html" class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <span>Testimonials</span>
+    </a>
+    <div class="nav-section-label">School</div>
+    <a href="facilities.html" class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Facilities</span>
+    </a>
+    <a href="settings.html" class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <span>Settings</span>
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="logout-btn" onclick="handleLogout()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      <span class="logout-label">Logout</span>
+    </button>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+  <header class="topbar">
+    <div class="page-title">Dashboard</div>
+    <div class="topbar-right">
+      <div class="admin-chip">
+        <div class="admin-avatar" id="avatarInitial">A</div>
+        <span id="adminUsername">Admin</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="content">
+    <!-- Stats Grid -->
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg,#6366f1,#818cf8)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div>
+          <div class="stat-label">Total Enquiries</div>
+          <div class="stat-value" id="totalEnq">–</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg,#ef4444,#f87171)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <div>
+          <div class="stat-label">Unread Enquiries</div>
+          <div class="stat-value" id="unreadEnq">–</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg,#10b981,#34d399)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <div class="stat-label">Team Members</div>
+          <div class="stat-value" id="teamCount">–</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg,#f59e0b,#fbbf24)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div>
+          <div class="stat-label">Blogs Published</div>
+          <div class="stat-value" id="blogsCount">–</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Enquiries Table -->
+    <div class="table-card">
+      <div class="card-header">
+        <div class="card-title">Recent Enquiries</div>
+        <a href="enquiries.html" class="view-all-btn">View All →</a>
+      </div>
+      <div id="tableContainer">
+        <div class="loading"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const sb = window.sbClient;
+  const adminUser = (window.sbSession && window.sbSession.user.email) || 'Admin';
+  document.getElementById('adminUsername').textContent = adminUser;
+  document.getElementById('avatarInitial').textContent = adminUser.charAt(0).toUpperCase();
+
+  function handleLogout() { sb.auth.signOut().then(function(){ window.location.replace('https://hgvghfhg.blogspot.com/p/login.html'); }); }
+
+  function getSource(msg) {
+    return msg && msg.includes('[Subject:') ? 'Contact' : 'Admission';
+  }
+
+  async function loadDashboard() {
+    const [enqRes, teamRes, blogsRes] = await Promise.all([
+      sb.from('enquiries').select('*').order('created_at', { ascending: false }),
+      sb.from('team_members').select('id'),
+      sb.from('blogs').select('id')
+    ]);
+
+    const enquiries = enqRes.data || [];
+    const unread = enquiries.filter(e => e.status === 'unread');
+
+    document.getElementById('totalEnq').textContent = enquiries.length;
+    document.getElementById('unreadEnq').textContent = unread.length;
+    document.getElementById('teamCount').textContent = (teamRes.data || []).length;
+    document.getElementById('blogsCount').textContent = (blogsRes.data || []).length;
+
+    if (unread.length > 0) {
+      const badge = document.getElementById('unreadBadge');
+      badge.textContent = unread.length;
+      badge.style.display = 'flex';
+    }
+
+    const recent = enquiries.slice(0, 5);
+    const container = document.getElementById('tableContainer');
+
+    if (recent.length === 0) {
+      container.innerHTML = '<div class="empty-state">No enquiries yet.</div>';
+      return;
+    }
+
+    container.innerHTML = `
+      <div style="overflow-x:auto">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Source</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${recent.map(e => {
+              const src = getSource(e.message);
+              const date = new Date(e.created_at).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+              return `
+                <tr>
+                  <td style="color:var(--text-muted)">${date}</td>
+                  <td><span class="badge ${src === 'Contact' ? 'badge-contact' : 'badge-admission'}">${src}</span></td>
+                  <td style="font-weight:600">${e.name}</td>
+                  <td style="color:var(--text-muted)">${e.phone || '–'}</td>
+                  <td><span class="badge badge-${e.status}">${e.status.toUpperCase()}</span></td>
+                </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>`;
+  }
+
+  window.__pageInit = function() { loadDashboard() };
+  if (window.__aspireReady) window.__pageInit();
+</script>
+</body>
+</html>

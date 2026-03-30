@@ -1,0 +1,89 @@
+<div class="bg-white dark:bg-gray-950 min-h-screen transition-colors duration-300">
+
+  <!-- Hero Header -->
+  <div class="bg-slate-900 py-20 px-4 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <img src="https://images.unsplash.com/photo-1546410531-bb4caa18d035?w=1400&auto=format&fit=crop" alt="bg" class="w-full h-full object-cover"/>
+    </div>
+    <div class="max-w-7xl mx-auto text-center relative z-10">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/30 text-primary font-bold text-sm uppercase tracking-widest mb-6">
+        <i data-lucide="book-open" class="w-4 h-4"></i> School Blog
+      </div>
+      <h1 class="text-4xl md:text-6xl font-heading font-extrabold mb-4 text-white leading-tight">
+        School News &amp; <span class="text-primary">Blogs</span>
+      </h1>
+      <p class="text-slate-400 max-w-2xl mx-auto text-lg">
+        Stay updated with the latest happenings, achievements, and educational insights from Aspire Universal International School.
+      </p>
+    </div>
+  </div>
+
+  <!-- Blogs Grid -->
+  <div class="max-w-7xl mx-auto px-4 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="dyn-blogs-page-list">
+      <!-- Static Fallback Card -->
+      <article class="flex flex-col bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-slate-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow group">
+        <div class="h-56 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1546410531-bb4caa18d035?w=600" alt="Blog" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" referrerpolicy="no-referrer"/>
+          <div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">General</div>
+        </div>
+        <div class="p-6 flex-1 flex flex-col">
+          <div class="flex items-center gap-4 text-xs text-slate-500 dark:text-gray-400 mb-4">
+            <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> April 1, 2026</span>
+            <span class="flex items-center gap-1"><i data-lucide="user" class="w-3.5 h-3.5"></i> Admin</span>
+          </div>
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-primary transition-colors">Welcome to Aspire Universal International School</h2>
+          <p class="text-slate-600 dark:text-gray-400 line-clamp-3 mb-6 flex-1">We are thrilled to announce the launch of Aspire Universal International School! Stay tuned for more updates and news from our campus.</p>
+          <div class="pt-4 border-t border-slate-50 dark:border-gray-700 mt-auto">
+            <span class="text-primary font-bold inline-flex items-center gap-2">Read Full Story <i data-lucide="arrow-right" class="w-4.5 h-4.5"></i></span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Empty State -->
+    <div id="blogs-empty-state" class="hidden text-center py-24">
+      <div class="w-20 h-20 bg-slate-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
+        <i data-lucide="book-open" class="w-10 h-10 text-slate-400"></i>
+      </div>
+      <h3 class="text-2xl font-bold text-slate-700 dark:text-gray-300 mb-2">No blogs yet</h3>
+      <p class="text-slate-500 dark:text-gray-400">Check back soon — we'll be posting updates and stories very soon!</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="bg-primary/5 dark:bg-gray-900 border-t border-primary/10 py-16 px-4">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-3xl font-heading font-bold text-gray-900 dark:text-white mb-4">Want to Join Our Story?</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-8">Be part of the Aspire family. Admissions are open for the 2026-27 academic year.</p>
+      <a href="/p/admissions.html" class="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-full font-bold hover:bg-primary-hover transition-all shadow-lg shadow-primary/20 uppercase tracking-wide">
+        Apply for Admission <i data-lucide="arrow-right" class="w-5 h-5"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Dynamic Blogs Script -->
+  <script>
+    document.addEventListener('appDataLoaded', function() {
+      var list = document.getElementById('dyn-blogs-page-list');
+      var emptyState = document.getElementById('blogs-empty-state');
+      if (!list) return;
+      
+      var blogs = window.appData && window.appData.blogs ? window.appData.blogs : [];
+      
+      if (blogs.length === 0) {
+        // Keep the fallback card visible
+        return;
+      }
+
+      list.innerHTML = blogs.map(function(b) {
+        var dateStr = new Date(b.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        var imgUrl = b.image_url || 'https://images.unsplash.com/photo-1546410531-bb4caa18d035?w=600';
+        var snippet = b.content.length > 150 ? b.content.slice(0, 150) + '...' : b.content;
+        return '<article class="flex flex-col bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-slate-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow group"><div class="h-56 overflow-hidden relative"><img src="' + imgUrl + '" alt="' + b.title + '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" referrerpolicy="no-referrer"/><div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">' + (b.category || 'General') + '</div></div><div class="p-6 flex-1 flex flex-col"><div class="flex items-center gap-4 text-xs text-slate-500 dark:text-gray-400 mb-4"><span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> ' + dateStr + '</span><span class="flex items-center gap-1"><i data-lucide="user" class="w-3.5 h-3.5"></i> ' + (b.author || 'Admin') + '</span></div><h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-primary transition-colors">' + b.title + '</h2><p class="text-slate-600 dark:text-gray-400 line-clamp-3 mb-6 flex-1">' + snippet + '</p><div class="pt-4 border-t border-slate-50 dark:border-gray-700 mt-auto"><span class="text-primary font-bold inline-flex items-center gap-2">Read Full Story <i data-lucide="arrow-right" class="w-4 h-4"></i></span></div></div></article>';
+      }).join('');
+
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    });
+  </script>
+</div>

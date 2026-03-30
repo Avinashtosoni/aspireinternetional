@@ -1,0 +1,362 @@
+<!-- ===== ASPIRE ADMIN GUARD v3 - Supabase Auth ===== -->
+<script>
+(function(){
+  'use strict';
+  var SU='https://mhwszwdhyluraydnexyn.supabase.co',SK='sb_publishable_jZFjyR57wQumHEQ8pjFPRg_zZh8PMp0',LU='https://hgvghfhg.blogspot.com/p/login.html';
+  var sEl=document.createElement('style');sEl.textContent='#ag-ov{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#0a0f1e;z-index:2147483647;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-family:Inter,sans-serif}#ag-sp{width:44px;height:44px;border:3px solid rgba(99,102,241,.2);border-top-color:#6366f1;border-radius:50%;animation:ag-s .8s linear infinite}@keyframes ag-s{to{transform:rotate(360deg)}}#ag-lb{color:rgba(255,255,255,.35);font-size:.8rem;letter-spacing:.05em}';document.documentElement.appendChild(sEl);
+  var ov=document.createElement('div');ov.id='ag-ov';ov.innerHTML='<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.5" style="margin-bottom:4px"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg><div id="ag-sp"></div><div id="ag-lb">Verifying session...</div>';document.documentElement.appendChild(ov);
+  function killChrome(){['#main-header','header','footer','#aspireMenu','#aspireTicker','.ticker-wrap','#navbar-iframe','.blog-pager','.status-msg-wrap','.quickedit'].forEach(function(s){try{document.querySelectorAll(s).forEach(function(e){if(e.parentNode)e.parentNode.removeChild(e);});}catch(x){}});document.querySelectorAll('div').forEach(function(d){var a=d.getAttribute('style')||'',c=d.className||'';if(a.indexOf('height:42px')!=-1||(c.indexOf('bg-primary')!=-1&&c.indexOf('fixed')!=-1&&c.indexOf('top-0')!=-1)){if(d.parentNode)d.parentNode.removeChild(d);}});}
+  document.addEventListener('DOMContentLoaded',function(){
+    killChrome();setTimeout(killChrome,300);setTimeout(killChrome,800);
+    var sb=window.supabase.createClient(SU,SK);
+    sb.auth.getSession().then(function(r){
+      if(!r.data||!r.data.session){window.location.replace(LU);return;}
+      window.sbClient=sb;window.sbSession=r.data.session;
+      var g=document.getElementById('ag-ov');if(g&&g.parentNode)g.parentNode.removeChild(g);
+      if(typeof window.__pageInit==='function')window.__pageInit();else window.__aspireReady=true;
+    });
+  });
+})();
+</script>
+<!-- ===== END GUARD ===== -->
+
+<!DOCTYPE html><!DOCTYPE html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Settings – Aspire CMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --primary: #6366f1; --sidebar-bg: #0f172a; --sidebar-border: rgba(255,255,255,0.07); --sidebar-text: rgba(255,255,255,0.6); --sidebar-active: rgba(99,102,241,0.15); --bg: #f1f5f9; --card-bg: #ffffff; --text-main: #1e293b; --text-muted: #64748b; --border: #e2e8f0; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-main); min-height: 100vh; display: flex; }
+    .sidebar { width: 260px; min-height: 100vh; background: var(--sidebar-bg); display: flex; flex-direction: column; flex-shrink: 0; position: fixed; top: 0; left: 0; bottom: 0; z-index: 100; border-right: 1px solid var(--sidebar-border); }
+    .sidebar-brand { padding: 1.5rem 1.5rem 1.25rem; border-bottom: 1px solid var(--sidebar-border); display: flex; align-items: center; gap: 0.75rem; }
+    .brand-icon { width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .brand-icon svg { color: white; }
+    .brand-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 900; color: #fff; }
+    .brand-sub { font-size: 0.7rem; color: var(--sidebar-text); }
+    .sidebar-nav { flex: 1; padding: 1rem 0.75rem; overflow-y: auto; }
+    .nav-section-label { font-size: 0.65rem; font-weight: 700; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.1em; padding: 0.5rem 0.75rem; margin-top: 0.5rem; }
+    .nav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 0.875rem; border-radius: 10px; color: var(--sidebar-text); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: all 0.15s; margin-bottom: 2px; width: 100%; border: none; background: none; cursor: pointer; text-align: left; }
+    .nav-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
+    .nav-item.active { background: var(--sidebar-active); color: var(--primary); font-weight: 600; }
+    .sidebar-footer { padding: 0.75rem; border-top: 1px solid var(--sidebar-border); }
+    .logout-btn { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 0.875rem; border-radius: 10px; color: var(--sidebar-text); cursor: pointer; font-size: 0.875rem; font-weight: 500; transition: all 0.15s; border: none; background: none; width: 100%; }
+    .logout-btn:hover { background: rgba(239,68,68,0.1); color: #ef4444; }
+    .main { margin-left: 260px; flex: 1; display: flex; flex-direction: column; }
+    .topbar { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50; }
+    .page-title { font-size: 1.25rem; font-weight: 800; }
+    .topbar-right { display: flex; align-items: center; gap: 1rem; }
+    .save-all-btn { display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.25rem; background: linear-gradient(135deg, var(--primary), #8b5cf6); color: white; border: none; border-radius: 10px; font-size: 0.875rem; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: opacity 0.2s, transform 0.15s; }
+    .save-all-btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+    .save-all-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .admin-chip { display: flex; align-items: center; gap: 0.5rem; background: #f8fafc; border: 1px solid var(--border); padding: 0.4rem 0.875rem 0.4rem 0.5rem; border-radius: 100px; font-size: 0.8rem; font-weight: 600; }
+    .admin-avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem; font-weight: 700; }
+    .content { padding: 2rem; flex: 1; display: flex; flex-direction: column; gap: 1.5rem; }
+
+    /* SECTIONS */
+    .settings-card { background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; }
+    .section-head { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.75rem; }
+    .section-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .section-title { font-size: 0.95rem; font-weight: 700; color: var(--text-main); }
+    .section-body { padding: 1.5rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
+    input[type="text"], input[type="email"], input[type="url"], textarea {
+      padding: 0.65rem 0.875rem; border: 1px solid var(--border); border-radius: 10px;
+      font-size: 0.875rem; font-family: 'Inter', sans-serif; color: var(--text-main);
+      background: #f8fafc; outline: none; transition: border-color 0.2s, box-shadow 0.2s, background 0.2s; width: 100%;
+    }
+    input:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99,102,241,0.12); background: white; }
+    textarea { resize: vertical; min-height: 100px; }
+
+    /* NOTICE BOX */
+    .notice-box { display: flex; align-items: flex-start; gap: 1rem; padding: 1.25rem 1.5rem; background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; }
+    .notice-icon { width: 36px; height: 36px; border-radius: 10px; background: #f59e0b; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: white; }
+    .notice-title { font-size: 0.875rem; font-weight: 700; color: #92400e; margin-bottom: 2px; }
+    .notice-text { font-size: 0.8rem; color: #a16207; line-height: 1.5; }
+
+    /* SUCCESS BANNER */
+    .success-banner { display: none; align-items: center; gap: 0.75rem; padding: 1rem 1.25rem; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; color: #15803d; font-weight: 600; font-size: 0.875rem; }
+    .success-banner.show { display: flex; }
+
+    /* LOADING SKELETON */
+    .skeleton { background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 8px; height: 42px; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    .loading-page { display: flex; align-items: center; justify-content: center; min-height: 300px; gap: 0.75rem; color: var(--text-muted); font-size: 0.875rem; }
+    .spinner { width: 22px; height: 22px; border: 2px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1e293b; color: white; padding: 0.875rem 1.5rem; border-radius: 12px; font-size: 0.875rem; font-weight: 600; z-index: 300; opacity: 0; transform: translateY(10px); transition: all 0.3s; pointer-events: none; display: flex; align-items: center; gap: 0.5rem; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1024px) { .form-grid-3 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) {
+      .sidebar { width: 72px; }
+      .brand-sub, .nav-item span, .nav-section-label { display: none; }
+      .nav-item { justify-content: center; } .brand-icon { margin: 0 auto; }
+      .sidebar-brand { justify-content: center; } .main { margin-left: 72px; }
+      .form-grid, .form-grid-3 { grid-template-columns: 1fr; }
+      .topbar { flex-wrap: wrap; gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+    <div><div class="brand-title">Aspire CMS</div><div class="brand-sub">Admin Panel</div></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <a href="dashboard.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span>Dashboard</span></a>
+    <a href="enquiries.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Enquiries</span></a>
+    <div class="nav-section-label">Content</div>
+    <a href="blogs.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span>Blogs / News</span></a>
+    <a href="events.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Events</span></a>
+    <a href="notices.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span>Notices</span></a>
+    <div class="nav-section-label">People</div>
+    <a href="team.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Manage Team</span></a>
+    <a href="testimonials.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>Testimonials</span></a>
+    <div class="nav-section-label">School</div>
+    <a href="facilities.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Facilities</span></a>
+    <a href="settings.html" class="nav-item active"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Settings</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="logout-btn" onclick="handleLogout()"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span>Logout</span></button>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <header class="topbar">
+    <div class="page-title">School Settings</div>
+    <div class="topbar-right">
+      <button class="save-all-btn" id="saveAllBtn" onclick="saveAll()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Save All Changes
+      </button>
+      <div class="admin-chip">
+        <div class="admin-avatar" id="avatarInitial">A</div>
+        <span id="adminUsername">Admin</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="content" id="mainContent">
+    <div class="loading-page"><div class="spinner"></div> Loading settings…</div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+  const sb = window.sbClient;
+
+  // ── Auth Guard ──────────────────────────────────────────────────────────────
+
+  const adminUser = (window.sbSession && window.sbSession.user.email) || 'Admin';
+  document.getElementById('adminUsername').textContent = adminUser;
+  document.getElementById('avatarInitial').textContent = adminUser.charAt(0).toUpperCase();
+
+  function handleLogout() {
+    (window.sbClient || window.supabase.createClient('https://mhwszwdhyluraydnexyn.supabase.co','sb_publishable_jZFjyR57wQumHEQ8pjFPRg_zZh8PMp0')).auth.signOut().then(function(){ 
+      window.location.replace('https://hgvghfhg.blogspot.com/p/login.html'); 
+    });
+  }
+
+  function showToast(msg, color = '#16a34a') {
+    const t = document.getElementById('toast');
+    t.innerHTML = msg; t.style.background = color;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  // ── Settings State ──────────────────────────────────────────────────────────
+  let savedSettings = {};   // what's in DB
+  let localSettings = {};   // what user is editing
+
+  // Field definitions grouped by section
+  const sections = [
+    {
+      id: 'contact',
+      title: 'Contact Information',
+      iconBg: 'rgba(99,102,241,0.1)', iconColor: '#6366f1',
+      iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.5 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+      gridClass: 'form-grid',
+      fields: [
+        { key: 'school_email', label: 'School Email Address', type: 'email', placeholder: 'info@aspireschool.com' },
+        { key: 'school_phone', label: 'School Phone Number', type: 'text', placeholder: '+91 9431867366' },
+        { key: 'school_address', label: 'School Full Address', type: 'text', placeholder: 'Radha Krishna Colony, Patna...', full: true },
+      ]
+    },
+    {
+      id: 'social',
+      title: 'Social Media Links',
+      iconBg: 'rgba(16,185,129,0.1)', iconColor: '#10b981',
+      iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>',
+      gridClass: 'form-grid-3',
+      fields: [
+        { key: 'facebook_url', label: 'Facebook URL', type: 'url', placeholder: 'https://facebook.com/…' },
+        { key: 'instagram_url', label: 'Instagram URL', type: 'url', placeholder: 'https://instagram.com/…' },
+        { key: 'twitter_url', label: 'Twitter / X URL', type: 'url', placeholder: 'https://twitter.com/…' },
+      ]
+    },
+    {
+      id: 'welcome',
+      title: 'Home: Welcome & Director Section',
+      iconBg: 'rgba(245,158,11,0.1)', iconColor: '#d97706',
+      iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+      gridClass: 'form-grid',
+      fields: [
+        { key: 'welcome_title', label: 'Welcome Section Title', type: 'text', placeholder: 'Welcome to the Future of Education', full: true },
+        { key: 'director_name', label: 'Director Name', type: 'text', placeholder: 'Mr. Deepak Kumar Vidyarthi' },
+        { key: 'director_image_url', label: 'Director Photo URL', type: 'url', placeholder: 'https://…' },
+        { key: 'welcome_message_1', label: 'Welcome Message — Paragraph 1', type: 'textarea', full: true },
+        { key: 'welcome_message_2', label: 'Welcome Message — Paragraph 2', type: 'textarea', full: true },
+      ]
+    },
+    {
+      id: 'principal',
+      title: 'Principal\'s Section',
+      iconBg: 'rgba(99,102,241,0.1)', iconColor: '#6366f1',
+      iconSvg: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+      gridClass: 'form-grid',
+      fields: [
+        { key: 'principal_name', label: "Principal's Name", type: 'text', placeholder: 'Dr. APJ Kalam' },
+        { key: 'principal_message', label: "Principal's Message", type: 'textarea', full: true },
+      ]
+    }
+  ];
+
+  // ── Render UI ───────────────────────────────────────────────────────────────
+  function buildUI() {
+    const container = document.getElementById('mainContent');
+    let html = '<div id="successBanner" class="success-banner">✓ Settings saved successfully!</div>';
+
+    sections.forEach(sec => {
+      html += `
+        <div class="settings-card">
+          <div class="section-head">
+            <div class="section-icon" style="background:${sec.iconBg};color:${sec.iconColor}">${sec.iconSvg}</div>
+            <div class="section-title">${sec.title}</div>
+          </div>
+          <div class="section-body">
+            <div class="${sec.gridClass}">
+              ${sec.fields.map(f => `
+                <div class="form-group ${f.full ? 'full' : ''}">
+                  <label for="${f.key}">${f.label}</label>
+                  ${f.type === 'textarea'
+                    ? `<textarea id="${f.key}" placeholder="${f.placeholder || ''}" oninput="onFieldChange('${f.key}', this.value)"></textarea>`
+                    : `<input type="${f.type}" id="${f.key}" placeholder="${f.placeholder || ''}" oninput="onFieldChange('${f.key}', this.value)"/>`
+                  }
+                </div>`).join('')}
+            </div>
+          </div>
+        </div>`;
+    });
+
+    html += `
+      <div class="notice-box">
+        <div class="notice-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div>
+          <div class="notice-title">Important Note</div>
+          <div class="notice-text">Changes made here will instantly reflect on the public website. Make sure all image URLs are valid and publicly accessible before saving.</div>
+        </div>
+      </div>`;
+
+    container.innerHTML = html;
+
+    // Now populate field values from localSettings
+    populateFields();
+  }
+
+  function populateFields() {
+    sections.forEach(sec => {
+      sec.fields.forEach(f => {
+        const el = document.getElementById(f.key);
+        if (el) el.value = localSettings[f.key] || '';
+      });
+    });
+  }
+
+  function onFieldChange(key, value) {
+    localSettings[key] = value;
+  }
+
+  // ── Load from Supabase ──────────────────────────────────────────────────────
+  async function loadSettings() {
+    const { data, error } = await sb.from('school_settings').select('key, value');
+    if (error) {
+      showToast('✗ Failed to load settings.', '#dc2626');
+      document.getElementById('mainContent').innerHTML = '<div class="loading-page" style="color:#ef4444">Failed to load settings. Check your Supabase connection.</div>';
+      return;
+    }
+
+    savedSettings = {};
+    (data || []).forEach(row => {
+      savedSettings[row.key] = row.value;
+    });
+    localSettings = { ...savedSettings };
+    buildUI();
+  }
+
+  // ── Save to Supabase ────────────────────────────────────────────────────────
+  async function saveAll() {
+    const btn = document.getElementById('saveAllBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner" style="border-top-color:white;width:16px;height:16px;border-width:2px"></div> Saving…';
+
+    const allKeys = sections.flatMap(s => s.fields.map(f => f.key));
+    let savedCount = 0;
+    let errors = 0;
+
+    for (const key of allKeys) {
+      const newVal = (localSettings[key] || '').trim();
+      const oldVal = (savedSettings[key] || '').trim();
+      if (newVal === oldVal) continue; // skip unchanged
+
+      const { error } = await sb.from('school_settings')
+        .upsert({ key, value: newVal }, { onConflict: 'key' });
+
+      if (!error) {
+        savedSettings[key] = newVal;
+        savedCount++;
+      } else {
+        errors++;
+      }
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Save All Changes';
+
+    if (errors > 0) {
+      showToast(`✗ ${errors} setting(s) failed to save.`, '#dc2626');
+    } else if (savedCount === 0) {
+      showToast('ℹ No changes to save.', '#475569');
+    } else {
+      showToast(`✓ ${savedCount} setting(s) saved successfully!`);
+      const banner = document.getElementById('successBanner');
+      if (banner) { banner.classList.add('show'); setTimeout(() => banner.classList.remove('show'), 4000); }
+    }
+  }
+
+  // ── Init ────────────────────────────────────────────────────────────────────
+  window.__pageInit = function() { loadSettings() };
+  if (window.__aspireReady) window.__pageInit();
+</script>
+</body>
+</html>

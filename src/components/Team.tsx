@@ -1,41 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Linkedin, Mail, Twitter } from 'lucide-react';
-
-const team = [
-  {
-    name: 'Chandan Kumar',
-    role: 'Founder & Chairman',
-    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    bio: 'A visionary leader with over 20 years of experience in educational excellence, dedicated to transforming the educational landscape in Bihar.'
-  },
-  {
-    name: 'Deepak Kumar Vidyarthi',
-    role: 'Co-Founder & Director',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    bio: 'Passionate about holistic child development and integrating modern technology with traditional values.'
-  },
-  {
-    name: 'DK Vidyarthi',
-    role: 'Managing Director',
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    bio: 'Committed to providing a safe, stimulating, and inclusive environment where students can discover their passions.'
-  },
-  {
-    name: 'RK Ravi',
-    role: 'Principal',
-    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    bio: 'An experienced educator with a track record of leading top schools and fostering academic excellence.'
-  },
-  {
-    name: 'PK Pradhan',
-    role: 'Head of Administration',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    bio: 'Specializes in school operations, ensuring a seamless and enriching experience for students and parents alike.'
-  }
-];
+import { useCMSStore, TeamMember } from '../store/cmsStore';
 
 export default function Team() {
+  const { team, fetchTeam } = useCMSStore();
+
+  useEffect(() => {
+    fetchTeam();
+  }, []);
+
   return (
     <section className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,9 +18,9 @@ export default function Team() {
           <p className="mt-4 text-lg text-gray-600">The visionaries shaping the future of education.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-          {team.map((member, index) => (
+          {team.map((member: TeamMember, index: number) => (
             <motion.div
-              key={member.name}
+              key={member.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -55,7 +29,7 @@ export default function Team() {
             >
               <div className="relative overflow-hidden rounded-2xl mb-6 aspect-[3/4] shadow-lg">
                 <img
-                  src={member.image}
+                  src={member.image_url || 'https://via.placeholder.com/800'}
                   alt={member.name}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   referrerPolicy="no-referrer"
@@ -79,6 +53,11 @@ export default function Team() {
               </div>
             </motion.div>
           ))}
+          {team.length === 0 && (
+            <div className="col-span-3 text-center text-gray-500 py-10">
+              No team members found. Please run the supabase.sql setup script.
+            </div>
+          )}
         </div>
       </div>
     </section>

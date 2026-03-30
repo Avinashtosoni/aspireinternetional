@@ -1,0 +1,61 @@
+<div class="space-y-24 pb-20">
+  <div class="bg-white rounded-[3.5rem] shadow-2xl border border-gray-100 overflow-hidden flex flex-col lg:flex-row gap-16 items-stretch mx-4">
+    <!-- Image Panel -->
+    <div class="w-full lg:w-2/5 shrink-0 relative min-h-[500px]">
+      <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&h=1200&fit=crop" class="absolute inset-0 w-full h-full object-cover" alt="Principal"/>
+      <div class="absolute bottom-10 left-10 right-10 bg-white/95 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-gray-100">
+        <p class="text-xs font-black text-primary uppercase tracking-[0.2em] mb-2 leading-none">The Visionary Leader</p>
+        <h3 id="dyn-p-name-main" class="text-3xl font-black text-gray-900 leading-none">Deepak Kumar</h3>
+        <p class="text-sm font-bold text-gray-400 mt-2 uppercase">Principal & Director</p>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+    </div>
+
+    <!-- Content Panel -->
+    <div class="flex-1 p-10 lg:p-20 relative overflow-hidden bg-gradient-to-br from-white via-white to-primary/5">
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-[80px]"></div>
+      
+      <div class="relative z-10">
+        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary/10 mb-8"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 2.5 1 4.066 2 5V21zm9 0c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 2.5 1 4.066 2 5V21z"/></svg>
+        <h2 class="text-5xl lg:text-7xl font-heading font-black text-gray-900 mb-12 leading-tight">
+          Nurturing <span class="text-primary">Excellence</span> & Integrity.
+        </h2>
+        
+        <div class="prose prose-xl prose-slate max-w-none text-gray-600 space-y-8 leading-relaxed">
+          <p id="dyn-p-msg-main" class="text-2xl font-bold bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100 italic text-gray-900 shadow-sm relative">
+            "At AUIS, we believe that education is not just about academic success, but about the holistic development of every child's potential."
+          </p>
+          <div class="space-y-6">
+            <p>At Aspire Universal International School, we believe that every child is unique and has the potential to achieve great things. Our goal is to provide a platform where they can discover their talents, explore their interests, and develop their personality.</p>
+            <p>We focus on holistic education that combines academic excellence with character building, sports, and creative arts. Our dedicated faculty works tirelessly to ensure that our students receive the best possible guidance and support.</p>
+            <p>In today's rapidly changing world, we aim to equip our students with critical thinking skills, a global mindset, and strong values that will serve them throughout their lives. We invite you to join us on this journey of learning and discovery.</p>
+          </div>
+        </div>
+
+        <div class="mt-20 pt-10 border-t border-gray-100 flex items-center justify-between">
+          <div>
+            <p class="text-2xl font-black text-gray-900 leading-none">Deepak Kumar Vidyarthi</p>
+            <p class="text-xs font-bold text-gray-400 mt-2 uppercase tracking-widest">Director & Principal</p>
+          </div>
+          <div class="h-12 w-48 bg-gray-50 rounded-2xl flex items-center justify-center border border-gray-100 px-4">
+             <span class="text-[10px] text-gray-300 font-black uppercase tracking-widest">Signature Placeholder</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+//<![CDATA[
+  document.addEventListener('appDataLoaded', function() {
+    var s = window.appData.settings;
+    if (!s) return;
+    if (s.principal_name) {
+       var names = document.querySelectorAll('[id^="dyn-p-name"]');
+       names.forEach(function(el) { el.innerText = s.principal_name; });
+    }
+    if (s.principal_message) document.getElementById('dyn-p-msg-main').innerText = '"' + s.principal_message + '"';
+  });
+//]]>
+</script>

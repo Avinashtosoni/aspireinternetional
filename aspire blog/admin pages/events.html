@@ -1,0 +1,231 @@
+﻿<!-- ===== ASPIRE ADMIN GUARD v3 - Supabase Auth ===== -->
+<script>
+(function(){
+  'use strict';
+  var SU='https://mhwszwdhyluraydnexyn.supabase.co',SK='sb_publishable_jZFjyR57wQumHEQ8pjFPRg_zZh8PMp0',LU='https://hgvghfhg.blogspot.com/p/login.html';
+  var sEl=document.createElement('style');sEl.textContent='#ag-ov{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#0a0f1e;z-index:2147483647;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-family:Inter,sans-serif}#ag-sp{width:44px;height:44px;border:3px solid rgba(99,102,241,.2);border-top-color:#6366f1;border-radius:50%;animation:ag-s .8s linear infinite}@keyframes ag-s{to{transform:rotate(360deg)}}#ag-lb{color:rgba(255,255,255,.35);font-size:.8rem;letter-spacing:.05em}';document.documentElement.appendChild(sEl);
+  var ov=document.createElement('div');ov.id='ag-ov';ov.innerHTML='<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.5" style="margin-bottom:4px"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg><div id="ag-sp"></div><div id="ag-lb">Verifying session...</div>';document.documentElement.appendChild(ov);
+  function killChrome(){['#main-header','header','footer','#aspireMenu','#aspireTicker','.ticker-wrap','#navbar-iframe','.blog-pager','.status-msg-wrap','.quickedit'].forEach(function(s){try{document.querySelectorAll(s).forEach(function(e){if(e.parentNode)e.parentNode.removeChild(e);});}catch(x){}});document.querySelectorAll('div').forEach(function(d){var a=d.getAttribute('style')||'',c=d.className||'';if(a.indexOf('height:42px')!=-1||(c.indexOf('bg-primary')!=-1&&c.indexOf('fixed')!=-1&&c.indexOf('top-0')!=-1)){if(d.parentNode)d.parentNode.removeChild(d);}});}
+  document.addEventListener('DOMContentLoaded',function(){
+    killChrome();setTimeout(killChrome,300);setTimeout(killChrome,800);
+    var sb=window.supabase.createClient(SU,SK);
+    sb.auth.getSession().then(function(r){
+      if(!r.data||!r.data.session){window.location.replace(LU);return;}
+      window.sbClient=sb;window.sbSession=r.data.session;
+      var g=document.getElementById('ag-ov');if(g&&g.parentNode)g.parentNode.removeChild(g);
+      if(typeof window.__pageInit==='function')window.__pageInit();else window.__aspireReady=true;
+    });
+  });
+})();
+</script>
+<!-- ===== END GUARD ===== -->
+
+<!DOCTYPE html><!DOCTYPE html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Events – Aspire CMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --primary: #6366f1; --sidebar-bg: #0f172a; --sidebar-border: rgba(255,255,255,0.07); --sidebar-text: rgba(255,255,255,0.6); --sidebar-active: rgba(99,102,241,0.15); --bg: #f1f5f9; --card-bg: #ffffff; --text-main: #1e293b; --text-muted: #64748b; --border: #e2e8f0; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-main); min-height: 100vh; display: flex; }
+    .sidebar { width: 260px; min-height: 100vh; background: var(--sidebar-bg); display: flex; flex-direction: column; flex-shrink: 0; position: fixed; top: 0; left: 0; bottom: 0; z-index: 100; border-right: 1px solid var(--sidebar-border); }
+    .sidebar-brand { padding: 1.5rem 1.5rem 1.25rem; border-bottom: 1px solid var(--sidebar-border); display: flex; align-items: center; gap: 0.75rem; }
+    .brand-icon { width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .brand-icon svg { color: white; }
+    .brand-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 900; color: #fff; }
+    .brand-sub { font-size: 0.7rem; color: var(--sidebar-text); }
+    .sidebar-nav { flex: 1; padding: 1rem 0.75rem; overflow-y: auto; }
+    .nav-section-label { font-size: 0.65rem; font-weight: 700; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.1em; padding: 0.5rem 0.75rem; margin-top: 0.5rem; }
+    .nav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 0.875rem; border-radius: 10px; color: var(--sidebar-text); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: all 0.15s; margin-bottom: 2px; width: 100%; border: none; background: none; cursor: pointer; text-align: left; }
+    .nav-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
+    .nav-item.active { background: var(--sidebar-active); color: var(--primary); font-weight: 600; }
+    .sidebar-footer { padding: 0.75rem; border-top: 1px solid var(--sidebar-border); }
+    .logout-btn { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 0.875rem; border-radius: 10px; color: var(--sidebar-text); cursor: pointer; font-size: 0.875rem; font-weight: 500; transition: all 0.15s; border: none; background: none; width: 100%; }
+    .logout-btn:hover { background: rgba(239,68,68,0.1); color: #ef4444; }
+    .main { margin-left: 260px; flex: 1; display: flex; flex-direction: column; }
+    .topbar { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50; }
+    .page-title { font-size: 1.25rem; font-weight: 800; }
+    .admin-chip { display: flex; align-items: center; gap: 0.5rem; background: #f8fafc; border: 1px solid var(--border); padding: 0.4rem 0.875rem 0.4rem 0.5rem; border-radius: 100px; font-size: 0.8rem; font-weight: 600; }
+    .admin-avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem; font-weight: 700; }
+    .content { padding: 2rem; flex: 1; display: flex; flex-direction: column; gap: 1.5rem; }
+    .form-card { background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; }
+    .form-head { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.75rem; }
+    .form-icon { width: 36px; height: 36px; background: rgba(99,102,241,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary); }
+    .form-title { font-size: 1rem; font-weight: 700; }
+    .form-body { padding: 1.5rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
+    input, textarea { padding: 0.65rem 0.875rem; border: 1px solid var(--border); border-radius: 10px; font-size: 0.875rem; font-family: 'Inter', sans-serif; color: var(--text-main); background: var(--card-bg); outline: none; transition: border-color 0.2s, box-shadow 0.2s; width: 100%; }
+    input:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+    textarea { resize: vertical; min-height: 100px; }
+    .submit-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.875rem; background: linear-gradient(135deg, var(--primary), #8b5cf6); color: white; border: none; border-radius: 12px; font-size: 0.95rem; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; margin-top: 1rem; transition: opacity 0.2s, transform 0.15s; }
+    .submit-btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .events-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .event-card { background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; position: relative; }
+    .event-img { height: 160px; overflow: hidden; position: relative; }
+    .event-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .event-card:hover .event-img img { transform: scale(1.05); }
+    .event-del-btn { position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; background: rgba(255,255,255,0.95); border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #ef4444; box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: all 0.15s; opacity: 0; }
+    .event-card:hover .event-del-btn { opacity: 1; }
+    .event-del-btn:hover { background: #ef4444; color: white; }
+    .event-body { padding: 1rem; }
+    .event-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .event-meta { display: flex; flex-direction: column; gap: 4px; }
+    .event-meta span { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--text-muted); }
+    .events-header { background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border); padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .empty-state { text-align: center; color: var(--text-muted); padding: 3rem; background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border); }
+    .loading { display: flex; align-items: center; justify-content: center; padding: 3rem; gap: 0.75rem; color: var(--text-muted); background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border); }
+    .spinner { width: 22px; height: 22px; border: 2px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1e293b; color: white; padding: 0.875rem 1.25rem; border-radius: 12px; font-size: 0.875rem; font-weight: 600; z-index: 300; opacity: 0; transform: translateY(10px); transition: all 0.3s; pointer-events: none; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    @media (max-width: 1100px) { .events-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) { .sidebar { width: 72px; } .brand-sub, .nav-item span, .nav-section-label { display: none; } .nav-item { justify-content: center; } .brand-icon { margin: 0 auto; } .sidebar-brand { justify-content: center; } .main { margin-left: 72px; } .events-grid { grid-template-columns: 1fr; } .form-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sidebar-brand"><div class="brand-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div><div><div class="brand-title">Aspire CMS</div><div class="brand-sub">Admin Panel</div></div></div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <a href="dashboard.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span>Dashboard</span></a>
+    <a href="enquiries.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Enquiries</span></a>
+    <div class="nav-section-label">Content</div>
+    <a href="blogs.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span>Blogs / News</span></a>
+    <a href="events.html" class="nav-item active"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Events</span></a>
+    <a href="notices.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span>Notices</span></a>
+    <div class="nav-section-label">People</div>
+    <a href="team.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Manage Team</span></a>
+    <a href="testimonials.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>Testimonials</span></a>
+    <div class="nav-section-label">School</div>
+    <a href="facilities.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Facilities</span></a>
+    <a href="settings.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Settings</span></a>
+  </nav>
+  <div class="sidebar-footer"><button class="logout-btn" onclick="handleLogout()"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span>Logout</span></button></div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <div class="page-title">School Events</div>
+    <div class="admin-chip"><div class="admin-avatar" id="avatarInitial">A</div><span id="adminUsername">Admin</span></div>
+  </header>
+  <div class="content">
+    <div class="form-card">
+      <div class="form-head">
+        <div class="form-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="form-title">Add New Event</div>
+      </div>
+      <div class="form-body">
+        <form id="eventForm">
+          <div class="form-grid">
+            <div class="form-group"><label>Event Title *</label><input type="text" id="eTitle" placeholder="Annual Sports Day…" required/></div>
+            <div class="form-group"><label>Event Date *</label><input type="date" id="eDate" required/></div>
+            <div class="form-group"><label>Location</label><input type="text" id="eLocation" placeholder="School Auditorium"/></div>
+            <div class="form-group"><label>Cover Image URL</label><input type="url" id="eImage" placeholder="https://images.unsplash.com/…"/></div>
+            <div class="form-group full"><label>Description</label><textarea id="eDesc" placeholder="Describe the event…"></textarea></div>
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add School Event
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="events-header">
+      <div style="font-size:1rem;font-weight:700">Upcoming & Past Events</div>
+      <div style="font-size:0.8rem;color:var(--text-muted)" id="eventsCount">Loading…</div>
+    </div>
+
+    <div id="eventsGrid"><div class="loading"><div class="spinner"></div> Loading events…</div></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+  const sb = window.sbClient;
+
+  const adminUser = (window.sbSession && window.sbSession.user.email) || 'Admin';
+  document.getElementById('adminUsername').textContent = adminUser;
+  document.getElementById('avatarInitial').textContent = adminUser.charAt(0).toUpperCase();
+  function handleLogout() { (window.sbClient || window.supabase.createClient('https://mhwszwdhyluraydnexyn.supabase.co','sb_publishable_jZFjyR57wQumHEQ8pjFPRg_zZh8PMp0')).auth.signOut().then(function(){ window.location.replace('https://hgvghfhg.blogspot.com/p/login.html'); }); }
+
+  function showToast(msg, color = '#16a34a') {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.style.background = color; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  let events = [];
+  async function loadEvents() {
+    const { data } = await sb.from('events').select('*').order('event_date', { ascending: false });
+    events = data || [];
+    document.getElementById('eventsCount').textContent = `${events.length} Event${events.length !== 1 ? 's' : ''}`;
+    renderGrid();
+  }
+
+  function renderGrid() {
+    const c = document.getElementById('eventsGrid');
+    if (events.length === 0) {
+      c.innerHTML = '<div class="empty-state">📅 No events added yet. Add your first event above!</div>';
+      return;
+    }
+    c.innerHTML = `<div class="events-grid">${events.map(ev => `
+      <div class="event-card">
+        <div class="event-img">
+          <img src="${ev.image_url || 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400'}" alt="${ev.title}" onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400'"/>
+          <button class="event-del-btn" onclick="deleteEvent('${ev.id}')" title="Delete">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+          </button>
+        </div>
+        <div class="event-body">
+          <div class="event-title">${ev.title}</div>
+          <div class="event-meta">
+            <span><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>${new Date(ev.event_date).toLocaleDateString('en-IN', {day:'numeric',month:'long',year:'numeric'})}</span>
+            ${ev.location ? `<span><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${ev.location}</span>` : ''}
+          </div>
+          ${ev.description ? `<p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.5rem;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">${ev.description}</p>` : ''}
+        </div>
+      </div>`).join('')}</div>`;
+  }
+
+  document.getElementById('eventForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true; btn.textContent = 'Adding Event…';
+    const { error } = await sb.from('events').insert({
+      title: document.getElementById('eTitle').value.trim(),
+      event_date: document.getElementById('eDate').value,
+      location: document.getElementById('eLocation').value.trim() || null,
+      image_url: document.getElementById('eImage').value.trim() || null,
+      description: document.getElementById('eDesc').value.trim() || null
+    });
+    if (!error) {
+      e.target.reset();
+      showToast('✓ Event added successfully!');
+      loadEvents();
+    } else showToast('✗ Failed to add event.', '#dc2626');
+    btn.disabled = false;
+    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add School Event';
+  });
+
+  async function deleteEvent(id) {
+    if (!confirm('Delete this event permanently?')) return;
+    const { error } = await sb.from('events').delete().eq('id', id);
+    if (!error) { showToast('✓ Event deleted.'); loadEvents(); }
+    else showToast('✗ Failed to delete.', '#dc2626');
+  }
+
+  window.__pageInit = function() { loadEvents() };
+  if (window.__aspireReady) window.__pageInit();
+</script>
+</body>
+</html>

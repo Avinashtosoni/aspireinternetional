@@ -1,0 +1,951 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:responsive='true' b:version='2' class='v2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/namespaces/blogger/template' xmlns:data='http://www.google.com/namespaces/data' xmlns:expr='http://www.google.com/namespaces/expr' xmlns:ie='http://www.microsoft.com/en-us/ie'>
+<head>
+    <b:skin><![CDATA[
+      /* Reset and Global Styles */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: 'Inter', sans-serif; color: #374151; background: #f9fafb; }
+      h1, h2, h3, h4, h5, h6 { font-family: 'Nunito', sans-serif; }
+      .main-section { min-height: 100vh; }
+      .transition-all { transition: all 0.3s ease; }
+      .animation-delay-2000 { animation-delay: 2s; }
+      .animation-delay-4000 { animation-delay: 4s; }
+      .status-msg-wrap { display: none !important; }
+      .blog-pager { display: none !important; }
+      .quickedit { display: none !important; }
+      #navbar-iframe { display: none !important; }
+      /* Ticker Animation */
+      @keyframes aspire-ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+      .ticker-wrap { overflow: hidden; width: 100%; }
+      .ticker-content { display: inline-block; white-space: nowrap; animation: aspire-ticker 30s linear infinite; }
+      .ticker-content:hover { animation-play-state: paused; }
+      /* Nav underline hover */
+      .nav-link-hover { position: relative; }
+      .nav-link-hover::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: #F26722; transition: width 0.25s; }
+      .nav-link-hover:hover::after { width: 100%; }
+    ]]></b:skin>
+
+    <meta charset='UTF-8'/>
+    <!-- Force Desktop (WebView) on ALL devices: 3-layer protection -->
+    <!-- Layer 1: Blogger native isMobile meta-refresh (fires before JS) -->
+    <b:if cond='data:blog.isMobile'>
+      <meta expr:content='"0;url="+data:blog.canonicalUrl+"?m=0"' http-equiv='refresh'/>
+    </b:if>
+    <!-- Layer 2: Viewport stays desktop-friendly (no mobile scaling) -->
+    <meta content='width=device-width, initial-scale=1, shrink-to-fit=no' name='viewport'/>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'/>
+
+    <title><data:blog.pageTitle/></title>
+
+    <b:include data='blog' name='all-head-content'/>
+
+    <!-- CDNs -->
+    <script src='https://cdn.tailwindcss.com?plugins=typography,aspect-ratio'></script>
+    <script src='https://unpkg.com/lucide@latest'></script>
+    <script src='https://unpkg.com/@supabase/supabase-js@2'></script>
+    
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Nunito:wght@400;600;700;800;900&amp;display=swap' rel='stylesheet'/>
+
+    <!-- Tailwind Configuration -->
+    <script>
+    //<![CDATA[
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#F26722',
+              hover: '#d95a1c',
+            },
+            secondary: {
+              DEFAULT: '#4F46E5',
+              hover: '#4338ca',
+            },
+            accent: {
+              DEFAULT: '#FBBF24',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Nunito', 'sans-serif'],
+          },
+          animation: {
+            'blob': 'blob 7s infinite',
+          },
+          keyframes: {
+            blob: {
+              '0%': { transform: 'translate(0px, 0px) scale(1)' },
+              '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+              '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+              '100%': { transform: 'translate(0px, 0px) scale(1)' },
+            }
+          }
+        }
+      }
+    }
+    //]]>
+    </script>
+
+    <!-- Supabase Initialization -->
+    <script>
+    //<![CDATA[
+      const SUPABASE_URL = 'https://mhwszwdhyluraydnexyn.supabase.co';
+      const SUPABASE_ANON_KEY = 'sb_publishable_jZFjyR57wQumHEQ8pjFPRg_zZh8PMp0';
+      const { createClient } = supabase;
+      const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+      // Global State for Dynamic Content
+      window.appData = {
+        settings: {},
+        team: [],
+        facilities: [],
+        events: [],
+        blogs: [],
+        testimonials: [],
+        stats: []
+      };
+
+      async function fetchAppData() {
+        try {
+          // Fetch ALL data in parallel for performance
+          const [settingsRes, teamRes, facRes, eventsRes, blogsRes, testimonialsRes, statsRes] = await Promise.all([
+            supabaseClient.from('school_settings').select('*'),
+            supabaseClient.from('team_members').select('*').order('display_order', { ascending: true }),
+            supabaseClient.from('facilities').select('*').order('display_order', { ascending: true }),
+            supabaseClient.from('events').select('*').order('event_date', { ascending: true }),
+            supabaseClient.from('blogs').select('*').order('created_at', { ascending: false }),
+            supabaseClient.from('testimonials').select('*').order('display_order', { ascending: true }),
+            supabaseClient.from('stats').select('*').order('display_order', { ascending: true })
+          ]);
+
+          // Settings
+          if (settingsRes.data) {
+            settingsRes.data.forEach(s => window.appData.settings[s.key] = s.value);
+          }
+
+          // People & Facilities
+          if (teamRes.data) window.appData.team = teamRes.data;
+          if (facRes.data) window.appData.facilities = facRes.data;
+
+          // Content
+          if (eventsRes.data) window.appData.events = eventsRes.data;
+          if (blogsRes.data) window.appData.blogs = blogsRes.data;
+          if (testimonialsRes.data) window.appData.testimonials = testimonialsRes.data;
+          if (statsRes.data) window.appData.stats = statsRes.data;
+
+          // Trigger UI Update — all data ready
+          document.dispatchEvent(new CustomEvent('appDataLoaded'));
+        } catch (err) {
+          console.error('Error fetching dynamic data:', err);
+          // Still trigger event so static fallbacks show
+          document.dispatchEvent(new CustomEvent('appDataLoaded'));
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', fetchAppData);
+    //]]>
+    </script>
+    <script>
+    //<![CDATA[
+      // Handle Dark Mode Init to prevent flash
+      if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+      } else {
+          document.documentElement.classList.remove('dark');
+      }
+    //]]>
+    </script>
+</head>
+
+<body class="m-0 p-0 w-full overflow-x-hidden">
+  <!-- Force Desktop Mode: always ?m=0 on all devices -->
+  <script type='text/javascript'>
+  /* <![CDATA[ */
+  (function() {
+    var url = window.location.href;
+    if (url.indexOf('?m=1') !== -1 || url.indexOf('&m=1') !== -1) {
+      window.location.replace(url.replace(/[?&]m=1/g, function(match) {
+        return match.charAt(0) === '?' ? '?m=0' : '&m=0';
+      }));
+    }
+  })();
+  /* ]]> */
+  </script>
+  <div class="bg-[#FDF8F5] dark:bg-gray-950 font-sans text-gray-900 dark:text-gray-100 antialiased selection:bg-primary/10 transition-colors duration-300">
+    <!-- ===== TOPBAR TICKER ===== -->
+    <div class='fixed top-0 left-0 w-full z-50 bg-primary text-white text-[13px] font-medium' style='height:42px'>
+        <div class='w-full max-w-[1800px] mx-auto px-4 sm:px-6 h-full flex items-center gap-3'>
+            <span class='hidden sm:inline font-bold border-r border-white/30 pr-4 whitespace-nowrap shrink-0'>&#127891; Admissions Open 2026-27</span>
+            <span class='bg-white/20 text-white px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider shrink-0 animate-pulse'>Latest</span>
+            <div class='ticker-wrap flex-1'>
+                <span id='aspireTicker' class='ticker-content text-white/90 text-[12px] font-medium'>Welcome to Aspire Universal International School &#8212; Nurturing curiosity, character and competence &#8212; Grand Opening: coming soon</span>
+            </div>
+            <a href='tel:+919431867366' class='hidden md:flex items-center gap-1.5 shrink-0 font-bold text-white/90 hover:text-white transition-colors text-[12px]'>
+                <svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.5 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z'/></svg>
+                +91 9431867366
+            </a>
+        </div>
+    </div>
+
+    <!-- ===== MAIN HEADER ===== -->
+    <header class='fixed w-full z-40 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm border-b border-gray-100 dark:border-gray-800 transition-all duration-300' id='main-header' style='top:42px'>
+        <div class='w-full max-w-[1800px] mx-auto px-4 sm:px-6'>
+            <div class='flex justify-between items-center h-20'>
+                <!-- Logo -->
+                <a href='/' class='flex items-center gap-3 group'>
+                    <div class='w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform shrink-0'>A</div>
+                    <div class='block leading-tight'>
+                        <span class='text-xl sm:text-2xl font-heading font-black text-gray-900 dark:text-white leading-none'>Aspire</span>
+                        <p class='text-[9px] sm:text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-tighter'>Universal International</p>
+                    </div>
+                </a>
+
+                <!-- Mobile Actions -->
+                <div class='flex items-center gap-2 lg:hidden'>
+                    <button id='theme-toggle-mobile' class='p-2 text-gray-600 dark:text-gray-300 hover:text-primary focus:outline-none transition-colors'>
+                        <i data-lucide='moon' class='w-6 h-6 dark:hidden'></i>
+                        <i data-lucide='sun' class='w-6 h-6 hidden dark:block'></i>
+                    </button>
+                    <!-- Mobile Menu Button -->
+                    <button class='p-2 text-gray-600 dark:text-gray-300 hover:text-primary focus:outline-none transition-colors' onclick='toggleAspireMenu()'>
+                        <i data-lucide='menu' class='w-7 h-7'></i>
+                    </button>
+                </div>
+
+                <!-- Desktop Nav -->
+                <div class='hidden lg:flex items-center gap-8'>
+                    <nav class='flex items-center gap-6'>
+                        <a href='/' class='nav-link-hover font-bold text-[13px] uppercase tracking-wide text-primary'>Home</a>
+                        <a href='/p/about.html' class='nav-link-hover font-bold text-[13px] uppercase tracking-wide text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors'>About</a>
+                        <a href='/p/academics.html' class='nav-link-hover font-bold text-[13px] uppercase tracking-wide text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors'>Academics</a>
+                        <a href='/p/admissions.html' class='nav-link-hover font-bold text-[13px] uppercase tracking-wide text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors'>Admissions</a>
+                        <a href='/p/events.html' class='nav-link-hover font-bold text-[13px] uppercase tracking-wide text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors'>Events</a>
+                        <a href='/p/blogs.html' class='nav-link-hover font-bold text-[13px] uppercase tracking-wide text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors'>Blogs</a>
+                        <a href='/p/contact.html' class='nav-link-hover font-bold text-[13px] uppercase tracking-wide text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors'>Contact</a>
+                    </nav>
+                    <div class='flex items-center gap-4'>
+                        <button id='theme-toggle-desktop' class='p-2 rounded-full bg-gray-100 dark:bg-gray-800 border border-transparent dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-all shadow-inner focus:outline-none'>
+                            <i data-lucide='moon' class='w-5 h-5 dark:hidden'></i>
+                            <i data-lucide='sun' class='w-5 h-5 hidden dark:block'></i>
+                        </button>
+                        <a href='/p/admissions.html' class='bg-primary text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-primary-hover transition-all shadow-md shadow-primary/20 uppercase tracking-wide'>Apply Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Dropdown) -->
+        <div class='hidden lg:hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 absolute left-0 right-0 shadow-xl py-4 px-6 z-40' id='aspireMenu' style='flex-direction:column;gap:0'>
+            <a class='font-bold text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary py-3 border-b border-gray-50 dark:border-gray-800 block transition-colors' href='/'>Home</a>
+            <a class='font-bold text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary py-3 border-b border-gray-50 dark:border-gray-800 block transition-colors' href='/p/about.html'>About</a>
+            <a class='font-bold text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary py-3 border-b border-gray-50 dark:border-gray-800 block transition-colors' href='/p/academics.html'>Academics</a>
+            <a class='font-bold text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary py-3 border-b border-gray-50 dark:border-gray-800 block transition-colors' href='/p/admissions.html'>Admissions</a>
+            <a class='font-bold text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary py-3 border-b border-gray-50 dark:border-gray-800 block transition-colors' href='/p/events.html'>Events</a>
+            <a class='font-bold text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary py-3 border-b border-gray-50 dark:border-gray-800 block transition-colors' href='/p/blogs.html'>Blogs</a>
+            <a class='font-bold text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary py-3 border-b border-gray-50 dark:border-gray-800 block transition-colors' href='/p/contact.html'>Contact</a>
+            <a class='bg-primary text-white w-full py-3 rounded-full font-bold uppercase tracking-wide text-center hover:bg-primary-hover transition-colors shadow-lg mt-3 block' href='/p/admissions.html'>Apply Now</a>
+        </div>
+    </header>
+
+    <script>
+    //<![CDATA[
+    /* Mobile Menu Toggle */
+    function toggleAspireMenu() {
+        var m = document.getElementById('aspireMenu');
+        if (m.style.display === 'flex' || m.style.display === 'block') {
+            m.style.display = 'none';
+        } else {
+            m.style.display = 'flex';
+            m.style.flexDirection = 'column';
+        }
+    }
+
+    /* Dark Mode Toggle */
+    function toggleTheme() {
+        if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        var desktopBtn = document.getElementById('theme-toggle-desktop');
+        var mobileBtn = document.getElementById('theme-toggle-mobile');
+        if (desktopBtn) desktopBtn.addEventListener('click', toggleTheme);
+        if (mobileBtn) mobileBtn.addEventListener('click', toggleTheme);
+    });
+
+    /* Fetch latest posts for topbar ticker */
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/feeds/posts/default?alt=json&max-results=6')
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                var entries = (data.feed && data.feed.entry) ? data.feed.entry : [];
+                if (!entries.length) return;
+                var ticker = document.getElementById('aspireTicker');
+                var html = entries.map(function(e) {
+                    var title = e.title ? e.title.$t : '';
+                    var linkObj = e.link ? e.link.find(function(l) { return l.rel === 'alternate'; }) : null;
+                    var url = linkObj ? linkObj.href + '?m=0' : '#';
+                    return '<a href="' + url + '" style="color:rgba(255,255,255,0.92);text-decoration:none;font-weight:600;margin-right:56px;">' + title + '</a><span style="margin-right:56px;opacity:0.35">&#183;</span>';
+                }).join('');
+                ticker.innerHTML = html;
+            })
+            .catch(function() {});
+    });
+    //]]>
+    </script>
+
+
+    <b:section id='main' showaddelement='yes'>
+            <b:widget id='Header1' locked='true' title='Aspire' type='Header'>
+              <b:includable id='main'>
+                <b:if expr:cond='data:blog.title'>
+                  <a expr:href='data:blog.homepageUrl'><data:title/></a>
+                </b:if>
+              </b:includable>
+            </b:widget>
+
+            <b:widget id='HTML1' title='Hero Section' type='HTML' mobile='yes'>
+              <b:includable id='main'>
+                <b:if expr:cond='data:blog.url == data:blog.homepageUrl'>
+                  <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-[#FDF8F5] transition-colors duration-300">
+                    <div class="absolute top-20 left-10 w-20 h-20 bg-accent rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                    <div class="absolute top-40 right-10 w-32 h-32 bg-secondary rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+                    <div class="absolute -bottom-8 left-40 w-24 h-24 bg-primary rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
+
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                      <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        <div class="max-w-2xl">
+                          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm border border-gray-100 mb-6 transition-colors duration-300">
+                            <span class="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+                            <span class="text-sm font-semibold text-gray-600">Grand Opening: 1st April 2026</span>
+                          </div>
+                          
+                          <h1 class="text-5xl lg:text-6xl font-heading font-extrabold text-gray-900 leading-tight mb-6 transition-colors duration-300">
+                              A New Era of <br/>
+                              <span class="text-primary">Learning</span> <br/>
+                              Begins <span class="text-secondary">Here</span>
+                          </h1>
+                          
+                          <p class="text-lg text-gray-600 mb-8 leading-relaxed transition-colors duration-300">
+                            Welcome to Aspire Universal International School, a brand new, forward-thinking CBSE-affiliated institution dedicated to redefining education in Bihar. Be part of our founding batch!
+                          </p>
+                          
+                          <div class="flex flex-wrap items-center gap-4">
+                              <a href="/p/admissions.html" class="bg-primary hover:bg-[#c95d31] text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg shadow-primary/30 transition-transform transform hover:-translate-y-1 flex items-center gap-2 inline-flex">
+                                Admission Open <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                              </a>
+                              <a href="/p/about.html" class="bg-white hover:bg-gray-50 text-gray-800 px-8 py-4 rounded-full font-bold text-lg shadow-md border border-gray-100 transition-colors flex items-center gap-2 inline-flex">
+                                <i data-lucide="play-circle" class="w-6 h-6 text-secondary"></i> Discover More
+                              </a>
+                          </div>
+                        </div>
+
+                        <div class="relative">
+                          <div class="relative rounded-[2rem] overflow-hidden shadow-2xl border-8 border-white transition-colors duration-300">
+                            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80" class="w-full h-auto object-cover aspect-[4/3]" alt="Hero" referrerpolicy="no-referrer"/>
+                            
+                            <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl flex items-center gap-4 animate-bounce" style="animation-duration:3s">
+                              <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                A+
+                              </div>
+                              <div>
+                                <p class="text-xs text-gray-500 font-bold uppercase">CBSE Pattern</p>
+                                <p class="font-heading font-bold text-gray-900">Excellence</p>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <svg class="absolute -top-10 -right-10 w-32 h-32 text-accent opacity-50" viewBox="0 0 100 100" fill="currentColor">
+                            <path d="M50 0L54.5 35.5L90 40L54.5 44.5L50 80L45.5 44.5L10 40L45.5 35.5L50 0Z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none">
+                      <svg class="relative block w-full h-[50px] md:h-[100px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,112.2,198.71,96.54,240.76,86.8,281.73,71.5,321.39,56.44Z" fill="#ffffff" class="dark:fill-gray-900 transition-colors duration-300"></path>
+                      </svg>
+                    </div>
+                  </section>
+                </b:if>
+              </b:includable>
+            </b:widget>
+
+            <b:widget id='HTML2' title='Welcome Section' type='HTML' mobile='yes'>
+              <b:includable id='main'>
+               <b:if expr:cond='data:blog.url == data:blog.homepageUrl'>
+                <section class="py-20 bg-white dark:bg-gray-900 transition-colors duration-300" id="welcome-section">
+                   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                     <div class="grid lg:grid-cols-2 gap-12 items-center">
+                       <div class="relative left-0 opacity-100 transition-all duration-700">
+                         <h2 class="text-3xl font-heading font-bold text-gray-900 dark:text-white mb-6 transition-colors duration-300" id="dyn-welcome-title">Welcome to Aspire School</h2>
+                         <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed transition-colors duration-300" id="dyn-welcome-msg1">Loading message...</p>
+                         <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed transition-colors duration-300" id="dyn-welcome-msg2"></p>
+                         <div class="mt-8 flex items-center space-x-6">
+                           <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary transform rotate-6 border border-primary/20">
+                             <i data-lucide="quote" class="w-8 h-8"></i>
+                           </div>
+                           <div>
+                             <h4 class="font-bold text-gray-900 dark:text-white text-xl tracking-tight transition-colors duration-300" id="dyn-director-name">Mr. Deepak Kumar Vidyarthi</h4>
+                             <p class="text-primary font-semibold uppercase text-xs tracking-widest mt-1">Director's Message</p>
+                           </div>
+                         </div>
+                       </div>
+                       <div class="relative lg:-mt-2">
+                         <div class="aspect-w-4 aspect-h-3 rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] border-8 border-white dark:border-gray-800 transition-colors duration-300 group">
+                            <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80" id="dyn-director-img" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Director Message" referrerpolicy="no-referrer"/>
+                         </div>
+                         <div class="absolute -bottom-8 -left-8 w-40 h-40 bg-primary/10 rounded-3xl -z-10 animate-pulse"></div>
+                         <div class="absolute -top-8 -right-8 w-40 h-40 bg-secondary/10 rounded-3xl -z-10 animate-bounce" style="animation-duration:4s"></div>
+                       </div>
+                     </div>
+                   </div>
+                </section>
+                <script>
+                //<![CDATA[
+                  document.addEventListener('appDataLoaded', function() {
+                    var s = window.appData.settings;
+                    if (!s) return;
+                    document.getElementById('dyn-welcome-title').innerText = s.welcome_title || 'Welcome to Aspire School';
+                    document.getElementById('dyn-welcome-msg1').innerText = s.welcome_message_1 || '';
+                    document.getElementById('dyn-welcome-msg2').innerText = s.welcome_message_2 || '';
+                    document.getElementById('dyn-director-name').innerText = s.director_name || 'Mr. Deepak Kumar Vidyarthi';
+                    if (s.director_image_url) document.getElementById('dyn-director-img').src = s.director_image_url;
+                  });
+                //]]>
+                </script>
+               </b:if>
+              </b:includable>
+            </b:widget>
+
+            <b:widget id='HTML3' title='Stats Section' type='HTML' mobile='yes'>
+              <b:includable id='main'>
+               <b:if expr:cond='data:blog.url == data:blog.homepageUrl'>
+                <section class="py-16 bg-blue-600">
+                  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center" id="stats-container">
+                      <!-- Dynamic Stats Loop -->
+                    </div>
+                  </div>
+                </section>
+                <script>
+                //<![CDATA[
+                  document.addEventListener('appDataLoaded', function() {
+                    var dict = window.appData.stats;
+                    if (!dict || !dict.length) return;
+                    document.getElementById('stats-container').innerHTML = dict.map(function(stat) {
+                        var icon = stat.icon || 'trophy';
+                        return '<div class="flex flex-col items-center text-center"><div class="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-blue-500 bg-opacity-50"><i data-lucide="' + icon + '" class="w-8 h-8 text-white"></i></div><div class="text-4xl font-extrabold text-white mb-2"><span>' + stat.value + '</span>' + (stat.suffix||'') + '</div><div class="text-lg font-medium text-blue-100">' + stat.label + '</div></div>';
+                    }).join('');
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+                  });
+                //]]>
+                </script>
+               </b:if>
+              </b:includable>
+            </b:widget>
+
+            <b:widget id='HTML4' title='Why Choose Us' type='HTML' mobile='yes'>
+              <b:includable id='main'>
+               <b:if expr:cond='data:blog.url == data:blog.homepageUrl'>
+                <section class="py-20 bg-white transition-colors duration-300 overflow-hidden">
+                  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid lg:grid-cols-2 gap-16 items-center">
+                      <div class="relative opacity-100 transform translate-x-0 transition-all duration-700">
+                        <!-- Image Composition -->
+                        <div class="relative z-10 rounded-[2rem] overflow-hidden shadow-2xl transition-colors duration-300">
+                          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Teacher and students" class="w-full h-auto object-cover" referrerpolicy="no-referrer"/>
+                        </div>
+                        <!-- Decorative Elements -->
+                        <div class="absolute top-10 -left-10 w-full h-full border-4 border-primary rounded-[2rem] -z-10 transition-colors duration-300"></div>
+                        <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-accent rounded-full -z-20 opacity-50 transition-colors duration-300"></div>
+                        
+                        <div class="absolute top-1/2 -right-12 transform -translate-y-1/2 bg-white p-6 rounded-2xl shadow-xl z-20 hidden md:block transition-colors duration-300">
+                          <div class="text-center">
+                            <p class="text-4xl font-heading font-extrabold text-secondary transition-colors duration-300">1:15</p>
+                            <p class="text-sm font-bold text-gray-500 uppercase tracking-wider mt-1 transition-colors duration-300">Student-Teacher<br/>Ratio</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="opacity-100 transform translate-x-0 transition-all duration-700">
+                        <span class="text-primary font-bold tracking-wider uppercase text-sm mb-2 block transition-colors duration-300">Why Us</span>
+                        <h2 class="text-4xl font-heading font-bold text-gray-900 mb-8 transition-colors duration-300">
+                          Why Parents Trust Aspire Universal
+                        </h2>
+                        
+                        <div class="space-y-5" id="dyn-why-choose-list">
+                          <!-- Static HTML for speed -->
+                          <div class="flex items-start gap-4">
+                            <div class="mt-1 flex-shrink-0 text-primary transition-colors duration-300"><i data-lucide="check-circle-2" class="w-6 h-6"></i></div>
+                            <p class="text-gray-700 text-lg transition-colors duration-300">World-class infrastructure with smart classrooms &amp; AC campus</p>
+                          </div>
+                          <div class="flex items-start gap-4">
+                            <div class="mt-1 flex-shrink-0 text-primary transition-colors duration-300"><i data-lucide="check-circle-2" class="w-6 h-6"></i></div>
+                            <p class="text-gray-700 text-lg transition-colors duration-300">Highly qualified &amp; experienced faculty (many from top CBSE schools)</p>
+                          </div>
+                          <div class="flex items-start gap-4">
+                            <div class="mt-1 flex-shrink-0 text-primary transition-colors duration-300"><i data-lucide="check-circle-2" class="w-6 h-6"></i></div>
+                            <p class="text-gray-700 text-lg transition-colors duration-300">Focus on 21st century skills: Critical Thinking, Communication, Collaboration, Creativity</p>
+                          </div>
+                          <div class="flex items-start gap-4">
+                            <div class="mt-1 flex-shrink-0 text-primary transition-colors duration-300"><i data-lucide="check-circle-2" class="w-6 h-6"></i></div>
+                            <p class="text-gray-700 text-lg transition-colors duration-300">Safe &amp; secure environment with 24×7 CCTV &amp; GPS-enabled transport</p>
+                          </div>
+                          <div class="flex items-start gap-4">
+                            <div class="mt-1 flex-shrink-0 text-primary transition-colors duration-300"><i data-lucide="check-circle-2" class="w-6 h-6"></i></div>
+                            <p class="text-gray-700 text-lg transition-colors duration-300">Excellent student-teacher ratio (1:15)</p>
+                          </div>
+                          <div class="flex items-start gap-4">
+                            <div class="mt-1 flex-shrink-0 text-primary transition-colors duration-300"><i data-lucide="check-circle-2" class="w-6 h-6"></i></div>
+                            <p class="text-gray-700 text-lg transition-colors duration-300">Holistic development through sports, arts, music, dance &amp; theatre</p>
+                          </div>
+                          <div class="flex items-start gap-4">
+                            <div class="mt-1 flex-shrink-0 text-primary transition-colors duration-300"><i data-lucide="check-circle-2" class="w-6 h-6"></i></div>
+                            <p class="text-gray-700 text-lg transition-colors duration-300">Regular parent-teacher interaction &amp; progress tracking app</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+               </b:if>
+              </b:includable>
+            </b:widget>
+
+            <b:widget id='HTML5' title='Events Section' type='HTML' mobile='yes'>
+              <b:includable id='main'>
+               <b:if expr:cond='data:blog.url == data:blog.homepageUrl'>
+                <section class="py-24 bg-slate-50 transition-colors duration-300">
+                  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-12 gap-4">
+                      <div>
+                        <h2 class="text-primary font-bold tracking-widest uppercase text-sm mb-3 transition-colors duration-300">Calendar</h2>
+                        <h3 class="text-4xl font-heading font-extrabold text-secondary transition-colors duration-300">Upcoming Events</h3>
+                      </div>
+                      <a href="/p/events.html" class="hidden md:flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all">
+                        View All Events <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                      </a>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="dyn-events-list">
+                      <!-- Populated by JS -->
+                    </div>
+                  </div>
+                </section>
+                <script>
+                //<![CDATA[
+                  document.addEventListener('appDataLoaded', function() {
+                    var list = document.getElementById('dyn-events-list');
+                    if (!list || !window.appData.events) return;
+                    var latestEvents = window.appData.events.slice(0, 3);
+                    list.innerHTML = latestEvents.map(function(ev) {
+                      var d = new Date(ev.event_date);
+                      var dStr = d.toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
+                      var img = ev.image_url || 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=400';
+                      return '<div class="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-lg hover:shadow-xl transition-shadow group"><div class="h-48 overflow-hidden relative"><img src="' + img + '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/><div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-primary font-bold text-xs flex items-center gap-1 shadow-sm"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> ' + dStr + '</div></div><div class="p-6"><h4 class="font-bold text-slate-800 mb-2 line-clamp-1">' + ev.title + '</h4><p class="text-slate-500 text-sm line-clamp-2 mb-4">' + ev.description + '</p><a href="/p/events.html" class="text-primary text-xs font-bold uppercase tracking-wider hover:underline flex items-center gap-1">Learn More <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a></div></div>';
+                    }).join('');
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+                  });
+                //]]>
+                </script>
+               </b:if>
+              </b:includable>
+            </b:widget>
+
+            <b:widget id='HTML6' title='Grand Opening' type='HTML' mobile='yes'>
+              <b:includable id='main'>
+               <b:if expr:cond='data:blog.url == data:blog.homepageUrl'>
+                <section class="py-20 bg-gradient-to-br from-blue-900 to-blue-800 relative overflow-hidden transition-colors duration-300">
+                  <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+                    <div class="absolute -top-24 -left-24 w-96 h-96 bg-yellow-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+                    <div class="absolute top-1/2 -right-24 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" style="animation-delay:2s"></div>
+                  </div>
+                  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                    <div class="inline-flex items-center justify-center p-3 bg-yellow-400 rounded-full mb-6">
+                      <i data-lucide="sparkles" class="w-8 h-8 text-blue-900 transition-colors duration-300"></i>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6 transition-colors duration-300">
+                      You're Invited to Our <span class="text-yellow-400">Grand Opening</span>
+                    </h2>
+                    <p class="text-xl text-blue-100 max-w-2xl mx-auto mb-12 transition-colors duration-300">
+                      Join us as we open the doors to a new era of excellence in education. Experience our state-of-the-art campus and meet our visionary educators.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                      <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 text-center border border-white/20 transition-colors duration-300">
+                        <i data-lucide="calendar" class="w-10 h-10 text-yellow-400 mx-auto mb-4 transition-colors duration-300"></i>
+                        <h3 class="text-xl font-bold text-white mb-2 transition-colors duration-300">Date</h3>
+                        <p class="text-blue-100 transition-colors duration-300">Wednesday<br/>1st April 2026</p>
+                      </div>
+                      <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 text-center border border-white/20 transition-colors duration-300">
+                        <i data-lucide="clock" class="w-10 h-10 text-yellow-400 mx-auto mb-4 transition-colors duration-300"></i>
+                        <h3 class="text-xl font-bold text-white mb-2 transition-colors duration-300">Time</h3>
+                        <p class="text-blue-100 transition-colors duration-300">10:00 AM onwards<br/>Campus Tour &amp; Ceremony</p>
+                      </div>
+                      <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 text-center border border-white/20 transition-colors duration-300">
+                        <i data-lucide="map-pin" class="w-10 h-10 text-yellow-400 mx-auto mb-4 transition-colors duration-300"></i>
+                        <h3 class="text-xl font-bold text-white mb-2 transition-colors duration-300">Location</h3>
+                        <p class="text-blue-100 transition-colors duration-300">Aspire Universal Campus<br/>Bihar, India</p>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+               </b:if>
+              </b:includable>
+            </b:widget>
+
+            <b:widget id='Blog1' locked='true' type='Blog'>
+              <b:includable id='main'>
+                 <!-- Handle Homepage News -->
+                 <b:if expr:cond='data:blog.url == data:blog.homepageUrl'>
+                   <section class="py-24 bg-white dark:bg-gray-900 transition-colors duration-300">
+                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                       <div class="flex items-center justify-between mb-12">
+                          <div>
+                            <h2 class="text-4xl font-heading font-black text-gray-900 dark:text-white mb-4 transition-colors duration-300">News &amp; Events</h2>
+                            <div class="w-20 h-1.5 bg-primary rounded-full"></div>
+                          </div>
+                          <a href="/search" class="text-primary font-bold flex items-center gap-2 group">
+                            View All <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                          </a>
+                       </div>
+                       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                         <b:loop values='data:posts' var='post'>
+                           <article class="bg-gray-50 dark:bg-gray-800 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all border border-gray-100 dark:border-gray-700 group">
+                             <div class="aspect-video relative overflow-hidden">
+                                <b:if expr:cond='data:post.firstImageUrl'>
+                                  <img expr:src='data:post.firstImageUrl' class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
+                                <b:else/>
+                                  <div class="w-full h-full bg-primary/5 dark:bg-primary/10 flex items-center justify-center text-primary">
+                                    <i data-lucide="image" class="w-12 h-12"></i>
+                                  </div>
+                                </b:if>
+                                <div class="absolute top-6 left-6 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-black text-primary shadow-sm border border-transparent dark:border-gray-700 transition-colors duration-300">
+                                  <data:post.timestamp/>
+                                </div>
+                             </div>
+                             <div class="p-8">
+                               <h3 class="text-xl font-black text-gray-900 dark:text-white mb-4 line-clamp-2 min-h-[3.5rem] transition-colors duration-300">
+                                 <a expr:href='data:post.url' class="hover:text-primary transition-colors"><data:post.title/></a>
+                               </h3>
+                               <p class="text-gray-600 dark:text-gray-400 text-sm mb-8 line-clamp-3 transition-colors duration-300"><data:post.snippet/></p>
+                               <a expr:href='data:post.url' class="text-primary font-bold inline-flex items-center gap-2 group/btn">
+                                 Read More <i data-lucide="chevron-right" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform"></i>
+                               </a>
+                             </div>
+                           </article>
+                         </b:loop>
+                       </div>
+                     </div>
+                   </section>
+                 </b:if>
+
+                 <!-- Handle Internal Post/Page Layout -->
+                 <b:if expr:cond='data:blog.url != data:blog.homepageUrl'>
+                   <div class='w-full' style='padding-top:130px'>
+                    <div class='flex flex-col lg:flex-row gap-12'>
+                      <main class="flex-1 min-w-0">
+                        <b:loop values='data:posts' var='post'>
+                           <article class='w-full'>
+                             <b:if expr:cond='data:blog.pageType == "item" or data:blog.pageType == "static_page"'>
+                               <b:if cond='data:blog.pageType == "item"'>
+                                 <div class='mb-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto'>
+                                   <h1 class='text-4xl lg:text-5xl font-heading font-black text-gray-900 mb-4'><data:post.title/></h1>
+                                   <div class='w-20 h-2 bg-primary rounded-full'></div>
+                                 </div>
+                               </b:if>
+
+                              <!-- Special Page: Contact -->
+
+                                <!-- Default Post Body: full-width for static pages, contained for blog posts -->
+                               <b:if cond='data:blog.pageType == "static_page"'>
+                                 <div class='w-full text-gray-900 dark:text-gray-100 transition-colors duration-300'><data:post.body/></div>
+                               <b:else/>
+                                 <div class='bg-white dark:bg-gray-800 rounded-3xl p-8 lg:p-12 shadow-sm border border-gray-100 dark:border-gray-700 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-gray-900 dark:text-gray-100 transition-colors duration-300'><data:post.body/></div>
+                               </b:if>
+                            <b:else/>
+                              <!-- Search/Archive style -->
+                              <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-sm border border-gray-100 dark:border-gray-700 mb-8 flex flex-col md:flex-row gap-8 group transition-colors duration-300">
+                                <div class="flex-1">
+                                  <h2 class="text-2xl font-black text-gray-900 dark:text-white mt-2 mb-4 group-hover:text-primary transition-colors"><a expr:href='data:post.url'><data:post.title/></a></h2>
+                                  <p class="text-gray-600 dark:text-gray-300 line-clamp-3 transition-colors duration-300"><data:post.snippet/></p>
+                                </div>
+                              </div>
+                            </b:if>
+                          </article>
+                        </b:loop>
+                      </main>
+
+                      <!-- Sidebar: Only visible on Blog Posts (Item view) -->
+                      <b:if cond='data:view.isPost'>
+                        <aside class="w-full lg:w-80 shrink-0 space-y-8">
+                            <div class="bg-primary rounded-[2rem] p-8 text-white shadow-xl shadow-primary/30 relative overflow-hidden group">
+                                <div class="relative z-10">
+                                  <h3 class="text-2xl font-black mb-4">Admissions Open 2026-27</h3>
+                                  <a href="/p/admissions.html" class="block text-center bg-white text-primary font-bold py-4 rounded-2xl">Apply Online</a>
+                                </div>
+                            </div>
+                        </aside>
+                      </b:if>
+                    </div>
+                  </div>
+                 </b:if>
+               </b:includable>
+            </b:widget>
+
+            <b:widget id='HTML7' title='Testimonials Carousel' type='HTML' mobile='yes'>
+              <b:includable id='main'>
+               <b:if expr:cond='data:blog.url == data:blog.homepageUrl'>
+                <section class="py-24 bg-white transition-colors duration-300 overflow-hidden">
+                  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                      <h2 class="text-primary font-bold tracking-widest uppercase text-sm mb-3 transition-colors duration-300">Testimonials</h2>
+                      <h3 class="text-4xl md:text-5xl font-heading font-extrabold text-secondary transition-colors duration-300">What Parents Say</h3>
+                    </div>
+
+                    <div class="relative max-w-4xl mx-auto" id="dyn-testimonial-container">
+                      <!-- Rendered by JS -->
+                    </div>
+                  </div>
+                </section>
+                <script>
+                //<![CDATA[
+                  document.addEventListener('appDataLoaded', function() {
+                    var container = document.getElementById('dyn-testimonial-container');
+                    if (!container || !window.appData.testimonials || window.appData.testimonials.length === 0) return;
+                    
+                    var testimonials = window.appData.testimonials;
+                    var currentIndex = 0;
+                    
+                    var renderTestimonial = function(index) {
+                      var t = testimonials[index];
+                      var starsHtml = '';
+                      for (var i = 0; i < t.rating; i++) {
+                        starsHtml += '<i data-lucide="star" class="w-5 h-5 fill-current border-none"></i>'; // Lucide native fill is tough, let's use standard star
+                      }
+                      
+                      var html = '<div class="bg-slate-50 rounded-3xl p-8 md:p-12 shadow-xl border border-slate-100 flex flex-col items-center text-center animate-fade-in"><div class="bg-primary/10 p-4 rounded-full mb-8"><i data-lucide="quote" class="w-8 h-8 text-primary"></i></div><div class="flex gap-1 text-yellow-400 mb-6">' + starsHtml + '</div><p class="text-xl md:text-2xl text-slate-700 leading-relaxed italic mb-10">&quot;' + t.content + '&quot;</p><div class="flex items-center gap-4"><div class="w-16 h-16 rounded-full overflow-hidden border-4 border-white shadow-md"><img src="' + (t.image_url || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(t.name)) + '" alt="' + t.name + '" class="w-full h-full object-cover"/></div><div class="text-left"><h4 class="font-bold text-slate-900 text-lg">' + t.name + '</h4><p class="text-primary text-sm font-semibold uppercase tracking-wider">' + t.role + '</p></div></div></div>';
+                      
+                      // Controls
+                      html += '<div class="flex justify-center gap-4 mt-12"><button id="test-prev" class="p-3 rounded-full bg-white shadow-md border border-slate-100 text-slate-400 hover:text-primary hover:border-primary transition-all"><i data-lucide="chevron-left" class="w-6 h-6"></i></button><div class="flex items-center gap-2">';
+                      for (var j = 0; j < testimonials.length; j++) {
+                        var active = j === index ? 'w-8 bg-primary' : 'w-2 bg-slate-200';
+                        html += '<button data-index="' + j + '" class="h-2 rounded-full transition-all test-dot ' + active + '"></button>';
+                      }
+                      html += '</div><button id="test-next" class="p-3 rounded-full bg-white shadow-md border border-slate-100 text-slate-400 hover:text-primary hover:border-primary transition-all"><i data-lucide="chevron-right" class="w-6 h-6"></i></button></div>';
+                      
+                      container.innerHTML = html;
+                      if (typeof lucide !== 'undefined') lucide.createIcons();
+                      
+                      document.getElementById('test-prev').addEventListener('click', function() {
+                        currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+                        renderTestimonial(currentIndex);
+                        resetTimer();
+                      });
+                      document.getElementById('test-next').addEventListener('click', function() {
+                        currentIndex = (currentIndex + 1) % testimonials.length;
+                        renderTestimonial(currentIndex);
+                        resetTimer();
+                      });
+                      document.querySelectorAll('.test-dot').forEach(function(dot) {
+                        dot.addEventListener('click', function(e) {
+                          currentIndex = parseInt(e.target.getAttribute('data-index'));
+                          renderTestimonial(currentIndex);
+                          resetTimer();
+                        });
+                      });
+                    };
+                    
+                    renderTestimonial(0);
+                    
+                    var timer;
+                    var resetTimer = function() {
+                      clearInterval(timer);
+                      timer = setInterval(function() {
+                        currentIndex = (currentIndex + 1) % testimonials.length;
+                        renderTestimonial(currentIndex);
+                      }, 5000);
+                    };
+                    resetTimer();
+                  });
+                //]]>
+                </script>
+               </b:if>
+              </b:includable>
+            </b:widget>
+
+            <b:widget id='HTML8' title='Call to Action' type='HTML' mobile='yes'>
+              <b:includable id='main'>
+               <b:if expr:cond='data:blog.url == data:blog.homepageUrl'>
+                <section class="py-20 bg-white transition-colors duration-300">
+                  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-blue-900 rounded-3xl overflow-hidden shadow-2xl relative">
+                      <div class="absolute inset-0 opacity-20">
+                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=2000&amp;q=80" alt="Students background" class="w-full h-full object-cover" referrerpolicy="no-referrer"/>
+                      </div>
+                      <div class="relative px-8 py-16 md:py-20 lg:px-16 flex flex-col items-center text-center">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Be Part of Our Founding Batch!</h2>
+                        <p class="text-xl text-blue-100 mb-10 max-w-2xl">Admissions are now open for our inaugural academic year 2026-2027. Join the Aspire Universal community and give your child the best start in life.</p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                          <a href="/p/admissions.html" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold rounded-full text-blue-900 bg-yellow-400 hover:bg-yellow-300 transition-colors">Apply Now <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i></a>
+                          <a href="/p/about.html" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold rounded-full text-white border-2 border-white hover:bg-white hover:text-blue-900 transition-colors">Learn More</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+               </b:if>
+              </b:includable>
+            </b:widget>
+
+            <b:widget id='Blog2' locked='true' title='Blog Posts' type='Blog'>
+              <b:includable id='main' var='top'>
+                <b:if expr:cond='data:view.isError'>
+                  <div class="min-h-[60vh] flex flex-col items-center justify-center text-center pt-40 pb-20">
+                     <h1 class="text-6xl font-black text-gray-300 mb-4">404</h1>
+                     <p class="text-xl text-gray-500 font-medium max-w-md">This page does not exist. Please check the URL or go back to the homepage.</p>
+                     <a href="/" class="mt-8 bg-primary text-white px-8 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition-transform">Return Home</a>
+                  </div>
+                <b:else/>
+                  <b:if expr:cond='data:view.isHomepage == false'>
+                    <div class="page-content-wrapper min-h-[60vh] pt-32 pb-10 w-full max-w-[1800px] mx-auto">
+                      <b:loop values='data:posts' var='post'>
+                        <div class="post-body">
+                          <data:post.body/>
+                        </div>
+                      </b:loop>
+                    </div>
+                  </b:if>
+                </b:if>
+              </b:includable>
+            </b:widget>
+
+    </b:section>
+        <!-- Footer -->
+        <footer class="bg-[#0B1120] text-gray-300 w-screen relative left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] overflow-hidden border-t border-gray-900 mt-auto">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl -z-10"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10 w-full">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                    <!-- Column 1: About -->
+                    <div class="lg:col-span-1 flex flex-col">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white font-black text-2xl shadow-lg shadow-primary/20">A</div>
+                            <span class="text-2xl font-heading font-black tracking-tight text-white">Aspire School</span>
+                        </div>
+                        <p class="text-gray-400 leading-relaxed text-sm mb-8 flex-1">Nurturing curiosity, character, and competence in every student. Join us in shaping the leaders of tomorrow.</p>
+                        <div class="flex gap-3" id="dyn-footer-social"></div>
+                    </div>
+
+                    <!-- Column 2: Links -->
+                    <div class="lg:col-span-1 lg:pl-8">
+                      <h4 class="text-white text-lg font-black mb-6 border-l-4 border-primary pl-3">Quick Links</h4>
+                      <ul class="space-y-3 font-medium text-sm">
+                        <li><a href="/" class="hover:text-primary hover:translate-x-1 inline-flex items-center gap-2 transition-transform"><i data-lucide="chevron-right" class="w-4 h-4 text-primary"></i> Home</a></li>
+                        <li><a href="/p/about.html" class="hover:text-primary hover:translate-x-1 inline-flex items-center gap-2 transition-transform"><i data-lucide="chevron-right" class="w-4 h-4 text-primary"></i> About Us</a></li>
+                        <li><a href="/p/academics.html" class="hover:text-primary hover:translate-x-1 inline-flex items-center gap-2 transition-transform"><i data-lucide="chevron-right" class="w-4 h-4 text-primary"></i> Academics</a></li>
+                        <li><a href="/p/admissions.html" class="hover:text-primary hover:translate-x-1 inline-flex items-center gap-2 transition-transform"><i data-lucide="chevron-right" class="w-4 h-4 text-primary"></i> Admissions</a></li>
+                        <li><a href="/p/events.html" class="hover:text-primary hover:translate-x-1 inline-flex items-center gap-2 transition-transform"><i data-lucide="chevron-right" class="w-4 h-4 text-primary"></i> Events</a></li>
+                      </ul>
+                    </div>
+
+                    <!-- Column 3: Contact Info -->
+                    <div class="lg:col-span-1">
+                      <h4 class="text-white text-lg font-black mb-6 border-l-4 border-primary pl-3">Contact Us</h4>
+                      <ul class="space-y-5 text-sm">
+                        <li class="flex items-start gap-4">
+                          <div class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-primary shrink-0 mt-0.5">
+                            <i data-lucide="map-pin" class="w-5 h-5"></i>
+                          </div>
+                          <div>
+                            <p class="text-gray-300 leading-snug" id="dyn-footer-address">Radha Krishana Colony<br/>Pakari, Patna, 800002</p>
+                          </div>
+                        </li>
+                        <li class="flex items-center gap-4">
+                          <div class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-primary shrink-0">
+                            <i data-lucide="phone" class="w-5 h-5"></i>
+                          </div>
+                          <div>
+                            <a href="tel:+919431867366" class="hover:text-white transition-colors font-medium" id="dyn-footer-phone">+91 9431867366</a>
+                          </div>
+                        </li>
+                        <li class="flex items-center gap-4">
+                          <div class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-primary shrink-0">
+                            <i data-lucide="mail" class="w-5 h-5"></i>
+                          </div>
+                          <div class="break-all">
+                            <a href="mailto:info@aspireuniversalinternational.com" class="hover:text-white transition-colors" id="dyn-footer-email">info@aspireuniversal...</a>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <!-- Column 4: Google Map -->
+                    <div class="lg:col-span-1 flex flex-col h-full">
+                      <h4 class="text-white text-lg font-black mb-6 border-l-4 border-primary pl-3">Find Us</h4>
+                      <div class="w-full h-48 md:h-full bg-white/5 rounded-2xl overflow-hidden shadow-lg border border-white/10 relative p-1 group">
+                         <div class="w-full h-full rounded-xl overflow-hidden relative z-10 bg-gray-900">
+                            <iframe src="https://maps.google.com/maps?q=25.5730133,85.1166571&amp;z=17&amp;hl=en&amp;output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="absolute inset-0 w-full h-full grayscale-[50%] contrast-125 group-hover:grayscale-0 transition-all duration-700"></iframe>
+                         </div>
+                      </div>
+                    </div>
+                </div>
+
+                <!-- Copyright Bar -->
+                <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-gray-500 text-sm font-medium">&#169; 2026 Aspire Universal International School. All rights reserved.</p>
+                    <div class="flex gap-6 text-sm font-medium text-gray-400">
+                      <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                      <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+        //<![CDATA[
+          document.addEventListener('appDataLoaded', function() {
+            var s = window.appData.settings;
+            if (s.school_address) document.getElementById('dyn-footer-address').innerText = s.school_address;
+            if (s.school_phone) {
+              document.getElementById('dyn-footer-phone').innerText = s.school_phone;
+              document.getElementById('dyn-footer-phone').href = 'tel:' + s.school_phone;
+            }
+            if (s.school_email) {
+              document.getElementById('dyn-footer-email').innerText = s.school_email;
+              document.getElementById('dyn-footer-email').href = 'mailto:' + s.school_email;
+            }
+            
+            var social = document.getElementById('dyn-footer-social');
+            var links = [
+              { icon: 'facebook', url: s.social_facebook },
+              { icon: 'instagram', url: s.social_instagram },
+              { icon: 'twitter', url: s.social_twitter },
+              { icon: 'youtube', url: s.social_youtube }
+            ];
+            social.innerHTML = links.filter(function(l) { return l.url; }).map(function(l) {
+              return '<a href="' + l.url + '" class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-all transform hover:-translate-y-1"><i data-lucide="' + l.icon + '" class="w-5 h-5"></i></a>';
+            }).join('');
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+          });
+        //]]>
+        </script>
+
+    <script>
+    //<![CDATA[
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    //]]>
+    </script>
+  </div>
+</body>
+</html>

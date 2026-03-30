@@ -21,7 +21,7 @@ export default function GrandOpening() {
           >
             <Sparkles className="w-8 h-8 text-blue-900" />
           </motion.div>
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -30,7 +30,7 @@ export default function GrandOpening() {
           >
             You're Invited to Our <span className="text-yellow-400">Grand Opening</span>
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -42,7 +42,7 @@ export default function GrandOpening() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -51,10 +51,10 @@ export default function GrandOpening() {
           >
             <Calendar className="w-10 h-10 text-yellow-400 mx-auto mb-4" />
             <h3 className="text-xl font-bold text-white mb-2">Date</h3>
-            <p className="text-blue-100">Wednesday<br/>1st April 2026</p>
+            <p className="text-blue-100">Will be announced soon<br />-- : -- : --</p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -63,10 +63,10 @@ export default function GrandOpening() {
           >
             <Clock className="w-10 h-10 text-yellow-400 mx-auto mb-4" />
             <h3 className="text-xl font-bold text-white mb-2">Time</h3>
-            <p className="text-blue-100">10:00 AM onwards<br/>Campus Tour & Ceremony</p>
+            <p className="text-blue-100">10:00 AM onwards<br />Campus Tour & Ceremony</p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -75,7 +75,7 @@ export default function GrandOpening() {
           >
             <MapPin className="w-10 h-10 text-yellow-400 mx-auto mb-4" />
             <h3 className="text-xl font-bold text-white mb-2">Location</h3>
-            <p className="text-blue-100">Aspire Universal Campus<br/>Bihar, India</p>
+            <p className="text-blue-100">Aspire Universal Campus<br />Bihar, India</p>
           </motion.div>
         </div>
       </div>

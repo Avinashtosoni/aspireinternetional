@@ -1,0 +1,1443 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:responsive='true' b:version='2' class='v2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+    <meta charset='UTF-8'/>
+    <meta content='width=device-width, initial-scale=1, shrink-to-fit=no' name='viewport'/>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'/>
+
+    <!-- Dynamic SEO Title -->
+    <b:if cond='data:blog.pageType == &quot;index&quot;'>
+        <title>CrossVerification — India's Trusted Fact-Checking Platform</title>
+    </b:if>
+    <b:if cond='data:blog.pageType == &quot;item&quot;'>
+        <title><data:blog.pageName/> — CrossVerification</title>
+    </b:if>
+    <b:if cond='data:blog.pageType == &quot;static_page&quot;'>
+        <title><data:blog.pageName/> | CrossVerification</title>
+    </b:if>
+    <b:if cond='data:blog.pageType == &quot;archive&quot;'>
+        <title>Archive | CrossVerification — Fact Checks &amp; News</title>
+    </b:if>
+
+    <!-- Meta Description -->
+    <b:if cond='not data:blog.metaDescription'>
+        <b:if cond='data:blog.pageType == &quot;index&quot;'>
+            <meta name='description' content='CrossVerification is India&#39;s trusted platform for fact-checking viral news, government schemes, job alerts, fake WhatsApp forwards, and online scams.'/>
+        </b:if>
+        <b:if cond='data:blog.pageType == &quot;item&quot;'>
+            <meta expr:content='data:blog.pageName + &quot; — Read the full fact-check on CrossVerification. Verify Before You Believe.&quot;' name='description'/>
+        </b:if>
+        <b:if cond='data:blog.pageType == &quot;static_page&quot;'>
+            <meta expr:content='data:blog.pageName + &quot; — CrossVerification | India&#39;s Digital Truth Platform&quot;' name='description'/>
+        </b:if>
+    </b:if>
+
+    <!-- Google Site Verification Placeholder -->
+    <!-- <meta name="google-site-verification" content="ADD_TAG_HERE" /> -->
+
+    <!-- SEO Keywords (Optional) -->
+    <meta name='keywords' content='fact check India, fake news India, CrossVerification, verify before you believe, government scheme verification, job alert verification, online scam alert, viral news fact check, WhatsApp forward fact check'/>
+
+    <!-- Robots -->
+    <meta name='robots' content='index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'/>
+
+    <!-- Canonical URL -->
+    <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
+
+    <!-- Language & Geo Targeting -->
+    <meta name='language' content='Hindi, English'/>
+    <meta name='geo.region' content='IN'/>
+    <meta name='geo.placename' content='India'/>
+    <meta name='content-language' content='hi, en'/>
+
+    <!-- Open Graph (Facebook / WhatsApp Sharing) -->
+    <meta property='og:site_name' content='CrossVerification'/>
+    <meta property='og:locale' content='en_IN'/>
+    <meta expr:property='&quot;og:url&quot;' expr:content='data:blog.canonicalUrl'/>
+    <b:if cond='data:blog.pageType == &quot;index&quot;'>
+        <meta property='og:type' content='website'/>
+        <meta property='og:title' content='CrossVerification — India&#39;s Trusted Fact-Checking Platform'/>
+        <meta property='og:description' content='Verify Before You Believe. India&#39;s trusted platform for fact-checking viral news, government schemes, job alerts, and online scam detection.'/>
+        <meta property='og:image' content='https://placehold.co/1200x630/5C5C99/FFFFFF?text=CrossVerification'/>
+    </b:if>
+    <b:if cond='data:blog.pageType == &quot;item&quot;'>
+        <meta property='og:type' content='article'/>
+        <meta expr:property='&quot;og:title&quot;' expr:content='data:blog.pageName'/>
+        <meta expr:property='&quot;og:description&quot;' expr:content='data:blog.metaDescription ? data:blog.metaDescription : data:blog.pageName + &quot; — Full fact-check report on CrossVerification&quot;'/>
+        <b:if cond='data:blog.postImageUrl'>
+            <meta expr:content='data:blog.postImageUrl' property='og:image'/>
+        <b:else/>
+            <meta property='og:image' content='https://placehold.co/1200x630/5C5C99/FFFFFF?text=CrossVerification'/>
+        </b:if>
+    </b:if>
+
+    <!-- Twitter Card -->
+    <meta name='twitter:card' content='summary_large_image'/>
+    <meta name='twitter:site' content='@crossverify_in'/>
+    <b:if cond='data:blog.pageType == &quot;index&quot;'>
+        <meta name='twitter:title' content='CrossVerification — India&#39;s Trusted Fact-Checking Platform'/>
+        <meta name='twitter:description' content='India&#39;s trusted fact-checking platform. Verify viral news, fake WhatsApp forwards, government schemes &amp; online scams.'/>
+        <meta name='twitter:image' content='https://placehold.co/1200x630/5C5C99/FFFFFF?text=CrossVerification'/>
+    </b:if>
+    <b:if cond='data:blog.pageType == &quot;item&quot;'>
+        <meta expr:content='data:blog.pageName' name='twitter:title'/>
+        <meta expr:content='data:blog.metaDescription ? data:blog.metaDescription : data:blog.pageName + &quot; — Fact check report by CrossVerification&quot;' name='twitter:description'/>
+        <b:if cond='data:blog.postImageUrl'>
+            <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
+        <b:else/>
+            <meta name='twitter:image' content='https://placehold.co/1200x630/5C5C99/FFFFFF?text=CrossVerification'/>
+        </b:if>
+    </b:if>
+
+    <!-- Theme Color (Mobile Browser) -->
+    <meta name='theme-color' content='#5C5C99'/>
+    <meta name='msapplication-navbutton-color' content='#5C5C99'/>
+    <meta name='apple-mobile-web-app-status-bar-style' content='#5C5C99'/>
+    <meta name='apple-mobile-web-app-capable' content='yes'/>
+
+    <!-- Author & Publisher -->
+    <meta name='author' content='CrossVerification Team'/>
+    <meta name='publisher' content='CrossVerification'/>
+    <meta name='copyright' content='CrossVerification 2025-2026'/>
+    <link href='https://crossverification.in' rel='publisher'/>
+
+    <link rel='preconnect' href='https://fonts.googleapis.com'/>
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin='anonymous'/>
+    <link rel='preconnect' href='https://unpkg.com'/>
+    <link rel='dns-prefetch' href='https://cdn.tailwindcss.com'/>
+
+    <!-- JSON-LD Structured Data -->
+    <b:if cond='data:blog.pageType == &quot;index&quot;'>
+        <script type='application/ld+json'>
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "CrossVerification",
+          "url": "https://crossverification.in",
+          "logo": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjuX1M4HbPqapFHOhT3toOlIe6EyPSwffnmuOJJ2t9rzt-WR8k_ws5R1xLUuoYxaPs2vAWklNel03cMdVowTb8eafYRwa9jR0lBDvv3h6l3dTJxWxwt-s6QXYyN6-TlRamUvqLDKjzS7HPjlO16J8FoCxIAFluwu9Js2zbYwmJrdgWPS9kyKXhigBlnASU/s180/cross%20Verification%20icon%201.png",
+          "description": "India's trusted fact-checking and verification platform. We verify viral news, fake news, and online scams.",
+          "sameAs": [],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "email": "contact@crossverification.in",
+            "availableLanguage": ["Hindi", "English"]
+          }
+        }
+        </script>
+        <script type='application/ld+json'>
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "CrossVerification",
+          "url": "https://crossverification.in",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://crossverification.in/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }
+        </script>
+    </b:if>
+    <b:if cond='data:blog.pageType == &quot;item&quot;'>
+        <!-- NewsArticle schema wrapper to avoid parsing errors with unescaped names -->
+        &lt;script type=&#39;application/ld+json&#39;&gt;
+        {
+          &quot;@context&quot;: &quot;https://schema.org&quot;,
+          &quot;@type&quot;: &quot;NewsArticle&quot;,
+          &quot;mainEntityOfPage&quot;: {
+            &quot;@type&quot;: &quot;WebPage&quot;,
+            &quot;@id&quot;: &quot;<data:blog.canonicalUrl/>&quot;
+          },
+          &quot;headline&quot;: &quot;<data:blog.pageName/>&quot;,
+          &quot;image&quot;: &quot;<b:if cond='data:blog.postImageUrl'><data:blog.postImageUrl/><b:else/>https://placehold.co/1200x630/5C5C99/FFFFFF?text=CrossVerification</b:if>&quot;,
+          &quot;author&quot;: {
+            &quot;@type&quot;: &quot;Organization&quot;,
+            &quot;name&quot;: &quot;CrossVerification Team&quot;,
+            &quot;url&quot;: &quot;https://crossverification.in&quot;
+          },
+          &quot;publisher&quot;: {
+            &quot;@type&quot;: &quot;Organization&quot;,
+            &quot;name&quot;: &quot;CrossVerification&quot;,
+            &quot;logo&quot;: {
+              &quot;@type&quot;: &quot;ImageObject&quot;,
+              &quot;url&quot;: &quot;https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjuX1M4HbPqapFHOhT3toOlIe6EyPSwffnmuOJJ2t9rzt-WR8k_ws5R1xLUuoYxaPs2vAWklNel03cMdVowTb8eafYRwa9jR0lBDvv3h6l3dTJxWxwt-s6QXYyN6-TlRamUvqLDKjzS7HPjlO16J8FoCxIAFluwu9Js2zbYwmJrdgWPS9kyKXhigBlnASU/s180/cross%20Verification%20icon%201.png&quot;
+            }
+          }
+        }
+        &lt;/script&gt;
+    </b:if>
+
+    <b:include data='blog' name='all-head-content'/>
+    
+    <!-- Dark Mode Init Script (Prevents FOUC) -->
+    <script>
+      (function() {
+        try {
+          var localTheme = localStorage.getItem('theme');
+          var sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (localTheme === 'dark' || (!localTheme &amp;&amp; sysDark)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    
+    <script src='https://cdn.tailwindcss.com?plugins=typography'/>
+    <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: &#39;#5C5C99&#39;,
+              primary_dark: &#39;#292966&#39;,
+              secondary: &#39;#A3A3CC&#39;,
+              accent: &#39;#CCCCFF&#39;,
+              light: &#39;#F8F9FF&#39;,
+              dark: &#39;#1F1F35&#39;,
+              gray: &#39;#666666&#39;,
+            },
+            verdict: {
+              true: &#39;#16A34A&#39;,
+              fake: &#39;#DC2626&#39;,
+              misleading: &#39;#EA580C&#39;,
+            }
+          },
+          fontFamily: {
+            sans: [&#39;Inter&#39;, &#39;sans-serif&#39;],
+            heading: [&#39;Poppins&#39;, &#39;sans-serif&#39;],
+          }
+        }
+      }
+    }
+    </script>
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@400;500;600;700;800&amp;display=swap' rel='stylesheet'/>
+    <script src='https://unpkg.com/lucide@latest'/>
+    <b:skin><![CDATA[
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #F8F9FF; color: #1F1F35; min-height: 100vh; }
+    ::selection { background: rgba(92,92,153,0.2); color: #1F1F35; }
+    #navbar-iframe { display: none !important; }
+    .widget h2.title { display: none !important; }
+    .status-msg-wrap { display: none !important; }
+    .blog-pager { display: none !important; }
+    .post-body img { max-width: 100%; height: auto; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+    .post-body { font-size: 1.1rem; line-height: 1.9; color: #4a4a4a; }
+    .post-body h2 { font-family: 'Poppins', sans-serif; font-weight: 700; color: #1F1F35; margin: 2rem 0 1rem; font-size: 1.5rem; }
+    .post-body h3 { font-family: 'Poppins', sans-serif; font-weight: 600; color: #292966; margin: 1.5rem 0 0.75rem; font-size: 1.25rem; }
+    .post-body a { color: #5C5C99; font-weight: 600; text-decoration: underline; text-decoration-color: rgba(92,92,153,0.3); text-underline-offset: 3px; transition: all 0.2s; }
+    .post-body a:hover { color: #292966; text-decoration-color: #292966; }
+    .post-body blockquote { border-left: 4px solid #5C5C99; background: #F8F9FF; padding: 1rem 1.5rem; border-radius: 0 12px 12px 0; margin: 1.5rem 0; font-style: italic; color: #4b5563; }
+    .post-body ul, .post-body ol { padding-left: 1.5rem; margin: 1rem 0; }
+    .post-body li { margin-bottom: 0.5rem; }
+    .post-body table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; border-radius: 12px; overflow: hidden; }
+    .post-body th { background: #292966; color: #fff; padding: 0.75rem 1rem; font-weight: 600; text-align: left; }
+    .post-body td { padding: 0.75rem 1rem; border-bottom: 1px solid #E2E8F0; }
+    .post-body tr:hover td { background: #F8F9FF; }
+    .post-content { width: 100%; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #F0F2FF; }
+    ::-webkit-scrollbar-thumb { background: #5C5C99; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #292966; }
+    .comments > h4, .comments-content > h4, .comments-title { display: none !important; }
+    .comment-block { background: #ffffff; border: 1px solid rgba(92,92,153,0.1); border-radius: 1.25rem; padding: 1.5rem; margin-bottom: 1.5rem; position: relative; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+    .comment-block:hover { transform: translateY(-3px); box-shadow: 0 20px 25px -5px rgba(92,92,153,0.1); border-color: rgba(92,92,153,0.4); background: linear-gradient(to bottom right, #ffffff, #F8F9FF); }
+    .comment-header { display: grid; grid-template-areas: "avatar user" "avatar date"; grid-template-columns: max-content 1fr; column-gap: 1.25rem; row-gap: 0.2rem; margin-bottom: 1rem; align-items: center; }
+    .avatar-image-container { grid-area: avatar; width: 3.25rem; height: 3.25rem; border-radius: 50%; overflow: hidden; background-color: #F8F9FF; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235C5C99'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E"); background-position: center bottom; background-repeat: no-repeat; background-size: 70%; border: 2px solid #ffffff; box-shadow: 0 0 0 2px rgba(92,92,153,0.1); flex-shrink: 0; }
+    .avatar-image-container img { width: 100%; height: 100%; object-fit: cover; }
+    .user { grid-area: user; display: flex; flex-direction: column; align-self: end; }
+    .user a, .user { color: #1F1F35 !important; font-weight: 700 !important; font-size: 1rem; font-family: 'Inter', sans-serif; text-decoration: none; font-style: normal; line-height: 1.2; }
+    .datetime { grid-area: date; font-size: 0.75rem; color: #A3A3CC !important; font-weight: 500; align-self: start; font-style: normal; }
+    .datetime a { color: inherit; text-decoration: none; }
+    .datetime a:hover { color: #5C5C99; }
+    .comment-content { color: #4b5563; line-height: 1.6; font-size: 1rem; padding-left: 0; margin-top: 0.5rem; }
+    .comment-actions { display: flex; gap: 0.75rem; margin-top: 1.25rem; padding-left: 4.5rem; opacity: 0.8; transition: opacity 0.2s; }
+    .comment-block:hover .comment-actions { opacity: 1; }
+    .comment-actions a { display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #5C5C99 !important; text-decoration: none; transition: all 0.2s; background: rgba(92,92,153,0.08); padding: 0.5rem 1rem; border-radius: 9999px; }
+    .comment-actions a:hover { background: #5C5C99; color: #ffffff !important; transform: translateY(-1px); box-shadow: 0 4px 6px -1px rgba(92,92,153,0.2); }
+    .comment-thread .comment-thread { margin-left: 0; margin-top: 1rem; padding-left: 4.5rem; }
+    @media (max-width: 640px) { .comment-thread .comment-thread { padding-left: 1rem; border-left: 2px solid #CCCCFF; } .comment-content, .comment-actions { padding-left: 0; } }
+    .iframe-controls { display: none; }
+    #comment-editor { background: #ffffff; border-radius: 1.5rem; padding: 0.5rem; margin-top: 2rem; box-shadow: inset 0 2px 4px 0 rgba(0,0,0,0.05); border: 1px solid #E5E7EB; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+    .ticker-wrap { overflow: hidden; width: 100%; }
+    .ticker-content { display: inline-block; white-space: nowrap; animation: ticker 30s linear infinite; }
+    .ticker-content:hover { animation-play-state: paused; }
+    @keyframes ticker-fast { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+    .ticker-fast { display: inline-block; white-space: nowrap; animation: ticker-fast 25s linear infinite; }
+    .ticker-fast:hover { animation-play-state: paused; }
+    .ticker-title { color: #fff; text-decoration: none; font-weight: 600; transition: opacity 0.2s; }
+    .ticker-title:hover { opacity: 0.8; }
+    .ticker-title:visited { color: #d4d4ff; }
+    .ticker-readmore { color: #EF4444; font-weight: 800; text-decoration: none; }
+    .ticker-readmore:visited { color: #16A34A; }
+    .ticker-readmore:hover { opacity: 0.85; }
+    
+    /* System Dark Mode Overrides */
+    .dark body { background: #0F172A; color: #F8F9FF; }
+    .dark ::selection { background: rgba(129,140,248,0.3); color: #ffffff; }
+    .dark .post-body { color: #cbd5e1; }
+    .dark .post-body h2 { color: #f8fafc; }
+    .dark .post-body h3 { color: #e2e8f0; }
+    .dark .post-body a { color: #818cf8; text-decoration-color: rgba(129,140,248,0.3); }
+    .dark .post-body a:hover { color: #a5b4fc; text-decoration-color: #a5b4fc; }
+    .dark .post-body blockquote { background: #1e293b; color: #cbd5e1; border-left-color: #818cf8; }
+    .dark .post-body th { background: #1e293b; color: #f8fafc; border-bottom: 1px solid #334155; }
+    .dark .post-body td { border-bottom: 1px solid #334155; }
+    .dark .post-body tr:hover td { background: #0f172a; }
+    .dark .comment-block { background: #1e293b; border-color: #334155; box-shadow: none; }
+    .dark .comment-block:hover { background: #1e293b; border-color: #475569; }
+    .dark .avatar-image-container { background-color: #0f172a; border-color: #1e293b; }
+    .dark .user a, .dark .user { color: #f8fafc !important; }
+    .dark .comment-content { color: #cbd5e1; }
+    .dark #comment-editor { background: #1e293b; border-color: #334155; }
+    #cookiechoices, .cookie-choices-info { display: none !important; }
+    ]]></b:skin>
+</head>
+
+<body>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var url = window.location.href;
+        if (url.indexOf('?m=1') != -1 || url.indexOf('&amp;m=1') != -1) {
+             var newUrl = url.replace('m=1', 'm=0');
+             window.location.href = newUrl;
+        }
+        /* ]]> */
+    </script>
+
+    <!-- Navbar -->
+    <header class='fixed w-full z-50 shadow-md font-sans'>
+        <!-- Top Bar -->
+        <div class='bg-brand-primary text-white text-[13px] py-2.5 px-4 font-medium relative z-50'>
+            <div class='w-full max-w-[1800px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-2'>
+                <div class='flex items-center gap-4 flex-1 mr-4 overflow-hidden'>
+                    <span class='hidden sm:inline border-r border-white/30 pr-4 whitespace-nowrap font-bold'>🛡️ India&apos;s Digital Truth Platform</span>
+                    <div class='flex items-center gap-3 overflow-hidden flex-1 bg-white/10 rounded px-2 py-0.5 max-w-lg'>
+                        <span class='bg-brand-accent text-brand-dark px-2 py-0.5 rounded text-[9px] uppercase font-bold tracking-wider shrink-0 animate-pulse'>Latest</span>
+                        <div class='ticker-wrap'>
+                            <span id='topBarTicker' class='ticker-content text-white/95 text-xs font-medium tracking-wide'>Loading latest posts...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class='flex items-center gap-5 shrink-0'>
+                    <span class='hidden md:flex items-center gap-1.5 font-bold'>
+                        <i class='w-3.5 h-3.5 fill-current' data-lucide='shield-check'/> Trusted Source
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <div class='bg-white dark:bg-brand-dark relative z-40 border-b border-gray-100 dark:border-white/5'>
+            <div class='w-full max-w-[1800px] mx-auto px-4 sm:px-6'>
+                <div class='flex justify-between items-center h-20'>
+                    <!-- Logo -->
+                    <a class='flex items-center gap-3 group' href='/'>
+                        <img alt='Cross Varification Logo' class='h-14 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-md' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjuX1M4HbPqapFHOhT3toOlIe6EyPSwffnmuOJJ2t9rzt-WR8k_ws5R1xLUuoYxaPs2vAWklNel03cMdVowTb8eafYRwa9jR0lBDvv3h6l3dTJxWxwt-s6QXYyN6-TlRamUvqLDKjzS7HPjlO16J8FoCxIAFluwu9Js2zbYwmJrdgWPS9kyKXhigBlnASU/s180/cross%20Verification%20icon%201.png'/>
+                         <div class='leading-tight'>
+                            <h1 class='text-brand-primary font-bold text-2xl heading group-hover:text-brand-primary_dark transition-colors'>Cross Varification</h1>
+                            <p class='text-[10px] text-gray-500 font-bold tracking-[0.2em] uppercase'>Verify Before You Believe</p>
+                        </div>
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button class='lg:hidden p-2 text-gray-600 hover:text-brand-primary focus:outline-none' onclick='toggleMobileMenu()'>
+                        <i class='w-8 h-8' data-lucide='menu'/>
+                    </button>
+
+                    <!-- Navigation -->
+                    <div class='hidden lg:flex items-center gap-8'>
+                        <nav class='flex items-center gap-8'>
+                            <a class='font-bold text-[13px] uppercase tracking-wide text-gray-600 dark:text-gray-300 hover:text-brand-primary dark:hover:text-brand-accent transition-colors relative after:content-[&apos;&apos;] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-brand-primary after:transition-all hover:after:w-full' href='/'>Home</a>
+                            <a class='font-bold text-[13px] uppercase tracking-wide text-gray-600 dark:text-gray-300 hover:text-brand-primary dark:hover:text-brand-accent transition-colors relative after:content-[&apos;&apos;] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-brand-primary after:transition-all hover:after:w-full' href='/search/label/Fact%20Check'>Fact Check</a>
+                            <a class='font-bold text-[13px] uppercase tracking-wide text-gray-600 dark:text-gray-300 hover:text-brand-primary dark:hover:text-brand-accent transition-colors relative after:content-[&apos;&apos;] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-brand-primary after:transition-all hover:after:w-full' href='/search/label/Govt%20Schemes'>Govt Schemes</a>
+                            <a class='font-bold text-[13px] uppercase tracking-wide text-gray-600 dark:text-gray-300 hover:text-brand-primary dark:hover:text-brand-accent transition-colors relative after:content-[&apos;&apos;] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-brand-primary after:transition-all hover:after:w-full' href='/search/label/Job%20Alerts'>Job Alerts</a>
+                            <a class='font-bold text-[13px] uppercase tracking-wide text-gray-600 dark:text-gray-300 hover:text-brand-primary dark:hover:text-brand-accent transition-colors relative after:content-[&apos;&apos;] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-brand-primary after:transition-all hover:after:w-full' href='/search/label/Scam%20Alert'>Scam Alert</a>
+                            <a class='font-bold text-[13px] uppercase tracking-wide text-gray-600 dark:text-gray-300 hover:text-brand-primary dark:hover:text-brand-accent transition-colors relative after:content-[&apos;&apos;] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-brand-primary after:transition-all hover:after:w-full' href='/p/blog.html'>Blogs</a>
+                            <a class='font-bold text-[13px] uppercase tracking-wide text-gray-600 dark:text-gray-300 hover:text-brand-primary dark:hover:text-brand-accent transition-colors relative after:content-[&apos;&apos;] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-brand-primary after:transition-all hover:after:w-full' href='https://docs.google.com/forms/d/e/1FAIpQLSd2IV6_x3k9H4l6ojpa6_-9K3aamxNDVxYRmW8fvOa0BsQfwg/viewform'>Contact</a>
+                        </nav>
+                        
+                        <!-- Theme Toggle Button -->
+                        <button id="themeToggle" class="w-10 h-10 flex flex-shrink-0 items-center justify-center rounded-full bg-gray-100 dark:bg-[#1F1F35] text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#292966] transition-colors focus:outline-none border border-transparent dark:border-white/10" aria-label="Toggle Dark Mode">
+                            <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                            <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                        </button>
+
+                        <a class='bg-brand-primary text-white px-6 py-2.5 rounded shadow-lg shadow-brand-primary/30 font-bold text-xs uppercase tracking-wide hover:bg-brand-primary_dark hover:-translate-y-0.5 transition-all' href='https://docs.google.com/forms/d/e/1FAIpQLSddDS7OVE8XX69tJVkH-pGQnx1U4SUFD22YKT1LUGkAY-N7Dw/viewform?usp=dialog'>
+                            Submit a Claim
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div class='hidden lg:hidden bg-white border-t border-gray-100 absolute left-0 right-0 top-20 shadow-xl py-4 px-6 flex flex-col gap-4 z-40' id='mobileMenu'>
+                    <a class='font-bold text-gray-600 hover:text-brand-primary py-2 border-b border-gray-50' href='/'>Home</a>
+                    <a class='font-bold text-gray-600 hover:text-brand-primary py-2 border-b border-gray-50' href='/search/label/Fact%20Check'>Fact Check</a>
+                    <a class='font-bold text-gray-600 hover:text-brand-primary py-2 border-b border-gray-50' href='/search/label/Govt%20Schemes'>Govt Schemes</a>
+                    <a class='font-bold text-gray-600 hover:text-brand-primary py-2 border-b border-gray-50' href='/search/label/Job%20Alerts'>Job Alerts</a>
+                    <a class='font-bold text-gray-600 hover:text-brand-primary py-2 border-b border-gray-50' href='/search/label/Scam%20Alert'>Scam Alert</a>
+                    <a class='font-bold text-gray-600 hover:text-brand-primary py-2 border-b border-gray-50' href='/p/blog.html'>Blogs</a>
+                    <a class='font-bold text-gray-600 hover:text-brand-primary py-2 border-b border-gray-50' href='https://docs.google.com/forms/d/e/1FAIpQLSd2IV6_x3k9H4l6ojpa6_-9K3aamxNDVxYRmW8fvOa0BsQfwg/viewform'>Contact</a>
+                    <a class='bg-brand-primary text-white w-full py-3 rounded font-bold uppercase tracking-wide hover:bg-brand-primary_dark transition-colors shadow-lg text-center' href='https://docs.google.com/forms/d/e/1FAIpQLSddDS7OVE8XX69tJVkH-pGQnx1U4SUFD22YKT1LUGkAY-N7Dw/viewform?usp=dialog'>Submit a Claim</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breaking News Ticker -->
+        <div class='bg-brand-dark text-white py-2 border-t border-white/10'>
+            <div class='w-full max-w-[1800px] mx-auto px-4 sm:px-6 flex items-center gap-3'>
+                <span class='bg-red-600 text-white px-3 py-0.5 rounded text-[10px] uppercase font-extrabold tracking-wider shrink-0 animate-pulse'>Breaking</span>
+                <div class='w-px h-4 bg-white/20 shrink-0'/>
+                <div class='ticker-wrap'>
+                    <span id='breakingTicker' class='ticker-fast text-[13px] font-medium tracking-wide'>Loading breaking news...</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div style='padding-top: 165px;'>
+
+        <!-- HOMEPAGE WIDGETS -->
+        <b:if cond='data:blog.url == data:blog.homepageUrl'>
+            <b:section class='main' id='home-widgets' mobile='yes' showaddelement='yes'>
+              <b:widget id='HTML1' locked='false' mobile='yes' title='Hero' type='HTML'>
+                <b:widget-settings>
+                  <b:widget-setting name='content'><![CDATA[<div class="w-full bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-transparent">
+                <!-- Hero Grid -->
+                <div class="max-w-[1400px] mx-auto px-4 sm:px-6 py-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <!-- Featured Story Container -->
+                        <div id="featuredStoryContainer" class="lg:col-span-7 relative rounded-2xl overflow-hidden group cursor-pointer bg-brand-dark min-h-[420px]" style="background:linear-gradient(135deg,#1F1F35 0%,#292966 100%)">
+                            <!-- Populated by JS -->
+                            <div class="absolute inset-0 flex items-center justify-center"><div class="animate-spin rounded-full h-10 w-10 border-b-2 border-white"></div></div>
+                        </div>
+                        <!-- Sidebar Stories Container -->
+                        <div id="sidebarStoriesContainer" class="lg:col-span-5 flex flex-col gap-4">
+                           <!-- Populated by JS -->
+                           <div class="h-32 bg-gray-100 dark:bg-white/5 rounded-2xl animate-pulse"></div>
+                           <div class="h-32 bg-gray-100 dark:bg-white/5 rounded-2xl animate-pulse"></div>
+                           <div class="h-32 bg-gray-100 dark:bg-white/5 rounded-2xl animate-pulse"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Fetch the 4 latest posts for the hero section
+                fetch('/feeds/posts/default?alt=json&max-results=4')
+                    .then(response => {
+                        if(!response.ok) throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(data => {
+                        const entries = data.feed.entry;
+                        if (!entries || entries.length === 0) {
+                            document.getElementById('featuredStoryContainer').innerHTML = '<div class="absolute inset-0 flex items-center justify-center text-white/50">No recent posts found.</div>';
+                            document.getElementById('sidebarStoriesContainer').innerHTML = '';
+                            return;
+                        }
+                        
+                        const featuredPost = entries[0];
+                        const sidebarPosts = entries.slice(1, 4);
+                        
+                        // Parse Featured Post
+                        let fTitle = featuredPost.title ? featuredPost.title.$t : 'Latest Post';
+                        let fLinkObj = featuredPost.link ? featuredPost.link.find(l => l.rel === 'alternate') : null;
+                        let fLink = fLinkObj ? fLinkObj.href : '#';
+                        let fDate = featuredPost.published ? new Date(featuredPost.published.$t).toLocaleDateString('en-US', { day: 'numeric', month: 'short' }) : '';
+                        let fAuthor = (featuredPost.author && featuredPost.author.length > 0 && featuredPost.author[0].name) ? featuredPost.author[0].name.$t : 'CrossVerification';
+                        let fImg = (featuredPost.media$thumbnail && featuredPost.media$thumbnail.url) ? featuredPost.media$thumbnail.url.replace('s72-c', 'w800-h600-c').replace('s72-w', 'w800-h600-c') : 'https://placehold.co/800x600/292966/ffffff?text=CrossVerification';
+                        
+                        // Handle labels for badge
+                        let fLabel = 'Update';
+                        let badgeHtml = '';
+                        if(featuredPost.category && featuredPost.category.length > 0) {
+                            fLabel = featuredPost.category[0].term;
+                            
+                            // Determine Verdict Badge
+                            let labellower = fLabel.toLowerCase();
+                            if(labellower.includes('fake') || labellower.includes('scam')) {
+                                badgeHtml = `<div class="absolute top-6 right-6 z-20 bg-red-600/90 backdrop-blur-md text-white px-4 py-2 rounded-xl shadow-2xl shadow-red-500/30 flex items-center gap-2 font-bold text-sm"><i data-lucide="x-circle" class="w-5 h-5"></i> FAKE ❌</div>`;
+                            } else if (labellower.includes('true') || labellower.includes('verified')) {
+                                badgeHtml = `<div class="absolute top-6 right-6 z-20 bg-green-600/90 backdrop-blur-md text-white px-4 py-2 rounded-xl shadow-2xl shadow-green-500/30 flex items-center gap-2 font-bold text-sm"><i data-lucide="check-circle" class="w-5 h-5"></i> TRUE ✅</div>`;
+                            } else {
+                                badgeHtml = `<div class="absolute top-6 right-6 z-20 bg-amber-500/90 backdrop-blur-md text-white px-4 py-2 rounded-xl shadow-2xl shadow-amber-500/30 flex items-center gap-2 font-bold text-sm"><i data-lucide="alert-triangle" class="w-5 h-5"></i> ALERT ⚠️</div>`;
+                            }
+                        }
+
+                        // Render Featured
+                        let featuredHtml = `
+                            <a href="${fLink}" class="block w-full h-full relative border border-gray-800 rounded-2xl overflow-hidden shadow-2xl group">
+                                <img src="${fImg}" alt="${fTitle.replace(/"/g, '&quot;')}" onerror="this.src='https://placehold.co/800x600/292966/ffffff?text=CrossVerification'" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40 group-hover:scale-105 group-hover:opacity-50 transition-all duration-700" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#1F1F35] via-[#1F1F35]/70 to-transparent z-10"></div>
+                                <div class="absolute bottom-0 left-0 right-0 p-8 z-20">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="bg-brand-primary text-white px-3 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider">${fLabel}</span>
+                                        <span class="bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-md text-[10px] font-bold">${fDate}</span>
+                                    </div>
+                                    <h2 class="text-3xl md:text-3xl font-extrabold text-white leading-tight mb-5 font-heading group-hover:text-brand-accent transition-colors drop-shadow-lg">${fTitle}</h2>
+                                    <div class="flex items-center gap-4">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white text-xs font-bold ring-2 ring-white/20"><i data-lucide="user" class="w-4 h-4"></i></div>
+                                            <span class="text-white/90 text-sm font-medium">${fAuthor}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                ${badgeHtml}
+                            </a>
+                        `;
+                        document.getElementById('featuredStoryContainer').innerHTML = featuredHtml;
+
+                        // Render Sidebar
+                        let sidebarHtml = '';
+                        sidebarPosts.forEach(post => {
+                            let title = post.title ? post.title.$t : 'News';
+                            let linkObj = post.link ? post.link.find(l => l.rel === 'alternate') : null;
+                            let link = linkObj ? linkObj.href : '#';
+                            
+                            let rawContent = (post.summary && post.summary.$t) ? post.summary.$t : ((post.content && post.content.$t) ? post.content.$t : '');
+                            let snippet = rawContent ? rawContent.replace(/<(style|script)[^>]*>[\s\S]*?<\/\1>/gi, '').replace(/(<([^>]+)>)/gi, "").trim().substring(0, 100) + '...' : '';
+                            
+                            let label = 'News';
+                            let sBadgeHtml = `<span class="bg-gray-100 text-gray-700 px-2.5 py-0.5 rounded text-[10px] font-extrabold uppercase">News</span>`;
+                            
+                            if(post.category && post.category.length > 0) {
+                                label = post.category[0].term;
+                                let labellower = label.toLowerCase();
+                                if(labellower.includes('fake') || labellower.includes('scam')) {
+                                    sBadgeHtml = `<span class="bg-red-100 text-red-700 px-2.5 py-0.5 rounded text-[10px] font-extrabold uppercase">Fake ❌</span>`;
+                                } else if (labellower.includes('true') || labellower.includes('verified')) {
+                                    sBadgeHtml = `<span class="bg-green-100 text-green-700 px-2.5 py-0.5 rounded text-[10px] font-extrabold uppercase">True ✅</span>`;
+                                } else {
+                                     sBadgeHtml = `<span class="bg-amber-100 text-amber-700 px-2.5 py-0.5 rounded text-[10px] font-extrabold uppercase">Important ⚠️</span>`;
+                                }
+                            }
+
+                            sidebarHtml += `
+                                <a href="${link}" class="bg-gray-50 rounded-2xl p-5 border border-gray-100 hover:border-brand-primary/30 hover:shadow-lg transition-all group flex-1 flex flex-col justify-center min-h-[120px]">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        ${sBadgeHtml}
+                                        <span class="text-gray-400 text-[11px] font-bold uppercase tracking-wider">${label}</span>
+                                    </div>
+                                    <h3 class="font-bold text-[16px] text-brand-dark leading-snug group-hover:text-brand-primary transition-colors mb-1.5 line-clamp-2">${title}</h3>
+                                    <p class="text-gray-500 text-[13px] line-clamp-2">${snippet}</p>
+                                </a>
+                            `;
+                        });
+                        
+                        if(sidebarHtml) {
+                            document.getElementById('sidebarStoriesContainer').innerHTML = sidebarHtml;
+                        } else {
+                            document.getElementById('sidebarStoriesContainer').innerHTML = '<div class="h-full flex items-center justify-center bg-gray-50 rounded-2xl text-gray-400 font-medium">More updates coming soon.</div>';
+                        }
+                        
+                        // Re-initialize icons for the newly injected HTML
+                        if (typeof lucide !== 'undefined') {
+                            lucide.createIcons();
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Error fetching hero posts:', err);
+                        const container = document.getElementById('featuredStoryContainer');
+                        if (container) {
+                            container.innerHTML = '<div class="absolute inset-0 flex items-center justify-center text-white/50 bg-brand-dark rounded-2xl">Unable to load featured posts. Please refresh the page.</div>';
+                        }
+                    });
+            });
+            </script>]]></b:widget-setting>
+                </b:widget-settings>
+                <b:includable id='main'>
+  <b:if cond='data:title != &quot;&quot;'>
+    <h2 class='title'><data:title/></h2>
+  </b:if>
+  <div class='widget-content'>
+    <data:content/>
+  </div>
+  <b:include name='quickedit'/>
+</b:includable>
+              </b:widget>
+              <b:widget id='HTML6' locked='false' mobile='yes' title='Categories' type='HTML'>
+                <b:widget-settings>
+                  <b:widget-setting name='content'><![CDATA[<section id="categories" class="bg-white border-b border-gray-200">
+                    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 py-5">
+                        <div class="flex items-center gap-3 overflow-x-auto pb-1 scrollbar-hide">
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider shrink-0 mr-2">Topics:</span>
+                            <a href="/search/label/Fact%20Check" class="flex items-center gap-2 bg-brand-primary/5 hover:bg-brand-primary hover:text-white text-brand-primary px-4 py-2 rounded-lg text-sm font-bold transition-all shrink-0 border border-brand-primary/10 hover:border-brand-primary"><i data-lucide="search-check" class="w-4 h-4"></i> Fact Check</a>
+                            <a href="/search/label/Fake%20News" class="flex items-center gap-2 bg-red-50 hover:bg-red-600 hover:text-white text-red-600 px-4 py-2 rounded-lg text-sm font-bold transition-all shrink-0 border border-red-100 hover:border-red-600"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Fake News</a>
+                            <a href="/search/label/Govt%20Schemes" class="flex items-center gap-2 bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-600 px-4 py-2 rounded-lg text-sm font-bold transition-all shrink-0 border border-blue-100 hover:border-blue-600"><i data-lucide="landmark" class="w-4 h-4"></i> Govt Schemes</a>
+                            <a href="/search/label/Job%20Alerts" class="flex items-center gap-2 bg-purple-50 hover:bg-purple-600 hover:text-white text-purple-600 px-4 py-2 rounded-lg text-sm font-bold transition-all shrink-0 border border-purple-100 hover:border-purple-600"><i data-lucide="briefcase" class="w-4 h-4"></i> Job Alerts</a>
+                            <a href="/search/label/Scam%20Alert" class="flex items-center gap-2 bg-amber-50 hover:bg-amber-600 hover:text-white text-amber-700 px-4 py-2 rounded-lg text-sm font-bold transition-all shrink-0 border border-amber-100 hover:border-amber-600"><i data-lucide="shield-alert" class="w-4 h-4"></i> Scam Alert</a>
+                            <a href="/search/label/Viral%20Claims" class="flex items-center gap-2 bg-cyan-50 hover:bg-cyan-600 hover:text-white text-cyan-600 px-4 py-2 rounded-lg text-sm font-bold transition-all shrink-0 border border-cyan-100 hover:border-cyan-600"><i data-lucide="share-2" class="w-4 h-4"></i> Viral Claims</a>
+                        </div>
+                    </div>
+                </section>]]></b:widget-setting>
+                </b:widget-settings>
+                <b:includable id='main'>
+  <b:if cond='data:title != &quot;&quot;'>
+    <h2 class='title'><data:title/></h2>
+  </b:if>
+  <div class='widget-content'>
+    <data:content/>
+  </div>
+  <b:include name='quickedit'/>
+</b:includable>
+              </b:widget>
+              <b:widget id='HTML4' locked='false' mobile='yes' title='FAQ' type='HTML'>
+                <b:widget-settings>
+                  <b:widget-setting name='content'><![CDATA[
+<!-- Trust Stats Strip -->
+<section class="bg-brand-dark py-6 border-b border-white/5">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="flex flex-col items-center gap-1">
+                <div class="flex items-center gap-2"><i data-lucide="shield-check" class="w-5 h-5 text-brand-accent"></i><span class="text-2xl md:text-3xl font-extrabold text-white">500+</span></div>
+                <span class="text-white/50 text-xs font-bold uppercase tracking-wider">Facts Verified</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+                <div class="flex items-center gap-2"><i data-lucide="users" class="w-5 h-5 text-brand-accent"></i><span class="text-2xl md:text-3xl font-extrabold text-white">50K+</span></div>
+                <span class="text-white/50 text-xs font-bold uppercase tracking-wider">Monthly Readers</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+                <div class="flex items-center gap-2"><i data-lucide="target" class="w-5 h-5 text-brand-accent"></i><span class="text-2xl md:text-3xl font-extrabold text-white">99%</span></div>
+                <span class="text-white/50 text-xs font-bold uppercase tracking-wider">Accuracy Rate</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+                <div class="flex items-center gap-2"><i data-lucide="clock" class="w-5 h-5 text-brand-accent"></i><span class="text-2xl md:text-3xl font-extrabold text-white">24hrs</span></div>
+                <span class="text-white/50 text-xs font-bold uppercase tracking-wider">Avg Response</span>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- How We Verify -->
+<section class="bg-white dark:bg-slate-900 border-b border-gray-100 dark:border-slate-800 py-10">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+        <div class="flex items-center gap-4 mb-6">
+            <div class="w-1.5 h-6 bg-brand-primary rounded-full"></div>
+            <h2 class="text-lg font-extrabold text-brand-dark dark:text-white uppercase tracking-tight">How We Verify</h2>
+            <div class="flex-1 h-px bg-gray-200 dark:bg-slate-700 ml-2"></div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-gray-50 dark:bg-slate-800 rounded-xl p-4 text-center border border-gray-100 dark:border-slate-700 hover:border-brand-primary/30 hover:shadow-md transition-all">
+                <div class="w-10 h-10 bg-brand-primary/10 rounded-lg flex items-center justify-center text-brand-primary mx-auto mb-3"><span class="font-extrabold text-lg">1</span></div>
+                <h4 class="font-bold text-sm text-brand-dark dark:text-gray-100 mb-1">Receive Claim</h4>
+                <p class="text-xs text-gray-500 dark:text-gray-400">We receive viral claims from readers &amp; social media</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-slate-800 rounded-xl p-4 text-center border border-gray-100 dark:border-slate-700 hover:border-brand-primary/30 hover:shadow-md transition-all">
+                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mx-auto mb-3"><span class="font-extrabold text-lg">2</span></div>
+                <h4 class="font-bold text-sm text-brand-dark dark:text-gray-100 mb-1">Investigate</h4>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Cross-check with official sources &amp; databases</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-slate-800 rounded-xl p-4 text-center border border-gray-100 dark:border-slate-700 hover:border-brand-primary/30 hover:shadow-md transition-all">
+                <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center text-amber-600 mx-auto mb-3"><span class="font-extrabold text-lg">3</span></div>
+                <h4 class="font-bold text-sm text-brand-dark dark:text-gray-100 mb-1">Gather Evidence</h4>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Collect proof from multiple credible sources</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-slate-800 rounded-xl p-4 text-center border border-gray-100 dark:border-slate-700 hover:border-brand-primary/30 hover:shadow-md transition-all">
+                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mx-auto mb-3"><span class="font-extrabold text-lg">4</span></div>
+                <h4 class="font-bold text-sm text-brand-dark dark:text-gray-100 mb-1">Publish Verdict</h4>
+                <p class="text-xs text-gray-500 dark:text-gray-400">True ✅ / Fake ❌ / Misleading ⚠️ — with full report</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Submit a Claim CTA -->
+<section class="bg-gradient-to-r from-brand-primary to-indigo-400 py-10">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-center md:text-left">
+                <h2 class="text-2xl font-extrabold text-white mb-2 font-heading">Got a Suspicious Message or News?</h2>
+                <p class="text-white/70 text-sm">Forward it to us — our team will investigate and publish the truth within 24 hours.</p>
+            </div>
+            <div class="flex items-center gap-4 shrink-0">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSddDS7OVE8XX69tJVkH-pGQnx1U4SUFD22YKT1LUGkAY-N7Dw/viewform?usp=dialog" class="bg-white text-brand-primary px-8 py-3.5 rounded-xl font-extrabold text-sm uppercase tracking-wide hover:bg-brand-accent hover:text-white transition-all shadow-xl flex items-center gap-2"><i data-lucide="send" class="w-4 h-4"></i> Submit a Claim</a>
+                <a href="https://wa.me/919XXXXXXXXX" class="bg-white/10 backdrop-blur-sm text-white border border-white/20 px-6 py-3.5 rounded-xl font-bold text-sm hover:bg-white/20 transition-all flex items-center gap-2"><i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Popular Categories Detailed -->
+<section class="bg-white dark:bg-slate-900 py-12 border-b border-gray-100 dark:border-slate-800">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+        <div class="flex items-center gap-4 mb-8">
+            <div class="w-1.5 h-6 bg-amber-500 rounded-full"></div>
+            <h2 class="text-lg font-extrabold text-brand-dark dark:text-white uppercase tracking-tight">Explore Our Categories</h2>
+            <div class="flex-1 h-px bg-gray-200 dark:bg-slate-700 ml-2"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <a href="/search/label/Fact%20Check" class="group flex gap-4 p-5 rounded-xl border border-gray-100 dark:border-slate-700 hover:border-brand-primary/30 hover:shadow-lg transition-all bg-gray-50/50 dark:bg-slate-800/80 hover:bg-white dark:hover:bg-slate-800">
+                <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center text-brand-primary shrink-0 group-hover:scale-110 transition-transform"><i data-lucide="search-check" class="w-6 h-6"></i></div>
+                <div><h3 class="font-bold text-brand-dark dark:text-white mb-1 group-hover:text-brand-primary transition-colors">Fact Check</h3><p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Verify viral claims, news stories and social media posts with evidence-based investigation.</p></div>
+            </a>
+            <a href="/search/label/Fake%20News" class="group flex gap-4 p-5 rounded-xl border border-gray-100 dark:border-slate-700 hover:border-red-500/30 hover:shadow-lg transition-all bg-gray-50/50 dark:bg-slate-800/80 hover:bg-white dark:hover:bg-slate-800">
+                <div class="w-12 h-12 bg-red-100 dark:bg-red-900/50 rounded-xl flex items-center justify-center text-red-600 shrink-0 group-hover:scale-110 transition-transform"><i data-lucide="alert-triangle" class="w-6 h-6"></i></div>
+                <div><h3 class="font-bold text-brand-dark dark:text-white mb-1 group-hover:text-red-500 transition-colors">Fake News Alert</h3><p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Identify and expose fake news, misinformation and manipulated media circulating online.</p></div>
+            </a>
+            <a href="/search/label/Govt%20Schemes" class="group flex gap-4 p-5 rounded-xl border border-gray-100 dark:border-slate-700 hover:border-blue-500/30 hover:shadow-lg transition-all bg-gray-50/50 dark:bg-slate-800/80 hover:bg-white dark:hover:bg-slate-800">
+                <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0 group-hover:scale-110 transition-transform"><i data-lucide="landmark" class="w-6 h-6"></i></div>
+                <div><h3 class="font-bold text-brand-dark dark:text-white mb-1 group-hover:text-blue-500 transition-colors">Govt Schemes</h3><p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Verify government schemes, subsidies and benefits — real or fake? We check official sources.</p></div>
+            </a>
+            <a href="/search/label/Job%20Alerts" class="group flex gap-4 p-5 rounded-xl border border-gray-100 dark:border-slate-700 hover:border-purple-500/30 hover:shadow-lg transition-all bg-gray-50/50 dark:bg-slate-800/80 hover:bg-white dark:hover:bg-slate-800">
+                <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/50 rounded-xl flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0 group-hover:scale-110 transition-transform"><i data-lucide="briefcase" class="w-6 h-6"></i></div>
+                <div><h3 class="font-bold text-brand-dark dark:text-white mb-1 group-hover:text-purple-400 transition-colors">Job Alerts</h3><p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Check if recruitment notifications and job postings are genuine or fraudulent scams.</p></div>
+            </a>
+            <a href="/search/label/Scam%20Alert" class="group flex gap-4 p-5 rounded-xl border border-gray-100 dark:border-slate-700 hover:border-amber-500/30 hover:shadow-lg transition-all bg-gray-50/50 dark:bg-slate-800/80 hover:bg-white dark:hover:bg-slate-800">
+                <div class="w-12 h-12 bg-amber-100 dark:bg-amber-900/50 rounded-xl flex items-center justify-center text-amber-600 dark:text-amber-500 shrink-0 group-hover:scale-110 transition-transform"><i data-lucide="shield-alert" class="w-6 h-6"></i></div>
+                <div><h3 class="font-bold text-brand-dark dark:text-white mb-1 group-hover:text-amber-500 transition-colors">Scam Alert</h3><p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Stay safe from online scams — fake apps, UPI fraud, phishing and investment traps exposed.</p></div>
+            </a>
+            <a href="/search/label/Viral%20Claims" class="group flex gap-4 p-5 rounded-xl border border-gray-100 dark:border-slate-700 hover:border-cyan-500/30 hover:shadow-lg transition-all bg-gray-50/50 dark:bg-slate-800/80 hover:bg-white dark:hover:bg-slate-800">
+                <div class="w-12 h-12 bg-cyan-100 dark:bg-cyan-900/50 rounded-xl flex items-center justify-center text-cyan-600 dark:text-cyan-400 shrink-0 group-hover:scale-110 transition-transform"><i data-lucide="share-2" class="w-6 h-6"></i></div>
+                <div><h3 class="font-bold text-brand-dark dark:text-white mb-1 group-hover:text-cyan-500 transition-colors">Viral Claims</h3><p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">WhatsApp forwards, YouTube videos — we verify viral social media claims with full reports.</p></div>
+            </a>
+        </div>
+    </div>
+</section>
+<!-- Why Trust Us -->
+<section class="bg-gray-50 dark:bg-brand-dark py-12 border-b border-gray-100 dark:border-slate-800">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+        <div class="flex items-center gap-4 mb-8">
+            <div class="w-1.5 h-6 bg-green-600 rounded-full"></div>
+            <h2 class="text-lg font-extrabold text-brand-dark dark:text-white uppercase tracking-tight">Why Trust CrossVerification</h2>
+            <div class="flex-1 h-px bg-gray-200 dark:bg-slate-700 ml-2"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-100 dark:border-slate-700 hover:shadow-lg transition-all text-center">
+                <div class="w-14 h-14 bg-blue-100 dark:bg-blue-900/50 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400 mx-auto mb-4"><i data-lucide="badge-check" class="w-7 h-7"></i></div>
+                <h4 class="font-bold text-brand-dark dark:text-gray-100 mb-2">Official Sources Only</h4>
+                <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">We verify claims using government websites, PIB, RTI data and trusted news agencies only.</p>
+            </div>
+            <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-100 dark:border-slate-700 hover:shadow-lg transition-all text-center">
+                <div class="w-14 h-14 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center text-brand-primary mx-auto mb-4"><i data-lucide="scale" class="w-7 h-7"></i></div>
+                <h4 class="font-bold text-brand-dark dark:text-gray-100 mb-2">Unbiased &amp; Neutral</h4>
+                <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">No political bias. We follow strict editorial guidelines to deliver objective, fact-based verdicts.</p>
+            </div>
+            <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-100 dark:border-slate-700 hover:shadow-lg transition-all text-center">
+                <div class="w-14 h-14 bg-amber-100 dark:bg-amber-900/50 rounded-xl flex items-center justify-center text-amber-600 dark:text-amber-500 mx-auto mb-4"><i data-lucide="zap" class="w-7 h-7"></i></div>
+                <h4 class="font-bold text-brand-dark dark:text-gray-100 mb-2">Fast Response</h4>
+                <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Most claims are investigated and published within 24 hours of submission.</p>
+            </div>
+            <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-100 dark:border-slate-700 hover:shadow-lg transition-all text-center">
+                <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900/50 rounded-xl flex items-center justify-center text-purple-600 dark:text-purple-400 mx-auto mb-4"><i data-lucide="users" class="w-7 h-7"></i></div>
+                <h4 class="font-bold text-brand-dark dark:text-gray-100 mb-2">Community Driven</h4>
+                <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Readers like you submit claims daily — together we fight misinformation across India.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- FAQ Compact -->
+<section class="bg-white dark:bg-slate-900 py-12 border-b border-gray-100 dark:border-slate-800">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+        <div class="flex items-center gap-4 mb-6">
+            <div class="w-1.5 h-6 bg-brand-secondary rounded-full"></div>
+            <h2 class="text-lg font-extrabold text-brand-dark dark:text-white uppercase tracking-tight">Frequently Asked Questions</h2>
+            <div class="flex-1 h-px bg-gray-200 dark:bg-slate-700 ml-2"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <details class="group bg-gray-50 dark:bg-slate-800 rounded-xl p-5 open:bg-white dark:open:bg-slate-800 open:shadow-md open:ring-1 open:ring-brand-primary/10 transition-all border border-gray-100 dark:border-slate-700">
+                <summary class="flex justify-between items-center font-bold text-sm text-brand-dark dark:text-gray-200 cursor-pointer list-none select-none">What is CrossVerification?<span class="transition group-open:rotate-180 ml-2"><i data-lucide="chevron-down" class="w-4 h-4 text-brand-primary"></i></span></summary>
+                <div class="text-gray-500 dark:text-gray-400 mt-3 text-sm leading-relaxed">CrossVerification is India's digital truth platform. We fact-check viral news, government schemes, job alerts, and expose online scams to help you verify before believing.</div>
+            </details>
+            <details class="group bg-gray-50 dark:bg-slate-800 rounded-xl p-5 open:bg-white dark:open:bg-slate-800 open:shadow-md open:ring-1 open:ring-brand-primary/10 transition-all border border-gray-100 dark:border-slate-700">
+                <summary class="flex justify-between items-center font-bold text-sm text-brand-dark dark:text-gray-200 cursor-pointer list-none select-none">How do you verify claims?<span class="transition group-open:rotate-180 ml-2"><i data-lucide="chevron-down" class="w-4 h-4 text-brand-primary"></i></span></summary>
+                <div class="text-gray-500 dark:text-gray-400 mt-3 text-sm leading-relaxed">We receive the claim, investigate using official sources (government websites, PIB, news agencies), gather evidence, and publish a verdict — True, False, or Misleading.</div>
+            </details>
+            <details class="group bg-gray-50 dark:bg-slate-800 rounded-xl p-5 open:bg-white dark:open:bg-slate-800 open:shadow-md open:ring-1 open:ring-brand-primary/10 transition-all border border-gray-100 dark:border-slate-700">
+                <summary class="flex justify-between items-center font-bold text-sm text-brand-dark dark:text-gray-200 cursor-pointer list-none select-none">Can I submit a claim?<span class="transition group-open:rotate-180 ml-2"><i data-lucide="chevron-down" class="w-4 h-4 text-brand-primary"></i></span></summary>
+                <div class="text-gray-500 dark:text-gray-400 mt-3 text-sm leading-relaxed">Yes! Forward any viral message, news story, or suspicious claim via our Submit a Claim page or WhatsApp. Our team will investigate and publish findings.</div>
+            </details>
+            <details class="group bg-gray-50 dark:bg-slate-800 rounded-xl p-5 open:bg-white dark:open:bg-slate-800 open:shadow-md open:ring-1 open:ring-brand-primary/10 transition-all border border-gray-100 dark:border-slate-700">
+                <summary class="flex justify-between items-center font-bold text-sm text-brand-dark dark:text-gray-200 cursor-pointer list-none select-none">Is CrossVerification free?<span class="transition group-open:rotate-180 ml-2"><i data-lucide="chevron-down" class="w-4 h-4 text-brand-primary"></i></span></summary>
+                <div class="text-gray-500 dark:text-gray-400 mt-3 text-sm leading-relaxed">Absolutely. All fact-check articles, scam alerts, and verification reports are completely free to read and share. Our mission — make truth accessible to everyone.</div>
+            </details>
+        </div>
+    </div>
+</section>]]></b:widget-setting>
+                </b:widget-settings>
+                <b:includable id='main'>
+  <b:if cond='data:title != &quot;&quot;'>
+    <h2 class='title'><data:title/></h2>
+  </b:if>
+  <div class='widget-content'>
+    <data:content/>
+  </div>
+  <b:include name='quickedit'/>
+</b:includable>
+              </b:widget>
+            </b:section>
+        </b:if>
+    </div>
+
+         <!-- MAIN LAYOUT -->
+         <div class='w-full max-w-[1400px] mx-auto px-4 sm:px-6 py-12 flex flex-col lg:flex-row gap-8 lg:gap-12'>
+             <main class='w-full flex-1 min-w-0'>
+                <b:section id='content' showaddelement='yes'>
+                  <b:widget id='Blog1' locked='false' title='Blog Posts' type='Blog' version='1'>
+                    <b:widget-settings>
+                      <b:widget-setting name='showDateHeader'>true</b:widget-setting>
+                      <b:widget-setting name='style.textcolor'>#ffffff</b:widget-setting>
+                      <b:widget-setting name='showShareButtons'>true</b:widget-setting>
+                      <b:widget-setting name='authorLabel'>By</b:widget-setting>
+                      <b:widget-setting name='showCommentLink'>true</b:widget-setting>
+                      <b:widget-setting name='style.urlcolor'>#ffffff</b:widget-setting>
+                      <b:widget-setting name='showAuthor'>false</b:widget-setting>
+                      <b:widget-setting name='style.linkcolor'>#ffffff</b:widget-setting>
+                      <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
+                      <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+                      <b:widget-setting name='reactionsLabel'/>
+                      <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
+                      <b:widget-setting name='style.layout'>1x1</b:widget-setting>
+                      <b:widget-setting name='showLabels'>true</b:widget-setting>
+                      <b:widget-setting name='showLocation'>true</b:widget-setting>
+                      <b:widget-setting name='showTimestamp'>true</b:widget-setting>
+                      <b:widget-setting name='postsPerAd'>3</b:widget-setting>
+                      <b:widget-setting name='showBacklinks'>false</b:widget-setting>
+                      <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
+                      <b:widget-setting name='showInlineAds'>true</b:widget-setting>
+                      <b:widget-setting name='showReactions'>false</b:widget-setting>
+                    </b:widget-settings>
+                    <b:includable id='main' var='top'>
+
+                     <!-- 1. GRID VIEW FOR INDEX -->
+                     <b:if cond='data:blog.pageType == &quot;index&quot; or data:blog.pageType == &quot;archive&quot;'>
+                         <b:if cond='data:blog.url == data:blog.homepageUrl'>
+                             <style>.blog-grid > article:nth-child(n+7) { display: none; }</style>
+                             <div class='mb-8 flex items-center gap-4'>
+                                <div class='w-1.5 h-8 bg-red-600 rounded-full'/>
+                                <h2 class='text-2xl font-extrabold text-brand-dark dark:text-white uppercase tracking-tight font-heading'>Latest Fact Checks</h2>
+                                <div class='flex-1 h-px bg-gray-200 dark:bg-slate-700 ml-2'/>
+                                <a class='text-brand-primary font-bold text-sm hover:underline shrink-0' href='/search'>View All →</a>
+                             </div>
+                         <b:else/>
+                             <div class='mb-8 flex items-center gap-4'>
+                                <div class='w-1.5 h-8 bg-brand-primary rounded-full'/>
+                                <h2 class='text-2xl font-extrabold text-brand-dark dark:text-white uppercase tracking-tight font-heading'><data:blog.pageName/></h2>
+                                <div class='flex-1 h-px bg-gray-200 dark:bg-slate-700 ml-2'/>
+                             </div>
+                         </b:if>
+                         <b:if cond='data:posts.empty'>
+                             <div class='text-center py-20 bg-gray-50 dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 flex flex-col items-center gap-4 my-8'>
+                                 <i data-lucide='search-x' class='w-12 h-12 text-gray-400'></i>
+                                 <h3 class='text-xl font-bold text-brand-dark dark:text-white'>No Posts Found</h3>
+                                 <p class='text-gray-500 dark:text-gray-400 max-w-sm'>We haven't published any posts under this specific category or label yet.</p>
+                                 <a class='text-brand-primary font-bold hover:underline mt-2 flex items-center gap-2' href='/'><i class='w-4 h-4' data-lucide='arrow-left'/> Go back home</a>
+                             </div>
+                         <b:else/>
+                             <div class='blog-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+                                     <b:loop values='data:posts' var='post'>
+                                         <article class='bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 hover:border-brand-primary/30 rounded-2xl hover:shadow-xl transition-all duration-300 group flex flex-col overflow-hidden'>
+                                             <a class='flex flex-col h-full cursor-pointer' expr:href='data:post.url'>
+                                                 <div class='w-full h-48 sm:h-52 bg-gray-100 dark:bg-slate-700 relative overflow-hidden shrink-0'>
+                                                     <b:if cond='data:post.firstImageUrl'>
+                                                         <img class='w-full h-full object-cover transition-transform duration-700 group-hover:scale-105' expr:src='data:post.firstImageUrl'/>
+                                                     <b:else/>
+                                                         <div class='w-full h-full flex items-center justify-center bg-gray-100 dark:bg-slate-700 text-gray-300 dark:text-gray-500'>
+                                                             <i class='w-12 h-12' data-lucide='image'/>
+                                                         </div>
+                                                     </b:if>
+                                                     <div class='absolute top-4 left-4 flex gap-2 z-10'>
+                                                            <span class='bg-brand-primary/90 backdrop-blur-sm text-white px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider shadow-lg'>Update</span>
+                                                     </div>
+                                                 </div>
+                                                 <div class='p-5 md:p-6 flex flex-col flex-1 bg-white dark:bg-transparent'>
+                                                     <div class='flex items-center gap-3 mb-3 text-gray-400 text-xs font-semibold'>
+                                                         <span class='flex items-center gap-1.5'><i class='w-3.5 h-3.5 text-brand-primary' data-lucide='calendar'/> <data:post.dateHeader/></span>
+                                                         <span class='w-1 h-1 rounded-full bg-gray-300 dark:bg-slate-500'/>
+                                                         <span class='flex items-center gap-1.5'><i class='w-3.5 h-3.5 text-brand-primary' data-lucide='user'/> <data:post.author/></span>
+                                                     </div>
+                                                     <h3 class='font-bold text-lg md:text-xl text-brand-dark dark:text-white leading-snug group-hover:text-brand-primary dark:group-hover:text-brand-accent transition-colors mb-3 line-clamp-2'>
+                                                         <data:post.title/>
+                                                     </h3>
+                                                     <p class='text-gray-500 dark:text-gray-400 text-sm leading-relaxed line-clamp-3 mb-4 flex-1'><data:post.snippet/></p>
+                                                     <div class='mt-auto pt-4 border-t border-gray-100 dark:border-slate-700 flex items-center justify-between'>
+                                                         <span class='text-brand-primary font-bold text-xs uppercase tracking-wide group-hover:underline flex items-center gap-1'>Read Report <i class='w-3.5 h-3.5' data-lucide='arrow-right'/></span>
+                                                     </div>
+                                                 </div>
+                                             </a>
+                                         </article>
+                                     </b:loop>
+                             </div>
+                             <div class='mt-10 flex items-center justify-center gap-3 font-sans'>
+                                 <b:if cond='data:newerPageUrl'><a class='bg-white dark:bg-slate-800 text-brand-dark dark:text-white border border-gray-200 dark:border-slate-700 px-6 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-slate-700 transition-all font-bold text-sm shadow-sm flex items-center gap-2' expr:href='data:newerPageUrl'><i class='w-4 h-4' data-lucide='arrow-left'/> Newer</a></b:if>
+                                 <b:if cond='data:olderPageUrl'><a class='bg-brand-primary text-white px-6 py-3 rounded-xl hover:bg-brand-primary_dark transition-all font-bold text-sm shadow-md flex items-center gap-2' expr:href='data:olderPageUrl'>Next Page <i class='w-4 h-4' data-lucide='arrow-right'/></a></b:if>
+                             </div>
+                         </b:if>
+                     </b:if>
+
+                     <!-- 2. STATIC PAGE VIEW -->
+                     <b:if cond='data:blog.pageType == &quot;static_page&quot;'>
+                         <b:loop values='data:posts' var='post'>
+                             <div class='w-full'><div class='post-content w-full'><data:post.body/></div></div>
+                         </b:loop>
+                     </b:if>
+
+                     <!-- 3. SINGLE POST VIEW -->
+                     <b:if cond='data:blog.pageType == &quot;item&quot;'>
+                         <b:loop values='data:posts' var='post'>
+                             <div class='w-full'>
+                                 <style>
+                                     .post-body header, .post-body h1, .post-body .meta { display: none !important; }
+                                     .post-body &gt; .separator:first-child, .post-body &gt; div:first-child img, .post-body &gt; a:first-child img, .post-body &gt; img:first-child { display: none !important; }
+                                     .post-body h2 { color: #0F172A; font-size: 1.75rem; font-weight: 800; margin-top: 2.5rem; margin-bottom: 1.25rem; line-height: 1.3; }
+                                     .post-body h3 { color: #1F2937; font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; }
+                                     .post-body p { margin-bottom: 1.5rem; color: #4B5563; font-size: 1.05rem; line-height: 1.8; }
+                                     .post-body strong { color: #111827; font-weight: 700; }
+                                     .post-body ul { margin-bottom: 1.5rem; padding-left: 1.5rem; list-style-type: disc; color: #4B5563; }
+                                     .post-body ol { margin-bottom: 1.5rem; padding-left: 1.5rem; list-style-type: decimal; color: #4B5563; }
+                                     .post-body li { margin-bottom: 0.5rem; padding-left: 0.25rem; }
+                                     .post-body blockquote { border-left: 4px solid #3b82f6; background-color: #eff6ff; padding: 1.5rem; margin: 2rem 0; border-radius: 0 0.5rem 0.5rem 0; color: #1e3a8a; font-style: italic; }
+                                     .post-body table { width: 100%; border-collapse: collapse; margin: 2rem 0; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }
+                                     .post-body th { background-color: #f9fafb; color: #111827; font-weight: 600; padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #e5e7eb; }
+                                     .post-body td { padding: 0.75rem 1rem; border-bottom: 1px solid #e5e7eb; color: #4b5563; }
+                                     html.dark .post-body h2, html.dark .post-body h3, html.dark .post-body strong, html.dark .post-body th { color: #f3f4f6; }
+                                     html.dark .post-body p, html.dark .post-body li, html.dark .post-body td { color: #d1d5db; }
+                                     html.dark .post-body blockquote { background-color: rgba(59, 130, 246, 0.1); border-left-color: #3b82f6; color: #60a5fa; }
+                                     html.dark .post-body th { background-color: #1f2937; border-bottom-color: #374151; }
+                                     html.dark .post-body td { border-bottom-color: #374151; }
+                                 </style>
+
+                                 <!-- Header Section -->
+                                 <div class='mb-8'>
+                                     <!-- Breadcrumb -->
+                                     <div class='flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-4 font-medium'>
+                                         <a class='hover:text-brand-primary transition-colors' href='/'>Home</a>
+                                         <i class='w-3.5 h-3.5' data-lucide='chevron-right'/>
+                                         <b:loop values='data:post.labels' var='label'>
+                                             <b:if cond='data:label.isLast != &quot;true&quot;'>
+                                                 <a class='hover:text-brand-primary transition-colors' expr:href='data:label.url'><data:label.name/></a>
+                                                 <i class='w-3 h-3 mx-1 text-gray-300 dark:text-slate-600' data-lucide='minus'/>
+                                             <b:else/>
+                                                 <a class='text-brand-primary hover:underline' expr:href='data:label.url'><data:label.name/></a>
+                                             </b:if>
+                                         </b:loop>
+                                     </div>
+
+                                     <!-- Title -->
+                                     <h1 class='text-3xl md:text-[2.5rem] font-black text-brand-dark dark:text-white leading-[1.2] mb-6 tracking-tight'><data:post.title/></h1>
+
+                                     <!-- Meta Info -->
+                                     <div class='flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 dark:border-slate-800 pb-6'>
+                                         <div class='flex items-center gap-4 text-sm font-semibold'>
+                                             <div class='flex items-center gap-2 bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 px-3 py-1.5 rounded-lg'>
+                                                 <i class='w-4 h-4' data-lucide='user-check'/> <data:post.author/>
+                                             </div>
+                                             <span class='text-gray-500 dark:text-gray-400 flex items-center gap-1.5'><i class='w-4 h-4' data-lucide='calendar'/> <data:post.dateHeader/></span>
+                                         </div>
+                                         <button class='text-gray-400 hover:text-red-500 transition-colors'><i class='w-5 h-5' data-lucide='heart'/></button>
+                                     </div>
+                                 </div>
+
+                                 <!-- Featured Image -->
+                                 <b:if cond='data:post.firstImageUrl'>
+                                     <div class='w-full rounded-2xl overflow-hidden mb-10 border border-gray-100 dark:border-slate-800 shadow-sm'>
+                                         <img class='w-full h-auto object-cover max-h-[500px]' expr:alt='data:post.title' expr:src='data:post.firstImageUrl'/>
+                                     </div>
+                                 </b:if>
+
+                                 <!-- Post Content -->
+                                 <article class='post-body prose prose-lg max-w-none prose-a:text-brand-primary prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-img:shadow-md'>
+                                     <data:post.body/>
+                                 </article>
+
+                                 <!-- Tags Row -->
+                                 <b:if cond='data:post.labels'>
+                                     <div class='mt-12 pt-6 border-t border-gray-100 dark:border-slate-800 mb-10'>
+                                         <div class='flex flex-wrap gap-2 items-center'>
+                                             <span class='text-sm font-bold text-gray-400 uppercase tracking-wider mr-2'>Tags:</span>
+                                             <b:loop values='data:post.labels' var='label'>
+                                                 <a class='px-3 py-1.5 bg-gray-50 hover:bg-brand-primary hover:text-white dark:bg-slate-800/50 dark:hover:bg-brand-primary text-gray-500 dark:text-gray-400 text-sm font-medium rounded-lg transition-all border border-gray-100 dark:border-slate-700' expr:href='data:label.url'>#<data:label.name/></a>
+                                             </b:loop>
+                                         </div>
+                                     </div>
+                                 </b:if>
+
+                                 <!-- Share Buttons -->
+                                 <div class='bg-gray-50 dark:bg-slate-800/50 rounded-2xl p-6 border border-gray-100 dark:border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-4'>
+                                     <span class='font-bold text-gray-700 dark:text-gray-200'>Share this post:</span>
+                                     <div class='flex items-center gap-2'>
+                                         <a class='w-10 h-10 rounded-xl bg-[#3b5998] text-white flex items-center justify-center hover:-translate-y-1 transition-transform' expr:href='&quot;https://www.facebook.com/sharer.php?u=&quot; + data:post.url' target='_blank'><i class='w-4 h-4' data-lucide='facebook'/></a>
+                                         <a class='w-10 h-10 rounded-xl bg-black text-white flex items-center justify-center hover:-translate-y-1 transition-transform' expr:href='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url + &quot;&amp;text=&quot; + data:post.title' target='_blank'><i class='w-4 h-4' data-lucide='twitter'/></a>
+                                         <a class='w-10 h-10 rounded-xl bg-[#25D366] text-white flex items-center justify-center hover:-translate-y-1 transition-transform' expr:href='&quot;https://wa.me/?text=&quot; + data:post.title + &quot; &quot; + data:post.url' target='_blank'><i class='w-4 h-4' data-lucide='message-circle'/></a>
+                                         <a class='w-10 h-10 rounded-xl bg-[#BD081C] text-white flex items-center justify-center hover:-translate-y-1 transition-transform' expr:href='&quot;https://pinterest.com/pin/create/button/?url=&quot; + data:post.url + &quot;&amp;media=&quot; + data:post.firstImageUrl' target='_blank'><i class='w-4 h-4' data-lucide='instagram'/></a>
+                                         <a class='w-10 h-10 rounded-xl bg-gray-500 text-white flex items-center justify-center hover:-translate-y-1 transition-transform' expr:href='&quot;mailto:?subject=&quot; + data:post.title + &quot;&amp;body=&quot; + data:post.url' target='_blank'><i class='w-4 h-4' data-lucide='mail'/></a>
+                                     </div>
+                                 </div>
+
+                                 <!-- You might like (Related Posts) -->
+                                 <div class='mt-12' id='related-posts-container'>
+                                     <h3 class='text-xl font-bold text-brand-dark dark:text-white mb-6'>You might like <span class='text-brand-primary text-sm font-normal ml-2'>Sponsored</span></h3>
+                                     <!-- Populated by JS to keep it dynamic -->
+                                     <div class='grid grid-cols-1 md:grid-cols-3 gap-6' id='related-posts-grid'>
+                                         <div class='h-48 bg-gray-100 dark:bg-slate-800 rounded-2xl animate-pulse'/>
+                                         <div class='h-48 bg-gray-100 dark:bg-slate-800 rounded-2xl animate-pulse hidden md:block'/>
+                                         <div class='h-48 bg-gray-100 dark:bg-slate-800 rounded-2xl animate-pulse hidden md:block'/>
+                                     </div>
+                                 </div>
+
+                                 <!-- Author Box -->
+                                 <div class='mt-12 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-6 shadow-sm'>
+                                     <img class='w-16 h-16 rounded-full ring-4 ring-gray-50 dark:ring-slate-800' src='https://placehold.co/100x100/1F1F35/ffffff?text=CV'/>
+                                     <div class='flex-1 text-center sm:text-left'>
+                                         <h4 class='font-bold text-lg text-brand-dark dark:text-white mb-1'>CrossVerification Team</h4>
+                                         <p class='text-sm text-gray-500 dark:text-gray-400 leading-relaxed'>Dedicated fact-checkers investigating viral claims and exposing digital scams to bring verifiable truth to the public sphere.</p>
+                                     </div>
+                                 </div>
+
+                                 <!-- Comments Section -->
+                                 <div class='mt-16' id='comments-section'>
+                                     <h3 class='text-2xl font-bold text-brand-dark dark:text-white mb-8'>Post a Comment</h3>
+                                     <div class='bg-gray-50 dark:bg-slate-800/30 rounded-2xl p-6 md:p-8 border border-gray-100 dark:border-slate-700/50'>
+                                        <b:if cond='data:post.allowComments'>
+                                            <b:include data='post' name='threaded_comments'/>
+                                        <b:else/>
+                                            <div class='text-center py-6 text-gray-500'>Comments are disabled.</div>
+                                        </b:if>
+                                     </div>
+                                 </div>
+                                 
+                                 <!-- Script for Related Posts -->
+                                 <script>
+                                 document.addEventListener('DOMContentLoaded', function() {
+                                     let labels = [];
+                                     <b:loop values='data:post.labels' var='label'>labels.push(&quot;<data:label.name/>&quot;);</b:loop>
+                                     
+                                     let url = '/feeds/posts/default?alt=json&amp;max-results=3';
+                                     if(labels.length &gt; 0) {
+                                         url = '/feeds/posts/default/-/' + encodeURIComponent(labels[0]) + '?alt=json&amp;max-results=4';
+                                     }
+                                     
+                                     fetch(url)
+                                     .then(r =&gt; r.json())
+                                     .then(d =&gt; {
+                                         let entries = d.feed.entry || [];
+                                         // Filter out current post
+                                         let filtered = entries.filter(e =&gt; {
+                                             let lnk = e.link.find(l =&gt; l.rel === 'alternate');
+                                             return lnk &amp;&amp; lnk.href !== &quot;<data:post.url/>&quot;;
+                                         }).slice(0, 3);
+                                         
+                                         if(filtered.length === 0) {
+                                             document.getElementById('related-posts-container').style.display = 'none';
+                                             return;
+                                         }
+                                         
+                                         let html = '';
+                                         filtered.forEach(p =&gt; {
+                                             let title = p.title.$t;
+                                             let link = p.link.find(l =&gt; l.rel === 'alternate').href;
+                                             let img = p.media$thumbnail ? p.media$thumbnail.url.replace('s72-c', 'w400-h250-c') : 'https://placehold.co/400x250/f3f4f6/1f1f35?text=Read';
+                                             html += `
+                                                 &lt;a href=&quot;${link}&quot; class=&quot;group block bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-2xl overflow-hidden hover:shadow-lg transition-all hover:border-brand-primary/30 flex flex-col&quot;&gt;
+                                                     &lt;div class=&quot;h-32 w-full overflow-hidden shrink-0&quot;&gt;
+                                                         &lt;img src=&quot;${img}&quot; class=&quot;w-full h-full object-cover group-hover:scale-105 transition-transform duration-700&quot;/&gt;
+                                                     &lt;/div&gt;
+                                                     &lt;div class=&quot;p-4 flex flex-col flex-1&quot;&gt;
+                                                         &lt;h4 class=&quot;font-bold text-sm text-brand-dark dark:text-white line-clamp-2 leading-snug group-hover:text-brand-primary transition-colors&quot;&gt;${title}&lt;/h4&gt;
+                                                         &lt;div class=&quot;mt-auto pt-3 flex items-center justify-between text-xs font-bold text-gray-400&quot;&gt;
+                                                            &lt;span class=&quot;text-brand-primary flex items-center gap-1&quot;&gt;Read &lt;i data-lucide=&quot;arrow-right&quot; class=&quot;w-3 h-3&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+                                                         &lt;/div&gt;
+                                                     &lt;/div&gt;
+                                                 &lt;/a&gt;
+                                             `;
+                                         });
+                                         document.getElementById('related-posts-grid').innerHTML = html;
+                                         if(typeof lucide !== 'undefined') lucide.createIcons();
+                                     })
+                                     .catch(e =&gt; console.error(e));
+                                 });
+                                 </script>
+                             </div>
+                         </b:loop>
+                     </b:if>
+                 </b:includable>
+                    <b:includable id='backlinkDeleteIcon' var='backlink'/>
+                    <b:includable id='backlinks' var='post'/>
+                    <b:includable id='comment-form' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <h4 id='comment-post-message'><data:postCommentMsg/></h4>
+    <p><data:blogCommentMessage/></p>
+    <data:blogTeamBlogMessage/>
+    <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+    <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>
+      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+    </script>
+  </div>
+</b:includable>
+                    <b:includable id='commentDeleteIcon' var='comment'>
+  <span expr:class='&quot;item-control &quot; + data:comment.adminClass'>
+    <b:if cond='data:showCmtPopup'>
+      <div class='goog-toggle-button'><div class='goog-inline-block comment-action-icon'/></div>
+    <b:else/>
+      <a class='comment-delete' expr:href='data:comment.deleteUrl' expr:title='data:top.deleteCommentMsg'><img src='https://resources.blogblog.com/img/icon_delete13.gif'/></a>
+    </b:if>
+  </span>
+</b:includable>
+                    <b:includable id='comment_count_picker' var='post'>
+  <a class='comment-link' expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'><data:post.commentLabelFull/>:</a>
+</b:includable>
+                    <b:includable id='comment_picker' var='post'>
+  <b:if cond='data:post.showThreadedComments'>
+    <b:include data='post' name='threaded_comments'/>
+  <b:else/>
+    <b:include data='post' name='comments'/>
+  </b:if>
+</b:includable>
+                    <b:includable id='comments' var='post'>
+  <div class='comments' id='comments'>
+    <a name='comments'/>
+    <b:if cond='data:post.allowComments'>
+      <h4><data:post.commentLabelFull/>:</h4>
+      <div expr:id='data:widget.instanceId + &quot;_comments-block-wrapper&quot;'>
+        <dl expr:class='data:post.avatarIndentClass' id='comments-block'>
+          <b:loop values='data:post.comments' var='comment'>
+            <dt expr:class='&quot;comment-author &quot; + data:comment.authorClass' expr:id='data:comment.anchorName'>
+              <a expr:name='data:comment.anchorName'/>
+              <b:if cond='data:blog.enabledCommentProfileImages'><data:comment.authorAvatarImage/></b:if>
+              <b:if cond='data:comment.authorUrl'><a expr:href='data:comment.authorUrl' rel='nofollow'><data:comment.author/></a><b:else/><data:comment.author/></b:if>
+              <data:commentPostedByMsg/>
+            </dt>
+            <dd class='comment-body' expr:id='data:widget.instanceId + data:comment.cmtBodyIdPostfix'>
+              <b:if cond='data:comment.isDeleted'><span class='deleted-comment'><data:comment.body/></span><b:else/><p><data:comment.body/></p></b:if>
+            </dd>
+            <dd class='comment-footer'>
+              <span class='comment-timestamp'><a expr:href='data:comment.url' title='comment permalink'><data:comment.timestamp/></a><b:include data='comment' name='commentDeleteIcon'/></span>
+            </dd>
+          </b:loop>
+        </dl>
+      </div>
+      <p class='comment-footer'>
+        <b:if cond='data:post.embedCommentForm'><b:if cond='data:post.allowNewComments'><b:include data='post' name='comment-form'/><b:else/><data:post.noNewCommentsText/></b:if>
+        <b:elseif cond='data:post.allowComments'/><a expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'><data:postCommentMsg/></a></b:if>
+      </p>
+    </b:if>
+  </div>
+</b:includable>
+                    <b:includable id='feedLinks'>
+  <b:if cond='data:blog.pageType != &quot;item&quot;'><b:if cond='data:feedLinks'><div class='blog-feeds'><b:include data='feedLinks' name='feedLinksBody'/></div></b:if>
+  <b:else/><div class='post-feeds'><b:loop values='data:posts' var='post'><b:include cond='data:post.allowComments and data:post.feedLinks' data='post.feedLinks' name='feedLinksBody'/></b:loop></div></b:if>
+</b:includable>
+                    <b:includable id='feedLinksBody' var='links'>
+  <div class='feed-links'><data:feedLinksMsg/><b:loop values='data:links' var='f'><a class='feed-link' expr:href='data:f.url' expr:type='data:f.mimeType' target='_blank'><data:f.name/> (<data:f.feedType/>)</a></b:loop></div>
+</b:includable>
+                    <b:includable id='iframe_comments' var='post'/>
+                    <b:includable id='mobile-index-post' var='post'/>
+                    <b:includable id='mobile-main' var='top'/>
+                    <b:includable id='mobile-nextprev'/>
+                    <b:includable id='mobile-post' var='post'/>
+                    <b:includable id='nextprev'/>
+                    <b:includable id='post' var='post'/>
+                    <b:includable id='postQuickEdit' var='post'>
+  <b:if cond='data:post.editUrl'>
+    <span expr:class='&quot;item-control &quot; + data:post.adminClass'>
+      <a expr:href='data:post.editUrl' expr:title='data:top.editPostMsg'><img alt='' class='icon-action' height='18' src='https://resources.blogblog.com/img/icon18_edit_allbkg.gif' width='18'/></a>
+    </span>
+  </b:if>
+</b:includable>
+                    <b:includable id='shareButtons' var='post'/>
+                    <b:includable id='status-message'>
+  <b:if cond='data:navMessage'><div class='status-msg-wrap'><div class='status-msg-body'><data:navMessage/></div></div><div style='clear: both;'/></b:if>
+</b:includable>
+                    <b:includable id='threaded-comment-form' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <p><data:blogCommentMessage/></p>
+    <data:blogTeamBlogMessage/>
+    <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+    <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);</script>
+  </div>
+</b:includable>
+                    <b:includable id='threaded_comment_js' var='post'>
+  <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
+  <script type='text/javascript'>
+    (function() {
+      var items = <data:post.commentJso/>;
+      var msgs = <data:post.commentMsgs/>;
+      var config = <data:post.commentConfig/>;
+// <![CDATA[
+      var cursor = null;
+      if (items && items.length > 0) { cursor = parseInt(items[items.length - 1].timestamp) + 1; }
+      var bodyFromEntry = function(entry) { var text = (entry && ((entry.content && entry.content.$t) || (entry.summary && entry.summary.$t))) || ''; if (entry && entry.gd$extendedProperty) { for (var k in entry.gd$extendedProperty) { if (entry.gd$extendedProperty[k].name == 'blogger.contentRemoved') { return '<span class="deleted-comment">' + text + '</span>'; } } } return text; }
+      var parse = function(data) { cursor = null; var comments = []; if (data && data.feed && data.feed.entry) { for (var i = 0, entry; entry = data.feed.entry[i]; i++) { var comment = {}; var id = /blog-(\d+).post-(\d+)/.exec(entry.id.$t); comment.id = id ? id[2] : null; comment.body = bodyFromEntry(entry); comment.timestamp = Date.parse(entry.published.$t) + ''; if (entry.author && entry.author.constructor === Array) { var auth = entry.author[0]; if (auth) { comment.author = { name: (auth.name ? auth.name.$t : undefined), profileUrl: (auth.uri ? auth.uri.$t : undefined), avatarUrl: (auth.gd$image ? auth.gd$image.src : undefined) }; } } if (entry.link) { if (entry.link[2]) { comment.link = comment.permalink = entry.link[2].href; } if (entry.link[3]) { var pid = /.*comments\/default\/(\d+)\?.*/.exec(entry.link[3].href); if (pid && pid[1]) { comment.parentId = pid[1]; } } } comment.deleteclass = 'item-control blog-admin'; if (entry.gd$extendedProperty) { for (var k in entry.gd$extendedProperty) { if (entry.gd$extendedProperty[k].name == 'blogger.itemClass') { comment.deleteclass += ' ' + entry.gd$extendedProperty[k].value; } else if (entry.gd$extendedProperty[k].name == 'blogger.displayTime') { comment.displayTime = entry.gd$extendedProperty[k].value; } } } comments.push(comment); } } return comments; };
+      var paginator = function(callback) { if (hasMore()) { var url = config.feed + '?alt=json&v=2&orderby=published&reverse=false&max-results=50'; if (cursor) { url += '&published-min=' + new Date(cursor).toISOString(); } window.bloggercomments = function(data) { var parsed = parse(data); cursor = parsed.length < 50 ? null : parseInt(parsed[parsed.length - 1].timestamp) + 1; callback(parsed); window.bloggercomments = null; }; url += '&callback=bloggercomments'; var script = document.createElement('script'); script.type = 'text/javascript'; script.src = url; document.getElementsByTagName('head')[0].appendChild(script); } };
+      var hasMore = function() { return !!cursor; };
+      var getMeta = function(key, comment) { if ('iswriter' == key) { return (!!comment.author && comment.author.name == config.authorName && comment.author.profileUrl == config.authorUrl) ? 'true' : ''; } else if ('deletelink' == key) { return config.baseUri + '/comment/delete/' + config.blogId + '/' + comment.id; } else if ('deleteclass' == key) { return comment.deleteclass; } return ''; };
+      var replybox = null; var replyUrlParts = null; var replyParent = undefined;
+      var onReply = function(commentId, domId) { if (replybox == null) { replybox = document.getElementById('comment-editor'); if (replybox != null) { replybox.height = '250px'; replybox.style.display = 'block'; replyUrlParts = replybox.src.split('#'); } } if (replybox && (commentId !== replyParent)) { replybox.src = ''; document.getElementById(domId).insertBefore(replybox, null); replybox.src = replyUrlParts[0] + (commentId ? '&parentID=' + commentId : '') + '#' + replyUrlParts[1]; replyParent = commentId; } };
+      var hash = (window.location.hash || '#').substring(1); var startThread, targetComment;
+      if (/^comment-form_/.test(hash)) { startThread = hash.substring('comment-form_'.length); } else if (/^c[0-9]+$/.test(hash)) { targetComment = hash.substring(1); }
+      var configJso = { 'maxDepth': config.maxThreadDepth };
+      var provider = { 'id': config.postId, 'data': items, 'loadNext': paginator, 'hasMore': hasMore, 'getMeta': getMeta, 'onReply': onReply, 'rendered': true, 'initComment': targetComment, 'initReplyThread': startThread, 'config': configJso, 'messages': msgs };
+      var render = function() { if (window.goog && window.goog.comments) { var holder = document.getElementById('comment-holder'); window.goog.comments.render(holder, provider); } };
+      if (window.goog && window.goog.comments) { render(); } else { window.goog = window.goog || {}; window.goog.comments = window.goog.comments || {}; window.goog.comments.loadQueue = window.goog.comments.loadQueue || []; window.goog.comments.loadQueue.push(render); }
+    })();
+// ]]>
+  </script>
+</b:includable>
+                    <b:includable id='threaded_comments' var='post'>
+  <div class='comments' id='comments'>
+    <a name='comments'/>
+    <h4><data:post.commentLabelFull/>:</h4>
+    <div class='comments-content'>
+      <b:include cond='data:post.embedCommentForm' data='post' name='threaded_comment_js'/>
+      <div id='comment-holder'><data:post.commentHtml/></div>
+    </div>
+    <p class='comment-footer'>
+      <b:if cond='data:post.allowNewComments'><b:include data='post' name='threaded-comment-form'/><b:else/><data:post.noNewCommentsText/></b:if>
+    </p>
+  </div>
+</b:includable>
+                  </b:widget>
+                </b:section>
+             </main>
+             
+             <!-- RIGHT SIDEBAR (Only for Post Items) -->
+             <b:if cond='data:blog.pageType == &quot;item&quot;'>
+                 <aside class='w-full lg:w-[320px] shrink-0 lg:sticky lg:top-32 self-start flex flex-col gap-6'>
+                     
+                     <!-- Submit Claim Box -->
+                     <div class='bg-white dark:bg-slate-900 rounded-2xl p-6 border border-gray-100 dark:border-slate-800 shadow-sm flex flex-col items-center text-center'>
+                         <span class='text-2xl font-black text-brand-dark dark:text-white mb-1'>Free</span>
+                         <span class='text-green-500 text-xs font-bold bg-green-50 dark:bg-green-500/10 px-2 py-0.5 rounded flex items-center gap-1 mb-4'><i data-lucide='check' class='w-3 h-3'/> verified</span>
+                         <a class='w-full bg-[#ff4d4f] hover:bg-red-600 text-white font-bold py-3 px-4 rounded-xl flex justify-center items-center gap-2 transition-colors shadow-md shadow-red-500/20' href='mailto:report@crossverification.in'>
+                             <i class='w-4 h-4' data-lucide='alert-triangle'/> Submit a Report
+                         </a>
+                         <p class='text-gray-400 text-xs mt-4'>Report suspicious claims securely.</p>
+                     </div>
+
+                     <!-- Follow Us Widget -->
+                     <div class='bg-white dark:bg-slate-900 rounded-2xl p-6 border border-gray-100 dark:border-slate-800 shadow-sm'>
+                         <h3 class='font-bold text-lg mb-4 text-brand-dark dark:text-white pb-2 border-b border-gray-100 dark:border-slate-800'>Follow Us</h3>
+                         <div class='grid grid-cols-2 gap-3'>
+                             <a class='bg-[#3b5998] hover:bg-[#2d4373] text-white flex justify-center py-2.5 rounded-xl transition-colors' href='#'><i class='w-5 h-5' data-lucide='facebook'/></a>
+                             <a class='bg-black hover:bg-gray-800 text-white flex justify-center py-2.5 rounded-xl transition-colors' href='#'><i class='w-5 h-5' data-lucide='twitter'/></a>
+                             <a class='bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] hover:opacity-90 text-white flex justify-center py-2.5 rounded-xl transition-opacity' href='#'><i class='w-5 h-5' data-lucide='instagram'/></a>
+                             <a class='bg-[#0088cc] hover:bg-[#0077b3] text-white flex justify-center py-2.5 rounded-xl transition-colors' href='#'><i class='w-5 h-5' data-lucide='send'/></a>
+                         </div>
+                     </div>
+
+                     <!-- Trending Section (Sidebar) -->
+                     <div class='bg-white dark:bg-slate-900 rounded-2xl p-6 border border-gray-100 dark:border-slate-800 shadow-sm' id='sidebar-trending-container'>
+                         <h3 class='font-bold text-lg mb-4 text-brand-dark dark:text-white pb-2 border-b border-gray-100 dark:border-slate-800'>Trending</h3>
+                         <div class='flex flex-col gap-4' id='sidebar-trending-list'>
+                             <div class='h-16 bg-gray-100 dark:bg-slate-800 rounded-xl animate-pulse'/>
+                             <div class='h-16 bg-gray-100 dark:bg-slate-800 rounded-xl animate-pulse'/>
+                         </div>
+                     </div>
+                     
+                     <!-- Script for Sidebar Trending -->
+                     <script>
+                     document.addEventListener('DOMContentLoaded', function() {
+                         fetch('/feeds/posts/default?alt=json&amp;max-results=3')
+                         .then(r =&gt; r.json())
+                         .then(d =&gt; {
+                             let entries = d.feed.entry || [];
+                             let html = '';
+                             entries.forEach(p =&gt; {
+                                 let title = p.title.$t;
+                                 let link = p.link.find(l =&gt; l.rel === 'alternate').href;
+                                 let img = p.media$thumbnail ? p.media$thumbnail.url.replace('s72-c', 'w150-h150-c') : 'https://placehold.co/150/f3f4f6/1f1f35?text=News';
+                                 html += `
+                                     &lt;a href=&quot;${link}&quot; class=&quot;group flex gap-3 items-center&quot;&gt;
+                                         &lt;div class=&quot;w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-gray-100 border border-gray-100 dark:border-slate-700&quot;&gt;
+                                             &lt;img src=&quot;${img}&quot; class=&quot;w-full h-full object-cover group-hover:scale-110 transition-transform duration-500&quot;/&gt;
+                                         &lt;/div&gt;
+                                         &lt;div class=&quot;flex-1&quot;&gt;
+                                             &lt;h4 class=&quot;font-bold text-sm text-brand-dark dark:text-white line-clamp-2 leading-snug group-hover:text-brand-primary transition-colors&quot;&gt;${title}&lt;/h4&gt;
+                                         &lt;/div&gt;
+                                     &lt;/a&gt;
+                                 `;
+                             });
+                             document.getElementById('sidebar-trending-list').innerHTML = html;
+                         })
+                         .catch(e =&gt; console.error(e));
+                     });
+                     </script>
+                     
+                     <!-- Categories -->
+                     <div class='bg-white dark:bg-slate-900 rounded-2xl p-6 border border-gray-100 dark:border-slate-800 shadow-sm'>
+                         <h3 class='font-bold text-lg mb-4 text-brand-dark dark:text-white pb-2 border-b border-gray-100 dark:border-slate-800'>Categories</h3>
+                         <ul class='flex flex-col gap-2 text-sm font-medium text-gray-500 dark:text-gray-400'>
+                             <li class='flex items-center justify-between group'><a class='group-hover:text-brand-primary transition-colors' href='/search/label/Fact%20Check'>Fact Check</a><span class='text-xs bg-gray-50 dark:bg-slate-800 border border-gray-100 dark:border-slate-700 px-2 py-0.5 rounded text-gray-400'>+</span></li>
+                             <li class='flex items-center justify-between group'><a class='group-hover:text-brand-primary transition-colors' href='/search/label/Fake%20News'>Fake News</a><span class='text-xs bg-gray-50 dark:bg-slate-800 border border-gray-100 dark:border-slate-700 px-2 py-0.5 rounded text-gray-400'>+</span></li>
+                             <li class='flex items-center justify-between group'><a class='group-hover:text-brand-primary transition-colors' href='/search/label/Scam%20Alert'>Scam Alert</a><span class='text-xs bg-gray-50 dark:bg-slate-800 border border-gray-100 dark:border-slate-700 px-2 py-0.5 rounded text-gray-400'>+</span></li>
+                         </ul>
+                     </div>
+
+                 </aside>
+             </b:if>
+         </div>
+
+        <!-- FOOTER -->
+        <b:section class='footer' id='footer-section' mobile='yes' showaddelement='yes'>
+          <b:widget id='HTML8' locked='false' mobile='yes' title='Footer' type='HTML'>
+            <b:widget-settings>
+              <b:widget-setting name='content'><![CDATA[<footer class="bg-[#1F1F35] text-white pt-20 pb-8 border-t border-white/5 font-sans">
+                <div class="w-full max-w-[1800px] mx-auto px-4 sm:px-6 mb-16">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
+                        <div class="lg:col-span-4">
+                            <h3 class="font-bold text-2xl mb-6 flex items-center gap-3">
+                                <span class="w-10 h-10 bg-brand-primary rounded-xl flex items-center justify-center text-white text-sm shadow-lg shadow-brand-primary/20">CV</span>
+                                CrossVerification
+                            </h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-8 max-w-sm">India's trusted fact-checking and verification platform. We investigate viral claims, expose fake news, and help you verify before you believe.</p>
+                            <div class="flex items-center gap-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/5 hover:bg-brand-primary flex items-center justify-center transition-all text-gray-400 hover:text-white"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/5 hover:bg-brand-primary flex items-center justify-center transition-all text-gray-400 hover:text-white"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/5 hover:bg-brand-primary flex items-center justify-center transition-all text-gray-400 hover:text-white"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-2">
+                            <h4 class="text-lg font-bold mb-6 text-white border-b-2 border-brand-primary inline-block pb-1">Categories</h4>
+                            <ul class="space-y-4 text-sm text-gray-400">
+                                <li><a href="/search/label/Fact%20Check" class="hover:text-brand-primary transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Fact Check</a></li>
+                                <li><a href="/search/label/Fake%20News" class="hover:text-brand-primary transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Fake News</a></li>
+                                <li><a href="/search/label/Govt%20Schemes" class="hover:text-brand-primary transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Govt Schemes</a></li>
+                                <li><a href="/search/label/Job%20Alerts" class="hover:text-brand-primary transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Job Alerts</a></li>
+                                <li><a href="/search/label/Scam%20Alert" class="hover:text-brand-primary transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Scam Alert</a></li>
+                            </ul>
+                        </div>
+                        <div class="lg:col-span-2">
+                            <h4 class="text-lg font-bold mb-6 text-white border-b-2 border-brand-primary inline-block pb-1">Pages</h4>
+                            <ul class="space-y-4 text-sm text-gray-400">
+                                <li><a href="/" class="hover:text-brand-primary transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Home</a></li>
+                                <li><a href="/p/about.html" class="hover:text-brand-primary transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> About Us</a></li>
+                                <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSd2IV6_x3k9H4l6ojpa6_-9K3aamxNDVxYRmW8fvOa0BsQfwg/viewform" class="hover:text-brand-primary transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Contact</a></li>
+                                <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSddDS7OVE8XX69tJVkH-pGQnx1U4SUFD22YKT1LUGkAY-N7Dw/viewform?usp=dialog" class="hover:text-brand-primary transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Submit Claim</a></li>
+                            </ul>
+                        </div>
+                        <div class="lg:col-span-2">
+                            <h4 class="text-lg font-bold mb-6 text-white border-b-2 border-brand-primary inline-block pb-1">Legal</h4>
+                            <ul class="space-y-4 text-sm text-gray-400">
+                                <li><a href="/p/privacy-policy.html" class="hover:text-brand-primary transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Privacy Policy</a></li>
+                                <li><a href="/p/terms.html" class="hover:text-brand-primary transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Terms of Service</a></li>
+                                <li><a href="/p/disclaimer.html" class="hover:text-brand-primary transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Disclaimer</a></li>
+                                <li><a href="/p/editorial-policy.html" class="hover:text-brand-primary transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Editorial Policy</a></li>
+                            </ul>
+                        </div>
+                        <div class="lg:col-span-2">
+                            <h4 class="text-lg font-bold mb-6 text-white border-b-2 border-brand-primary inline-block pb-1">Contact</h4>
+                            <ul class="space-y-4 text-sm text-gray-400">
+                                <li class="flex gap-3"><i data-lucide="mail" class="w-5 h-5 text-brand-primary shrink-0"></i><span>contact@crossverification.in</span></li>
+                                <li class="flex gap-3"><i data-lucide="globe" class="w-5 h-5 text-brand-primary shrink-0"></i><span>crossverification.in</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-white/5 pt-8">
+                    <div class="w-full max-w-[1800px] mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-xs text-gray-500">
+                        <div class="hidden md:block"></div>
+                        <p class="text-center">Made With Love By <a href="https://www.digitalcomrade.in"><strong class="text-white">Digital Comrade</strong></a> © 2026 <strong class="text-white">CrossVerification</strong>. All rights reserved. Verify Before You Believe.</p>
+                        <div class="flex items-center justify-center md:justify-end gap-6">
+                            <a href="#" class="hover:text-white transition-colors">Sitemap</a>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-brand-primary text-white p-3 rounded-full shadow-lg hover:bg-brand-primary_dark transition-all z-50"><i data-lucide="arrow-up" class="w-5 h-5"></i></button>
+            </footer>]]></b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+  <b:if cond='data:title != &quot;&quot;'>
+    <h2 class='title'><data:title/></h2>
+  </b:if>
+  <div class='widget-content'>
+    <data:content/>
+  </div>
+  <b:include name='quickedit'/>
+</b:includable>
+          </b:widget>
+        </b:section>
+
+    <!-- Scripts -->
+    <script>
+    //<![CDATA[
+    window.addEventListener('load', function() {
+        if(window.lucide) { lucide.createIcons(); }
+        loadTopBarTicker();
+        loadBreakingTicker();
+    });
+    function toggleMobileMenu() {
+        var menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('hidden');
+    }
+    // Top Bar Ticker — Latest 5 posts with Read More links
+    function loadTopBarTicker() {
+        var el = document.getElementById('topBarTicker');
+        if(!el) return;
+        fetch('/feeds/posts/default?alt=json&max-results=5')
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+            if(!data.feed || !data.feed.entry) return;
+            var items = data.feed.entry.map(function(e){
+                var title = e.title.$t;
+                var link = '';
+                for(var i=0;i<e.link.length;i++){if(e.link[i].rel=='alternate'){link=e.link[i].href;break;}}
+                return '📰 <a href="'+link+'" class="ticker-title">' + title + '</a> — <a href="'+link+'" class="ticker-readmore">Read More →</a>';
+            });
+            el.innerHTML = items.join('  |  ');
+        })
+        .catch(function(){
+            el.textContent = 'Verify Before You Believe — Fact Check, Fake News Alert, Government Scheme Verification, Job Alert Verification & Online Scam Detection.';
+        });
+    }
+    // Breaking Ticker — Category-specific posts (Fact Check, Fake News, Scam Alert)
+    function loadBreakingTicker() {
+        var el = document.getElementById('breakingTicker');
+        if(!el) return;
+        var labels = ['Fact Check','Fake News','Scam Alert','Govt Schemes'];
+        var labelIcons = {'Fact Check':'🔍','Fake News':'⚠️','Scam Alert':'🛡️','Govt Schemes':'🏛️'};
+        var promises = labels.map(function(label){
+            return fetch('/feeds/posts/default/-/'+encodeURIComponent(label)+'?alt=json&max-results=2')
+            .then(function(r){ return r.json(); })
+            .then(function(data){
+                if(!data.feed || !data.feed.entry) return [];
+                return data.feed.entry.map(function(e){
+                    var title = e.title.$t;
+                    var link = '';
+                    for(var i=0;i<e.link.length;i++){if(e.link[i].rel=='alternate'){link=e.link[i].href;break;}}
+                    var icon = labelIcons[label] || '📰';
+                    return icon + ' <a href="'+link+'" class="ticker-title">' + title + '</a> — <a href="'+link+'" class="ticker-readmore">Read More →</a>';
+                });
+            })
+            .catch(function(){ return []; });
+        });
+        Promise.all(promises).then(function(results){
+            var all = [];
+            results.forEach(function(arr){ all = all.concat(arr); });
+            if(all.length > 0) {
+                el.innerHTML = all.join('  |  ');
+            } else {
+                el.textContent = '🔴 Latest fact checks and breaking news — stay tuned for updates!';
+            }
+        });
+    }
+    
+    // Theme Toggle Listener
+    var themeToggleBtn = document.getElementById('themeToggle');
+    if(themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+            if(document.documentElement.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    }
+    //]]>
+    </script>
+</body>
+</html>

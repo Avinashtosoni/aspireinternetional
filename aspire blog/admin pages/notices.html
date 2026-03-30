@@ -1,0 +1,194 @@
+﻿<!-- ===== ASPIRE ADMIN GUARD v3 - Supabase Auth ===== -->
+<script>
+(function(){
+  'use strict';
+  var SU='https://mhwszwdhyluraydnexyn.supabase.co',SK='sb_publishable_jZFjyR57wQumHEQ8pjFPRg_zZh8PMp0',LU='https://hgvghfhg.blogspot.com/p/login.html';
+  var sEl=document.createElement('style');sEl.textContent='#ag-ov{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#0a0f1e;z-index:2147483647;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-family:Inter,sans-serif}#ag-sp{width:44px;height:44px;border:3px solid rgba(99,102,241,.2);border-top-color:#6366f1;border-radius:50%;animation:ag-s .8s linear infinite}@keyframes ag-s{to{transform:rotate(360deg)}}#ag-lb{color:rgba(255,255,255,.35);font-size:.8rem;letter-spacing:.05em}';document.documentElement.appendChild(sEl);
+  var ov=document.createElement('div');ov.id='ag-ov';ov.innerHTML='<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.5" style="margin-bottom:4px"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg><div id="ag-sp"></div><div id="ag-lb">Verifying session...</div>';document.documentElement.appendChild(ov);
+  function killChrome(){['#main-header','header','footer','#aspireMenu','#aspireTicker','.ticker-wrap','#navbar-iframe','.blog-pager','.status-msg-wrap','.quickedit'].forEach(function(s){try{document.querySelectorAll(s).forEach(function(e){if(e.parentNode)e.parentNode.removeChild(e);});}catch(x){}});document.querySelectorAll('div').forEach(function(d){var a=d.getAttribute('style')||'',c=d.className||'';if(a.indexOf('height:42px')!=-1||(c.indexOf('bg-primary')!=-1&&c.indexOf('fixed')!=-1&&c.indexOf('top-0')!=-1)){if(d.parentNode)d.parentNode.removeChild(d);}});}
+  document.addEventListener('DOMContentLoaded',function(){
+    killChrome();setTimeout(killChrome,300);setTimeout(killChrome,800);
+    var sb=window.supabase.createClient(SU,SK);
+    sb.auth.getSession().then(function(r){
+      if(!r.data||!r.data.session){window.location.replace(LU);return;}
+      window.sbClient=sb;window.sbSession=r.data.session;
+      var g=document.getElementById('ag-ov');if(g&&g.parentNode)g.parentNode.removeChild(g);
+      if(typeof window.__pageInit==='function')window.__pageInit();else window.__aspireReady=true;
+    });
+  });
+})();
+</script>
+<!-- ===== END GUARD ===== -->
+
+<!DOCTYPE html><!DOCTYPE html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Notices – Aspire CMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --primary: #6366f1; --sidebar-bg: #0f172a; --sidebar-border: rgba(255,255,255,0.07); --sidebar-text: rgba(255,255,255,0.6); --sidebar-active: rgba(99,102,241,0.15); --bg: #f1f5f9; --card-bg: #ffffff; --text-main: #1e293b; --text-muted: #64748b; --border: #e2e8f0; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-main); min-height: 100vh; display: flex; }
+    .sidebar { width: 260px; min-height: 100vh; background: var(--sidebar-bg); display: flex; flex-direction: column; flex-shrink: 0; position: fixed; top: 0; left: 0; bottom: 0; z-index: 100; border-right: 1px solid var(--sidebar-border); }
+    .sidebar-brand { padding: 1.5rem 1.5rem 1.25rem; border-bottom: 1px solid var(--sidebar-border); display: flex; align-items: center; gap: 0.75rem; }
+    .brand-icon { width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .brand-icon svg { color: white; }
+    .brand-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 900; color: #fff; }
+    .brand-sub { font-size: 0.7rem; color: var(--sidebar-text); }
+    .sidebar-nav { flex: 1; padding: 1rem 0.75rem; overflow-y: auto; }
+    .nav-section-label { font-size: 0.65rem; font-weight: 700; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.1em; padding: 0.5rem 0.75rem; margin-top: 0.5rem; }
+    .nav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 0.875rem; border-radius: 10px; color: var(--sidebar-text); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: all 0.15s; margin-bottom: 2px; width: 100%; border: none; background: none; cursor: pointer; text-align: left; }
+    .nav-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
+    .nav-item.active { background: var(--sidebar-active); color: var(--primary); font-weight: 600; }
+    .sidebar-footer { padding: 0.75rem; border-top: 1px solid var(--sidebar-border); }
+    .logout-btn { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 0.875rem; border-radius: 10px; color: var(--sidebar-text); cursor: pointer; font-size: 0.875rem; font-weight: 500; transition: all 0.15s; border: none; background: none; width: 100%; }
+    .logout-btn:hover { background: rgba(239,68,68,0.1); color: #ef4444; }
+    .main { margin-left: 260px; flex: 1; display: flex; flex-direction: column; }
+    .topbar { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50; }
+    .page-title { font-size: 1.25rem; font-weight: 800; }
+    .admin-chip { display: flex; align-items: center; gap: 0.5rem; background: #f8fafc; border: 1px solid var(--border); padding: 0.4rem 0.875rem 0.4rem 0.5rem; border-radius: 100px; font-size: 0.8rem; font-weight: 600; }
+    .admin-avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem; font-weight: 700; }
+    .content { padding: 2rem; flex: 1; display: flex; flex-direction: column; gap: 1.5rem; }
+    .add-card { background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border); padding: 1.5rem; }
+    .add-card h2 { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .add-card h2 svg { color: var(--primary); }
+    .add-form { display: flex; gap: 0.75rem; }
+    .add-form input { flex: 1; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 10px; font-size: 0.875rem; font-family: 'Inter', sans-serif; color: var(--text-main); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+    .add-form input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+    .add-btn { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: linear-gradient(135deg, var(--primary), #8b5cf6); color: white; border: none; border-radius: 10px; font-size: 0.875rem; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap; transition: opacity 0.2s; }
+    .add-btn:hover:not(:disabled) { opacity: 0.9; }
+    .add-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .list-card { background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; }
+    .list-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); font-size: 1rem; font-weight: 700; }
+    .notice-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1.25rem 1.5rem; border-top: 1px solid var(--border); transition: background 0.15s; }
+    .notice-item:hover { background: #f8fafc; }
+    .notice-item:first-of-type { border-top: none; }
+    .notice-icon { width: 44px; height: 44px; background: rgba(99,102,241,0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); flex-shrink: 0; }
+    .notice-text { flex: 1; }
+    .notice-content { font-size: 0.9rem; font-weight: 500; color: var(--text-main); line-height: 1.5; margin-bottom: 4px; }
+    .notice-date { font-size: 0.78rem; color: var(--text-muted); }
+    .notice-del-btn { background: none; border: none; cursor: pointer; color: var(--text-muted); padding: 6px; border-radius: 8px; transition: all 0.15s; flex-shrink: 0; display: flex; align-items: center; }
+    .notice-del-btn:hover { color: #ef4444; background: rgba(239,68,68,0.08); }
+    .empty-state { padding: 3rem; text-align: center; color: var(--text-muted); }
+    .loading { display: flex; align-items: center; justify-content: center; padding: 2.5rem; gap: 0.75rem; color: var(--text-muted); }
+    .spinner { width: 22px; height: 22px; border: 2px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1e293b; color: white; padding: 0.875rem 1.25rem; border-radius: 12px; font-size: 0.875rem; font-weight: 600; z-index: 300; opacity: 0; transform: translateY(10px); transition: all 0.3s; pointer-events: none; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    @media (max-width: 768px) { .sidebar { width: 72px; } .brand-sub, .nav-item span, .nav-section-label { display: none; } .nav-item { justify-content: center; } .brand-icon { margin: 0 auto; } .sidebar-brand { justify-content: center; } .main { margin-left: 72px; } .add-form { flex-direction: column; } }
+  </style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sidebar-brand"><div class="brand-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div><div><div class="brand-title">Aspire CMS</div><div class="brand-sub">Admin Panel</div></div></div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <a href="dashboard.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span>Dashboard</span></a>
+    <a href="enquiries.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Enquiries</span></a>
+    <div class="nav-section-label">Content</div>
+    <a href="blogs.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span>Blogs / News</span></a>
+    <a href="events.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Events</span></a>
+    <a href="notices.html" class="nav-item active"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span>Notices</span></a>
+    <div class="nav-section-label">People</div>
+    <a href="team.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Manage Team</span></a>
+    <a href="testimonials.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>Testimonials</span></a>
+    <div class="nav-section-label">School</div>
+    <a href="facilities.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Facilities</span></a>
+    <a href="settings.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Settings</span></a>
+  </nav>
+  <div class="sidebar-footer"><button class="logout-btn" onclick="handleLogout()"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span>Logout</span></button></div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <div class="page-title">Notice Board</div>
+    <div class="admin-chip"><div class="admin-avatar" id="avatarInitial">A</div><span id="adminUsername">Admin</span></div>
+  </header>
+  <div class="content">
+    <div class="add-card">
+      <h2><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Post New Notice</h2>
+      <form class="add-form" id="noticeForm" onsubmit="addNotice(event)">
+        <input type="text" id="noticeInput" placeholder="Type your notice message here… (e.g. School closed on April 14th for summer break)" required/>
+        <button type="submit" class="add-btn" id="addBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Notice
+        </button>
+      </form>
+    </div>
+
+    <div class="list-card">
+      <div class="list-header">Active Notices</div>
+      <div id="noticesList"><div class="loading"><div class="spinner"></div> Loading notices…</div></div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+  const sb = window.sbClient;
+
+  const adminUser = (window.sbSession && window.sbSession.user.email) || 'Admin';
+  document.getElementById('adminUsername').textContent = adminUser;
+  document.getElementById('avatarInitial').textContent = adminUser.charAt(0).toUpperCase();
+  function handleLogout() { (window.sbClient || window.supabase.createClient('https://mhwszwdhyluraydnexyn.supabase.co','sb_publishable_jZFjyR57wQumHEQ8pjFPRg_zZh8PMp0')).auth.signOut().then(function(){ window.location.replace('https://hgvghfhg.blogspot.com/p/login.html'); }); }
+
+  function showToast(msg, color = '#16a34a') {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.style.background = color; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  let notices = [];
+  async function loadNotices() {
+    const { data } = await sb.from('notices').select('*').order('created_at', { ascending: false });
+    notices = data || [];
+    renderNotices();
+  }
+
+  function renderNotices() {
+    const c = document.getElementById('noticesList');
+    if (notices.length === 0) { c.innerHTML = '<div class="empty-state">📢 No notices posted yet. Add one above!</div>'; return; }
+    c.innerHTML = notices.map(n => `
+      <div class="notice-item">
+        <div class="notice-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <div class="notice-text">
+          <div class="notice-content">${n.content}</div>
+          <div class="notice-date">Posted on ${new Date(n.created_at).toLocaleDateString('en-IN', {day:'numeric',month:'long',year:'numeric'})}</div>
+        </div>
+        <button class="notice-del-btn" onclick="deleteNotice('${n.id}')" title="Delete">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        </button>
+      </div>`).join('');
+  }
+
+  async function addNotice(e) {
+    e.preventDefault();
+    const content = document.getElementById('noticeInput').value.trim();
+    if (!content) return;
+    const btn = document.getElementById('addBtn');
+    btn.disabled = true; btn.textContent = 'Posting…';
+    const { error } = await sb.from('notices').insert({ content, is_active: true, display_order: notices.length + 1 });
+    if (!error) { document.getElementById('noticeInput').value = ''; showToast('✓ Notice posted!'); loadNotices(); }
+    else showToast('✗ Failed to post notice.', '#dc2626');
+    btn.disabled = false;
+    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add Notice';
+  }
+
+  async function deleteNotice(id) {
+    if (!confirm('Delete this notice?')) return;
+    const { error } = await sb.from('notices').delete().eq('id', id);
+    if (!error) { showToast('✓ Notice deleted.'); loadNotices(); }
+    else showToast('✗ Failed to delete.', '#dc2626');
+  }
+
+  window.__pageInit = function() { loadNotices() };
+  if (window.__aspireReady) window.__pageInit();
+</script>
+</body>
+</html>
