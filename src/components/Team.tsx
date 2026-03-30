@@ -4,8 +4,8 @@ import { Linkedin, Mail, Twitter } from 'lucide-react';
 
 const team = [
   {
-    name: 'Chandan Kumar',
-    role: 'Founder & Chairman',
+    name: 'Reema Raj',
+    role: ' HEAD OF DEPARTMENT',
     image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     bio: 'A visionary leader with over 20 years of experience in educational excellence, dedicated to transforming the educational landscape in Bihar.'
   },
@@ -16,23 +16,35 @@ const team = [
     bio: 'Passionate about holistic child development and integrating modern technology with traditional values.'
   },
   {
-    name: 'DK Vidyarthi',
+    name: 'Uday Kumar',
     role: 'Managing Director',
     image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     bio: 'Committed to providing a safe, stimulating, and inclusive environment where students can discover their passions.'
   },
   {
-    name: 'RK Ravi',
-    role: 'Principal',
+    name: 'RK Raman',
+    role: 'CHAIRMAN',
     image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     bio: 'An experienced educator with a track record of leading top schools and fostering academic excellence.'
   },
   {
     name: 'PK Pradhan',
-    role: 'Head of Administration',
+    role: 'PRINCIPAL',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     bio: 'Specializes in school operations, ensuring a seamless and enriching experience for students and parents alike.'
-  }
+  },
+  {
+    name: 'RAKESH KUMAR RANJAN',
+    role: 'ADMINISTRATIVE',
+    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    bio: 'An experienced educator with a track record of leading top schools and fostering academic excellence.'
+  },
+  {
+    name: 'CHANDAN KUMAR',
+    role: 'CULTURAL COORDINATOR',
+    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    bio: 'An experienced educator with a track record of leading top schools and fostering academic excellence.'
+  },
 ];
 
 export default function Team() {
