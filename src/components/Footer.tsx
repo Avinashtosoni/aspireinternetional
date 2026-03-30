@@ -14,7 +14,7 @@ export default function Footer() {
           <div className="space-y-2 text-gray-400">
             <p className="flex items-center gap-2"><Phone size={18} /> +91 9431867366</p>
             <p className="flex items-center gap-2"><Mail size={18} /> info@aspireuniversalinternational.com</p>
-            <p className="flex items-center gap-2"><MapPin size={18} /> Radha Krishana Colony Pakari, Patna, 800002</p>
+            <p className="flex items-center gap-2"><MapPin size={18} /> RADHA KRISHNA COLONY, BISHUNPUR , PAKRI,BEUR, PATNA, BIHAR, PIN - 800002</p>
           </div>
         </div>
         <div>
