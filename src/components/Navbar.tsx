@@ -46,6 +46,7 @@ export default function Navbar() {
       ]
     },
     { name: 'Admissions', href: '/admissions' },
+    { name: 'Online Admission', href: 'https://forms.gle/oXNPCNR6Zd2wTGZF8' },
     { name: 'Contact', href: '/contact' },
   ];
 
