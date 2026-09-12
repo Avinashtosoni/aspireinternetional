@@ -46,6 +46,7 @@ export default function Navbar() {
       ]
     },
     { name: 'Admissions', href: '/admissions' },
+    { name: 'Registration', href: 'https://forms.gle/Z2dZsWmuZQEYcgtV7' },
     { name: 'Contact', href: '/contact' },
   ];
 
@@ -113,14 +114,25 @@ export default function Navbar() {
                 onMouseLeave={() => setActiveDropdown(null)}
               >
                 {item.href ? (
-                  <Link
-                    to={item.href}
-                    className={`font-bold transition-colors text-sm uppercase tracking-wide ${
-                      location.pathname === item.href ? 'text-primary' : 'text-secondary hover:text-primary'
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
+                  item.href.startsWith('http') ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-bold transition-colors text-sm uppercase tracking-wide text-secondary hover:text-primary"
+                    >
+                      {item.name}
+                    </a>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      className={`font-bold transition-colors text-sm uppercase tracking-wide ${
+                        location.pathname === item.href ? 'text-primary' : 'text-secondary hover:text-primary'
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  )
                 ) : (
                   <button
                     className={`font-bold transition-colors text-sm uppercase tracking-wide flex items-center gap-1 ${
@@ -186,15 +198,27 @@ export default function Navbar() {
             {navCategories.map((item) => (
               <div key={item.name} className="border-b border-gray-50 last:border-0">
                 {item.href ? (
-                  <Link
-                    to={item.href}
-                    className={`block px-3 py-4 text-base font-bold rounded-md ${
-                      location.pathname === item.href ? 'text-primary bg-primary/5' : 'text-secondary hover:text-primary'
-                    }`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
+                  item.href.startsWith('http') ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block px-3 py-4 text-base font-bold rounded-md text-secondary hover:text-primary"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                    </a>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      className={`block px-3 py-4 text-base font-bold rounded-md ${
+                        location.pathname === item.href ? 'text-primary bg-primary/5' : 'text-secondary hover:text-primary'
+                      }`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  )
                 ) : (
                   <div>
                     <button

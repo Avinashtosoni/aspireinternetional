@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useCMSStore, Enquiry } from '../store/cmsStore';
-import { CheckCircle, XCircle, Trash2, Eye, MessageSquare, User, Phone, Mail, Calendar } from 'lucide-react';
+import { CheckCircle, XCircle, Trash2, Eye, MessageSquare, User, Phone, Mail, Calendar, Download } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 export default function ManageEnquiries() {
@@ -15,9 +15,11 @@ export default function ManageEnquiries() {
 
   const filteredEnquiries = enquiries.filter(enq => {
     const matchesFilter = filter === 'all' ? true : enq.status === filter;
-    const matchesSearch = enq.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          enq.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          enq.phone.includes(searchTerm);
+    const nameStr = (enq.name || '').toLowerCase();
+    const emailStr = (enq.email || '').toLowerCase();
+    const phoneStr = enq.phone || '';
+    const term = searchTerm.toLowerCase();
+    const matchesSearch = nameStr.includes(term) || emailStr.includes(term) || phoneStr.includes(searchTerm);
     return matchesFilter && matchesSearch;
   });
 
@@ -37,9 +39,35 @@ export default function ManageEnquiries() {
     }
   };
 
-  const getSource = (msg: string) => {
-    if (msg.includes('[Subject:')) return 'Contact Form';
+  const getSource = (msg?: string | null) => {
+    if (msg && msg.includes('[Subject:')) return 'Contact Form';
     return 'Admissions';
+  };
+
+  const exportToCSV = () => {
+    if (enquiries.length === 0) {
+      alert('No enquiries to export.');
+      return;
+    }
+    const headers = ['ID', 'Date', 'Source', 'Name', 'Email', 'Phone', 'Status', 'Message'];
+    const rows = enquiries.map(e => [
+      e.id,
+      `"${new Date(e.created_at).toLocaleString()}"`,
+      `"${getSource(e.message)}"`,
+      `"${(e.name || '').replace(/"/g, '""')}"`,
+      `"${(e.email || '').replace(/"/g, '""')}"`,
+      `"${(e.phone || '').replace(/"/g, '""')}"`,
+      `"${e.status || ''}"`,
+      `"${(e.message || '').replace(/"/g, '""')}"`
+    ]);
+    const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `aspire_school_enquiries_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -55,8 +83,8 @@ export default function ManageEnquiries() {
           <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
              <input 
                 type="text" 
-                placeholder="Search name, email..."
-                className="p-2 border border-gray-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-indigo-600 w-full md:w-64"
+                placeholder="Search name, email, phone..."
+                className="p-2 border border-gray-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-indigo-600 w-full md:w-56"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
              />
@@ -70,6 +98,13 @@ export default function ManageEnquiries() {
                 <option value="read">Read</option>
                 <option value="resolved">Resolved</option>
              </select>
+             <button
+               onClick={exportToCSV}
+               className="p-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 rounded-lg text-sm font-semibold flex items-center gap-1.5 transition"
+               title="Export to Excel CSV"
+             >
+               <Download size={16} /> Export CSV
+             </button>
              <span className="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">
                 {filteredEnquiries.length}
               </span>

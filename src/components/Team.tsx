@@ -54,8 +54,9 @@ export default function Team() {
             </motion.div>
           ))}
           {team.length === 0 && (
-            <div className="col-span-3 text-center text-gray-500 py-10">
-              No team members found. Please run the supabase.sql setup script.
+            <div className="col-span-3 text-center text-gray-500 py-12">
+              <p className="text-xl font-semibold text-gray-800 mb-2">Faculty & Leadership Directory</p>
+              <p className="text-gray-500">Our dedicated team profiles are currently being compiled.</p>
             </div>
           )}
         </div>

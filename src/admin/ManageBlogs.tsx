@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useCMSStore, Blog } from '../store/cmsStore';
-import { Plus, Trash2, BookOpen, User, Tag } from 'lucide-react';
+import { Plus, Trash2, BookOpen, User, Tag, Pencil, X } from 'lucide-react';
 
 export default function ManageBlogs() {
-  const { blogs, fetchBlogs, addBlog, deleteBlog, isLoading } = useCMSStore();
+  const { blogs, fetchBlogs, addBlog, updateBlog, deleteBlog, isLoading } = useCMSStore();
   const [formData, setFormData] = useState({ title: '', content: '', author: 'Admin', category: 'General', image_url: '' });
+  const [editingBlog, setEditingBlog] = useState<Blog | null>(null);
   const [isAdding, setIsAdding] = useState(false);
+  const [isSavingEdit, setIsSavingEdit] = useState(false);
 
   useEffect(() => {
     fetchBlogs();
@@ -19,6 +21,29 @@ export default function ManageBlogs() {
     if (ok) {
       setFormData({ title: '', content: '', author: 'Admin', category: 'General', image_url: '' });
       setIsAdding(false);
+    }
+  };
+
+  const handleUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingBlog || !editingBlog.title || !editingBlog.content) return;
+    setIsSavingEdit(true);
+    const ok = await updateBlog(editingBlog.id, {
+      title: editingBlog.title,
+      content: editingBlog.content,
+      author: editingBlog.author,
+      category: editingBlog.category,
+      image_url: editingBlog.image_url,
+    });
+    if (ok) {
+      setEditingBlog(null);
+    }
+    setIsSavingEdit(false);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (window.confirm('Are you sure you want to permanently delete this blog post?')) {
+      await deleteBlog(id);
     }
   };
 
@@ -68,7 +93,7 @@ export default function ManageBlogs() {
           <button
             type="submit"
             disabled={isAdding}
-            className="md:col-span-2 bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition disabled:opacity-50 flex justify-center items-center gap-2"
+            className="md:col-span-2 bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition disabled:opacity-50 flex justify-center items-center gap-2 cursor-pointer"
           >
             <Plus size={20} /> {isAdding ? 'Publishing...' : 'Publish Blog Post'}
           </button>
@@ -88,7 +113,7 @@ export default function ManageBlogs() {
                 <th className="px-6 py-4">Category</th>
                 <th className="px-6 py-4">Author</th>
                 <th className="px-6 py-4">Date</th>
-                <th className="px-6 py-4">Actions</th>
+                <th className="px-6 py-4 text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -100,20 +125,115 @@ export default function ManageBlogs() {
                   <td className="px-6 py-4 text-sm text-gray-500">
                     {new Date(blog.created_at).toLocaleDateString()}
                   </td>
-                  <td className="px-6 py-4">
-                    <button
-                      onClick={() => deleteBlog(blog.id)}
-                      className="text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition"
-                    >
-                      <Trash2 size={18} />
-                    </button>
+                  <td className="px-6 py-4 text-right">
+                    <div className="flex justify-end gap-2">
+                      <button
+                        onClick={() => setEditingBlog(blog)}
+                        className="text-indigo-600 hover:text-indigo-800 p-2 hover:bg-indigo-50 rounded-lg transition cursor-pointer"
+                        title="Edit Post"
+                      >
+                        <Pencil size={18} />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(blog.id)}
+                        className="text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition cursor-pointer"
+                        title="Delete Post"
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
+              {blogs.length === 0 && (
+                <tr>
+                  <td colSpan={5} className="px-6 py-12 text-center text-gray-400">
+                    No posts published yet. Write one above.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
       </div>
+
+      {/* Edit Blog Modal */}
+      {editingBlog && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl relative">
+            <div className="flex justify-between items-center pb-4 border-b border-gray-100 mb-4">
+              <h3 className="text-lg font-bold text-gray-900">Edit Blog Post</h3>
+              <button onClick={() => setEditingBlog(null)} className="text-gray-400 hover:text-gray-600">
+                <X size={20} />
+              </button>
+            </div>
+            <form onSubmit={handleUpdate} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="md:col-span-2">
+                <label className="block text-xs font-semibold text-gray-600 mb-1">Title</label>
+                <input
+                  type="text"
+                  className="w-full p-3 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-600"
+                  value={editingBlog.title}
+                  onChange={(e) => setEditingBlog({ ...editingBlog, title: e.target.value })}
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-600 mb-1">Author</label>
+                <input
+                  type="text"
+                  className="w-full p-3 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-600"
+                  value={editingBlog.author}
+                  onChange={(e) => setEditingBlog({ ...editingBlog, author: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-600 mb-1">Category</label>
+                <input
+                  type="text"
+                  className="w-full p-3 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-600"
+                  value={editingBlog.category}
+                  onChange={(e) => setEditingBlog({ ...editingBlog, category: e.target.value })}
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-xs font-semibold text-gray-600 mb-1">Cover Image URL</label>
+                <input
+                  type="url"
+                  className="w-full p-3 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-600"
+                  value={editingBlog.image_url || ''}
+                  onChange={(e) => setEditingBlog({ ...editingBlog, image_url: e.target.value })}
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-xs font-semibold text-gray-600 mb-1">Post Content</label>
+                <textarea
+                  className="w-full p-3 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-600 h-44"
+                  value={editingBlog.content}
+                  onChange={(e) => setEditingBlog({ ...editingBlog, content: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="md:col-span-2 flex justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setEditingBlog(null)}
+                  className="px-5 py-2.5 rounded-lg border border-gray-200 hover:bg-gray-100 font-medium text-gray-700"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSavingEdit}
+                  className="px-5 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 font-bold text-white transition disabled:opacity-50"
+                >
+                  {isSavingEdit ? 'Saving...' : 'Save Changes'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -114,20 +114,26 @@ interface CMSStore {
   
   // Mutations
   addTeamMember: (member: Omit<TeamMember, 'id'>) => Promise<boolean>;
+  updateTeamMember: (id: string, member: Partial<Omit<TeamMember, 'id'>>) => Promise<boolean>;
   deleteTeamMember: (id: string) => Promise<boolean>;
+  
   addFacility: (facility: Omit<Facility, 'id'>) => Promise<boolean>;
+  updateFacility: (id: string, facility: Partial<Omit<Facility, 'id'>>) => Promise<boolean>;
   deleteFacility: (id: string) => Promise<boolean>;
   
   addNotice: (notice: Omit<Notice, 'id' | 'created_at'>) => Promise<boolean>;
   deleteNotice: (id: string) => Promise<boolean>;
   
   addEvent: (event: Omit<SchoolEvent, 'id' | 'created_at'>) => Promise<boolean>;
+  updateEvent: (id: string, event: Partial<Omit<SchoolEvent, 'id' | 'created_at'>>) => Promise<boolean>;
   deleteEvent: (id: string) => Promise<boolean>;
   
   addBlog: (blog: Omit<Blog, 'id' | 'created_at' | 'updated_at'>) => Promise<boolean>;
+  updateBlog: (id: string, blog: Partial<Omit<Blog, 'id' | 'created_at'>>) => Promise<boolean>;
   deleteBlog: (id: string) => Promise<boolean>;
   
   addTestimonial: (testimonial: Omit<Testimonial, 'id' | 'created_at'>) => Promise<boolean>;
+  updateTestimonial: (id: string, testimonial: Partial<Omit<Testimonial, 'id' | 'created_at'>>) => Promise<boolean>;
   deleteTestimonial: (id: string) => Promise<boolean>;
   
   updateSetting: (key: string, value: string) => Promise<boolean>;
@@ -153,7 +159,36 @@ export const useCMSStore = create<CMSStore>((set, get) => ({
     'welcome_message_1': 'We are thrilled to announce the launch of Aspire Universal International School. Our brand new campus is designed to provide a safe, stimulating, and inclusive environment where students can discover their passions and reach their full potential.',
     'welcome_message_2': 'Opening our doors on April 1st, 2026, we blend traditional values with modern educational practices to prepare our students for the challenges of tomorrow. Join us in shaping the leaders, innovators, and compassionate citizens of the future.',
     'director_name': 'Mr. Deepak Kumar Vidyarthi',
-    'director_image_url': 'https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+    'director_image_url': 'https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+    'principal_name': 'Dr. APJ Kalam',
+    'principal_message': 'Welcome to Aspire Universal International School. Our mission is to provide quality education and foster a nurturing environment for every student.',
+    'principal_image_url': 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&h=800&fit=crop',
+
+    // Razorpay & UPI
+    'razorpay_enabled': 'true',
+    'razorpay_key_id': 'rzp_test_placeholderKey123',
+    'razorpay_key_secret': '',
+    'school_upi_id': 'aspireuniversal@upi',
+    'school_upi_qr_url': 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=aspireuniversal@upi&pn=Aspire%20Universal%20International%20School',
+
+    // Email & SMTP
+    'smtp_enabled': 'true',
+    'smtp_host': 'smtp.gmail.com',
+    'smtp_port': '587',
+    'smtp_user': 'info@aspireuniversalinternational.com',
+    'smtp_password': '',
+    'smtp_from_name': 'Aspire Universal International School',
+    'smtp_from_email': 'info@aspireuniversalinternational.com',
+
+    // WhatsApp & SMS
+    'whatsapp_enabled': 'true',
+    'whatsapp_provider': 'Meta Cloud API',
+    'whatsapp_api_token': '',
+    'whatsapp_phone': '+91 9431867366',
+    'sms_enabled': 'true',
+    'sms_provider': 'Fast2SMS',
+    'sms_api_key': '',
+    'sms_sender_id': 'ASPIRE'
   },
   isLoading: false,
   error: null,
@@ -261,6 +296,13 @@ export const useCMSStore = create<CMSStore>((set, get) => ({
     return true;
   },
 
+  updateTeamMember: async (id, member) => {
+    const { error } = await supabase.from('team_members').update(member).eq('id', id);
+    if (error) { set({ error: error.message }); return false; }
+    await get().fetchTeam();
+    return true;
+  },
+
   deleteTeamMember: async (id) => {
     const { error } = await supabase.from('team_members').delete().eq('id', id);
     if (error) { set({ error: error.message }); return false; }
@@ -270,6 +312,13 @@ export const useCMSStore = create<CMSStore>((set, get) => ({
 
   addFacility: async (facility) => {
     const { error } = await supabase.from('facilities').insert([facility]);
+    if (error) { set({ error: error.message }); return false; }
+    await get().fetchFacilities();
+    return true;
+  },
+
+  updateFacility: async (id, facility) => {
+    const { error } = await supabase.from('facilities').update(facility).eq('id', id);
     if (error) { set({ error: error.message }); return false; }
     await get().fetchFacilities();
     return true;
@@ -303,6 +352,13 @@ export const useCMSStore = create<CMSStore>((set, get) => ({
     return true;
   },
 
+  updateEvent: async (id, event) => {
+    const { error } = await supabase.from('events').update(event).eq('id', id);
+    if (error) { set({ error: error.message }); return false; }
+    await get().fetchEvents();
+    return true;
+  },
+
   deleteEvent: async (id) => {
     const { error } = await supabase.from('events').delete().eq('id', id);
     if (error) { set({ error: error.message }); return false; }
@@ -317,6 +373,13 @@ export const useCMSStore = create<CMSStore>((set, get) => ({
     return true;
   },
 
+  updateBlog: async (id, blog) => {
+    const { error } = await supabase.from('blogs').update({ ...blog, updated_at: new Date().toISOString() }).eq('id', id);
+    if (error) { set({ error: error.message }); return false; }
+    await get().fetchBlogs();
+    return true;
+  },
+
   deleteBlog: async (id) => {
     const { error } = await supabase.from('blogs').delete().eq('id', id);
     if (error) { set({ error: error.message }); return false; }
@@ -326,6 +389,13 @@ export const useCMSStore = create<CMSStore>((set, get) => ({
 
   addTestimonial: async (testimonial) => {
     const { error } = await supabase.from('testimonials').insert([testimonial]);
+    if (error) { set({ error: error.message }); return false; }
+    await get().fetchTestimonials();
+    return true;
+  },
+
+  updateTestimonial: async (id, testimonial) => {
+    const { error } = await supabase.from('testimonials').update(testimonial).eq('id', id);
     if (error) { set({ error: error.message }); return false; }
     await get().fetchTestimonials();
     return true;

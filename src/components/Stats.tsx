@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useCMSStore, Stat } from '../store/cmsStore';
-import * as LucideIcons from 'lucide-react';
+import { getSchoolIcon } from '../lib/icons';
+import { Trophy } from 'lucide-react';
 
 export default function Stats() {
   const { stats, fetchStats } = useCMSStore();
@@ -17,8 +18,7 @@ export default function Stats() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {stats.map((stat, index) => {
-            // Dynamically get the icon from lucide-react based on string, default to Trophy
-            const IconComponent = (LucideIcons as any)[stat.icon] || LucideIcons.Trophy;
+            const IconComponent = getSchoolIcon(stat.icon, Trophy);
             
             return (
               <motion.div

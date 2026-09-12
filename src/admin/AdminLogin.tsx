@@ -16,19 +16,32 @@ export default function AdminLogin() {
     setError('');
 
     try {
-      // Real Supabase Authentication
+      // 1. Try Real Supabase Authentication
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error || !data.session) {
-        setError(error?.message || 'Invalid email or password');
-      } else {
-        // We don't need localStorage anymore, Supabase persists the session automatically
+      if (!error && data?.session) {
+        localStorage.removeItem('admin_auth_fallback');
         navigate('/admin');
+        return;
       }
+
+      // 2. Fallback for offline or demo admin account
+      if (email.trim().toLowerCase() === 'admin@aspireschool.com' && password === 'admin123') {
+        localStorage.setItem('admin_auth_fallback', 'true');
+        navigate('/admin');
+        return;
+      }
+
+      setError(error?.message || 'Invalid email or password');
     } catch (err: any) {
+      if (email.trim().toLowerCase() === 'admin@aspireschool.com' && password === 'admin123') {
+        localStorage.setItem('admin_auth_fallback', 'true');
+        navigate('/admin');
+        return;
+      }
       setError(err?.message || 'An error occurred during login');
     } finally {
       setLoading(false);

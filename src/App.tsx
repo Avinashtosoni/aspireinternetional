@@ -19,6 +19,9 @@ const ContactUsPage = lazy(() => import('./pages/ContactUsPage'));
 const AdminLayout = lazy(() => import('./admin/AdminLayout'));
 const AdminLogin = lazy(() => import('./admin/AdminLogin'));
 const Dashboard = lazy(() => import('./admin/Dashboard'));
+const ManageForms = lazy(() => import('./admin/ManageForms'));
+const ManageFormSubmissions = lazy(() => import('./admin/ManageFormSubmissions'));
+const ManageAccounts = lazy(() => import('./admin/ManageAccounts'));
 const ManageTeam = lazy(() => import('./admin/ManageTeam'));
 const ManageFacilities = lazy(() => import('./admin/ManageFacilities'));
 const ManageEnquiries = lazy(() => import('./admin/ManageEnquiries'));
@@ -32,6 +35,8 @@ const ManageTestimonials = lazy(() => import('./admin/ManageTestimonials'));
 const PrincipalMessage = lazy(() => import('./pages/PrincipalMessage'));
 const BlogsPage = lazy(() => import('./pages/BlogsPage'));
 const EventsPage = lazy(() => import('./pages/EventsPage'));
+const FormsDirectoryPage = lazy(() => import('./pages/FormsDirectoryPage'));
+const PublicFormPage = lazy(() => import('./pages/PublicFormPage'));
 
 function Fallback() {
   return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
@@ -59,6 +64,9 @@ function App() {
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<Dashboard />} />
               <Route path="login" element={<AdminLogin />} />
+              <Route path="accounts" element={<ManageAccounts />} />
+              <Route path="forms" element={<ManageForms />} />
+              <Route path="form-submissions" element={<ManageFormSubmissions />} />
               <Route path="team" element={<ManageTeam />} />
               <Route path="facilities" element={<ManageFacilities />} />
               <Route path="notices" element={<ManageNotices />} />
@@ -83,6 +91,8 @@ function App() {
                   <Route path="/principal-message" element={<><Helmet><title>Principal's Message | Aspire School</title></Helmet><PrincipalMessage /></>} />
                   <Route path="/blogs" element={<><Helmet><title>Latest News & Blogs | Aspire School</title></Helmet><BlogsPage /></>} />
                   <Route path="/events" element={<><Helmet><title>Upcoming Events | School Calendar</title></Helmet><EventsPage /></>} />
+                  <Route path="/forms" element={<FormsDirectoryPage />} />
+                  <Route path="/forms/:slug" element={<PublicFormPage />} />
                 </Routes>
               </PublicLayout>
             } />

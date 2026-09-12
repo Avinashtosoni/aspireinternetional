@@ -61,14 +61,14 @@ export default function Dashboard() {
                   <td className="p-4 text-sm text-gray-600">{new Date(enq.created_at).toLocaleDateString()}</td>
                   <td className="p-4">
                     <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded ${
-                      enq.message.includes('[Subject:') ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'
+                      (enq.message || '').includes('[Subject:') ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'
                     }`}>
-                      {enq.message.includes('[Subject:') ? 'Contact' : 'Admission'}
+                      {(enq.message || '').includes('[Subject:') ? 'Contact' : 'Admission'}
                     </span>
                   </td>
                   <td className="p-4 text-sm font-medium text-gray-900">{enq.name}</td>
                   <td className="p-4 text-sm text-gray-600">{enq.phone}</td>
-                  <td className="p-4 text-sm text-gray-600 max-w-xs">{enq.message.replace(/\[Subject:.*?\] /, '').slice(0, 50)}...</td>
+                  <td className="p-4 text-sm text-gray-600 max-w-xs">{(enq.message || '').replace(/\[Subject:.*?\] /, '').slice(0, 50)}...</td>
                   <td className="p-4 text-sm">
                     <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                       enq.status === 'unread' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'
@@ -80,7 +80,7 @@ export default function Dashboard() {
               ))}
               {enquiries.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="p-8 text-center text-gray-500">No enquiries found</td>
+                  <td colSpan={6} className="p-8 text-center text-gray-500">No enquiries found</td>
                 </tr>
               )}
             </tbody>

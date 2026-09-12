@@ -4,7 +4,7 @@ import Team from '../components/Team';
 
 export default function TeamPage() {
   return (
-    <div className="pt-24 md:pt-32">
+    <div>
       {/* Premium Hero Section for Team */}
       <section className="relative py-24 bg-blue-900 overflow-hidden">
         <div className="absolute inset-0 opacity-20">

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { useCMSStore } from '../store/cmsStore';
-import { Calendar, MapPin, Clock, ArrowRight } from 'lucide-react';
+import { useCMSStore, SchoolEvent } from '../store/cmsStore';
+import { Calendar, MapPin, Clock, ArrowRight, Bell } from 'lucide-react';
 
 export default function EventsPage() {
   const { events, fetchEvents } = useCMSStore();
@@ -8,6 +8,12 @@ export default function EventsPage() {
   useEffect(() => {
     fetchEvents();
   }, []);
+
+  const handleRemindMe = (event: SchoolEvent) => {
+    const formattedDate = (event.event_date || '').replace(/-/g, '');
+    const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${formattedDate}/${formattedDate}&details=${encodeURIComponent(event.description || '')}&location=${encodeURIComponent(event.location || 'Aspire Universal International School, Patna')}`;
+    window.open(url, '_blank');
+  };
 
   return (
     <div className="bg-slate-50 min-h-screen">
@@ -50,8 +56,11 @@ export default function EventsPage() {
                 <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-900 mb-4">{event.title}</h2>
                 <p className="text-slate-600 text-lg leading-relaxed mb-8">{event.description}</p>
                 <div className="flex gap-4">
-                    <button className="bg-primary hover:bg-primary-hover text-white px-8 py-3 rounded-full font-bold shadow-lg transition-all transform hover:-translate-y-1">
-                        Remind Me
+                    <button 
+                      onClick={() => handleRemindMe(event)}
+                      className="bg-primary hover:bg-primary-hover text-white px-8 py-3 rounded-full font-bold shadow-lg transition-all transform hover:-translate-y-1 flex items-center gap-2 cursor-pointer"
+                    >
+                        <Bell size={18} /> Add to Calendar
                     </button>
                 </div>
               </div>

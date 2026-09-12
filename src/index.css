@@ -4,6 +4,7 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-heading: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Inter", ui-sans-serif, system-ui, sans-serif;
   
   --color-primary: #F26722;
   --color-primary-hover: #d95a1c;
@@ -20,3 +21,10 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
 }
+
+/* Guarantee crisp, modern tabular digits without system font corruption */
+.font-mono, [class*="font-mono"] {
+  font-family: var(--font-sans) !important;
+  font-variant-numeric: tabular-nums !important;
+}
+

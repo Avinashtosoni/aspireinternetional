@@ -150,6 +150,40 @@ CREATE POLICY "Allow auth delete to enquiries" ON public.enquiries FOR DELETE US
 
 
 -- ==========================================
+-- PERFORMANCE INDEXES
+-- ==========================================
+CREATE INDEX IF NOT EXISTS idx_enquiries_status_created ON public.enquiries(status, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_events_event_date ON public.events(event_date ASC);
+CREATE INDEX IF NOT EXISTS idx_blogs_created_at ON public.blogs(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_notices_active_order ON public.notices(is_active, display_order ASC);
+CREATE INDEX IF NOT EXISTS idx_facilities_display_order ON public.facilities(display_order ASC);
+CREATE INDEX IF NOT EXISTS idx_team_display_order ON public.team_members(display_order ASC);
+CREATE INDEX IF NOT EXISTS idx_testimonials_display_order ON public.testimonials(display_order ASC);
+
+-- ==========================================
+-- AUTOMATIC updated_at TRIGGER FUNCTION
+-- ==========================================
+CREATE OR REPLACE FUNCTION update_modified_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = timezone('utc'::text, now());
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+DROP TRIGGER IF EXISTS set_blogs_updated_at ON public.blogs;
+CREATE TRIGGER set_blogs_updated_at
+BEFORE UPDATE ON public.blogs
+FOR EACH ROW
+EXECUTE FUNCTION update_modified_column();
+
+DROP TRIGGER IF EXISTS set_school_settings_updated_at ON public.school_settings;
+CREATE TRIGGER set_school_settings_updated_at
+BEFORE UPDATE ON public.school_settings
+FOR EACH ROW
+EXECUTE FUNCTION update_modified_column();
+
+-- ==========================================
 -- INITIAL DEFAULT DATA
 -- ==========================================
 
@@ -196,7 +230,128 @@ INSERT INTO public.school_settings (key, value) VALUES
 ('principal_name', 'Dr. APJ Kalam') ON CONFLICT (key) DO NOTHING;
 INSERT INTO public.school_settings (key, value) VALUES 
 ('principal_message', 'Welcome to Aspire Universal International School. Our mission is to provide quality education and foster a nurturing environment for every student.') ON CONFLICT (key) DO NOTHING;
+INSERT INTO public.school_settings (key, value) VALUES 
+('principal_image_url', 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&h=800&fit=crop') ON CONFLICT (key) DO NOTHING;
+
+-- Integration Settings (Razorpay, UPI, SMTP, WhatsApp, SMS)
+INSERT INTO public.school_settings (key, value) VALUES ('razorpay_enabled', 'true') ON CONFLICT (key) DO NOTHING;
+INSERT INTO public.school_settings (key, value) VALUES ('razorpay_key_id', 'rzp_test_placeholderKey123') ON CONFLICT (key) DO NOTHING;
+INSERT INTO public.school_settings (key, value) VALUES ('school_upi_id', 'aspireuniversal@upi') ON CONFLICT (key) DO NOTHING;
+INSERT INTO public.school_settings (key, value) VALUES ('school_upi_qr_url', 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=aspireuniversal@upi&pn=Aspire%20Universal%20International%20School') ON CONFLICT (key) DO NOTHING;
+INSERT INTO public.school_settings (key, value) VALUES ('smtp_enabled', 'true') ON CONFLICT (key) DO NOTHING;
+INSERT INTO public.school_settings (key, value) VALUES ('smtp_host', 'smtp.gmail.com') ON CONFLICT (key) DO NOTHING;
+INSERT INTO public.school_settings (key, value) VALUES ('smtp_port', '587') ON CONFLICT (key) DO NOTHING;
+INSERT INTO public.school_settings (key, value) VALUES ('smtp_user', 'info@aspireuniversalinternational.com') ON CONFLICT (key) DO NOTHING;
+INSERT INTO public.school_settings (key, value) VALUES ('smtp_from_name', 'Aspire Universal International School') ON CONFLICT (key) DO NOTHING;
+INSERT INTO public.school_settings (key, value) VALUES ('smtp_from_email', 'info@aspireuniversalinternational.com') ON CONFLICT (key) DO NOTHING;
+INSERT INTO public.school_settings (key, value) VALUES ('whatsapp_enabled', 'true') ON CONFLICT (key) DO NOTHING;
+INSERT INTO public.school_settings (key, value) VALUES ('whatsapp_provider', 'Meta Cloud API') ON CONFLICT (key) DO NOTHING;
+INSERT INTO public.school_settings (key, value) VALUES ('whatsapp_phone', '+91 9431867366') ON CONFLICT (key) DO NOTHING;
+INSERT INTO public.school_settings (key, value) VALUES ('sms_enabled', 'true') ON CONFLICT (key) DO NOTHING;
+INSERT INTO public.school_settings (key, value) VALUES ('sms_provider', 'Fast2SMS') ON CONFLICT (key) DO NOTHING;
+INSERT INTO public.school_settings (key, value) VALUES ('sms_sender_id', 'ASPIRE') ON CONFLICT (key) DO NOTHING;
+
 
 INSERT INTO public.notices (content, display_order) VALUES 
 ('New Admissions Open for Session 2026-27! Visit our portal to apply online.', 1),
 ('Annual Sports Day scheduled for April 15th, 2026. Get ready for the excitement!', 2);
+
+-- 10. Create Custom Forms Table (Dedicated Form Builder)
+CREATE TABLE IF NOT EXISTS public.custom_forms (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    title TEXT NOT NULL,
+    slug TEXT UNIQUE NOT NULL,
+    description TEXT,
+    fields JSONB NOT NULL DEFAULT '[]'::jsonb,
+    is_published BOOLEAN DEFAULT false,
+    submit_button_text TEXT DEFAULT 'Submit Application',
+    success_message TEXT DEFAULT 'Thank you! Your submission has been received.',
+    notify_email TEXT,
+    settings JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- 11. Create Form Submissions Table
+CREATE TABLE IF NOT EXISTS public.form_submissions (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    form_id UUID NOT NULL REFERENCES public.custom_forms(id) ON DELETE CASCADE,
+    data JSONB NOT NULL DEFAULT '{}'::jsonb,
+    status TEXT DEFAULT 'new' CHECK (status IN ('new', 'reviewed', 'accepted', 'rejected')),
+    payment_status TEXT DEFAULT 'exempted' CHECK (payment_status IN ('paid', 'pending', 'offline', 'exempted')),
+    payment_id TEXT,
+    amount NUMERIC DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- ==========================================
+-- ROW LEVEL SECURITY FOR FORMS & SUBMISSIONS
+-- ==========================================
+
+ALTER TABLE public.custom_forms ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.form_submissions ENABLE ROW LEVEL SECURITY;
+
+-- CUSTOM FORMS (Public can read published forms, Auth has full CRUD)
+CREATE POLICY "Allow public read published forms" ON public.custom_forms FOR SELECT USING (is_published = true OR auth.role() = 'authenticated');
+CREATE POLICY "Allow auth all access to forms" ON public.custom_forms FOR ALL USING (auth.role() = 'authenticated');
+
+-- FORM SUBMISSIONS (Public can insert submissions, Auth can read/manage)
+CREATE POLICY "Allow public insert form submissions" ON public.form_submissions FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow auth select form submissions" ON public.form_submissions FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "Allow auth update form submissions" ON public.form_submissions FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "Allow auth delete form submissions" ON public.form_submissions FOR DELETE USING (auth.role() = 'authenticated');
+
+-- ==========================================
+-- INDEXES & TRIGGERS FOR FORMS
+-- ==========================================
+CREATE INDEX IF NOT EXISTS idx_custom_forms_slug ON public.custom_forms(slug);
+CREATE INDEX IF NOT EXISTS idx_form_submissions_form ON public.form_submissions(form_id, created_at DESC);
+
+DROP TRIGGER IF EXISTS set_custom_forms_updated_at ON public.custom_forms;
+CREATE TRIGGER set_custom_forms_updated_at
+BEFORE UPDATE ON public.custom_forms
+FOR EACH ROW
+EXECUTE FUNCTION update_modified_column();
+
+-- ==========================================
+-- 12. Create School Invoices & Accounts Table
+-- ==========================================
+CREATE TABLE IF NOT EXISTS public.invoices (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    invoice_number TEXT UNIQUE NOT NULL,
+    student_name TEXT NOT NULL,
+    student_id TEXT,
+    grade TEXT NOT NULL,
+    parent_name TEXT NOT NULL,
+    parent_phone TEXT NOT NULL,
+    parent_email TEXT,
+    items JSONB NOT NULL DEFAULT '[]'::jsonb,
+    subtotal NUMERIC NOT NULL DEFAULT 0,
+    discount NUMERIC DEFAULT 0,
+    total_amount NUMERIC NOT NULL DEFAULT 0,
+    paid_amount NUMERIC NOT NULL DEFAULT 0,
+    balance_due NUMERIC NOT NULL DEFAULT 0,
+    status TEXT NOT NULL DEFAULT 'unpaid' CHECK (status IN ('paid', 'partial', 'unpaid', 'overdue')),
+    issue_date DATE NOT NULL DEFAULT CURRENT_DATE,
+    due_date DATE NOT NULL,
+    notes TEXT,
+    payment_records JSONB NOT NULL DEFAULT '[]'::jsonb,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+ALTER TABLE public.invoices ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Allow auth all access to invoices" ON public.invoices FOR ALL USING (auth.role() = 'authenticated');
+
+CREATE INDEX IF NOT EXISTS idx_invoices_status ON public.invoices(status);
+CREATE INDEX IF NOT EXISTS idx_invoices_student_id ON public.invoices(student_id);
+CREATE INDEX IF NOT EXISTS idx_invoices_invoice_number ON public.invoices(invoice_number);
+CREATE INDEX IF NOT EXISTS idx_invoices_due_date ON public.invoices(due_date);
+
+DROP TRIGGER IF EXISTS set_invoices_updated_at ON public.invoices;
+CREATE TRIGGER set_invoices_updated_at
+BEFORE UPDATE ON public.invoices
+FOR EACH ROW
+EXECUTE FUNCTION update_modified_column();
+

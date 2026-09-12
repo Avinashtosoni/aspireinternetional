@@ -5,7 +5,7 @@ import { ArrowRight, PlayCircle } from 'lucide-react';
 
 export default function Hero() {
   return (
-    <section id="home" className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-[#FDF8F5]">
+    <section id="home" className="relative pt-8 pb-16 lg:pt-12 lg:pb-24 overflow-hidden bg-[#FDF8F5]">
       {/* Decorative Background Elements */}
       <div className="absolute top-20 left-10 w-20 h-20 bg-accent rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
       <div className="absolute top-40 right-10 w-32 h-32 bg-secondary rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>

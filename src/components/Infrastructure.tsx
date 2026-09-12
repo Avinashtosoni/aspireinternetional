@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useCMSStore, Facility } from '../store/cmsStore';
-import * as LucideIcons from 'lucide-react';
+import { getSchoolIcon } from '../lib/icons';
+import { Building } from 'lucide-react';
 
 export default function Infrastructure() {
   const { facilities, fetchFacilities } = useCMSStore();
@@ -31,7 +32,7 @@ export default function Infrastructure() {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {facilities.map((facility: Facility, index: number) => {
-            const IconComponent = (LucideIcons as any)[facility.icon] || LucideIcons.Building;
+            const IconComponent = getSchoolIcon(facility.icon, Building);
             return (
               <motion.div
                 key={facility.id}
@@ -50,8 +51,10 @@ export default function Infrastructure() {
             );
           })}
           {facilities.length === 0 && (
-            <div className="col-span-4 text-center text-gray-400 py-10">
-              No facilities items found. Please run the supabase.sql setup script.
+            <div className="col-span-4 text-center text-gray-400 py-12">
+              <Building className="w-12 h-12 mx-auto text-gray-500 mb-3" />
+              <p className="text-lg font-medium text-gray-300">Modern Facilities & Labs</p>
+              <p className="text-sm text-gray-400 mt-1">Our comprehensive campus facilities will be updated shortly.</p>
             </div>
           )}
         </div>

@@ -24,7 +24,7 @@ export default function PrincipalMessage() {
             <div className="relative group">
               <div className="absolute -inset-2 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
               <img 
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&h=800&fit=crop" 
+                src={settings.principal_image_url || "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&h=800&fit=crop"} 
                 alt={settings.principal_name} 
                 className="relative rounded-xl w-full h-[500px] object-cover shadow-lg"
               />

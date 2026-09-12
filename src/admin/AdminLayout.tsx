@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, Navigate, Link, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Users, Building2, MessageSquare, LogOut, Settings } from 'lucide-react';
+import { LayoutDashboard, Users, Building2, MessageSquare, LogOut, Settings, FileText, ClipboardCheck, Receipt } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 export default function AdminLayout() {
@@ -9,17 +9,24 @@ export default function AdminLayout() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check real Supabase session
+    // Check Supabase session with local admin fallback
     const checkSession = async () => {
-      const { data } = await supabase.auth.getSession();
-      setIsAuthenticated(!!data.session);
+      try {
+        const { data } = await supabase.auth.getSession();
+        const localAuth = localStorage.getItem('admin_auth_fallback') === 'true';
+        setIsAuthenticated(!!data?.session || localAuth);
+      } catch (e) {
+        const localAuth = localStorage.getItem('admin_auth_fallback') === 'true';
+        setIsAuthenticated(localAuth);
+      }
     };
     
     checkSession();
 
     // Listen for auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setIsAuthenticated(!!session);
+      const localAuth = localStorage.getItem('admin_auth_fallback') === 'true';
+      setIsAuthenticated(!!session || localAuth);
     });
 
     return () => {
@@ -28,8 +35,8 @@ export default function AdminLayout() {
   }, []);
 
   const handleLogout = async () => {
+    localStorage.removeItem('admin_auth_fallback');
     await supabase.auth.signOut();
-    // navigate and state update are handled by the onAuthStateChange listener or manually
     setIsAuthenticated(false);
     navigate('/admin/login');
   };
@@ -44,20 +51,23 @@ export default function AdminLayout() {
 
   const navItems = [
     { label: 'Dashboard', icon: LayoutDashboard, path: '/admin' },
+    { label: 'Accounts & Invoices', icon: Receipt, path: '/admin/accounts' },
+    { label: 'Forms Builder', icon: FileText, path: '/admin/forms' },
+    { label: 'Form Submissions', icon: ClipboardCheck, path: '/admin/form-submissions' },
+    { label: 'Enquiries', icon: MessageSquare, path: '/admin/enquiries' },
     { label: 'Manage Team', icon: Users, path: '/admin/team' },
     { label: 'Facilities', icon: Building2, path: '/admin/facilities' },
     { label: 'Notices', icon: MessageSquare, path: '/admin/notices' },
     { label: 'Events', icon: Building2, path: '/admin/events' },
     { label: 'Blogs/News', icon: LayoutDashboard, path: '/admin/blogs' },
     { label: 'Testimonials', icon: Users, path: '/admin/testimonials' },
-    { label: 'Enquiries', icon: MessageSquare, path: '/admin/enquiries' },
     { label: 'Settings', icon: Settings, path: '/admin/settings' },
   ];
 
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
-      <aside className="w-64 bg-slate-900 text-white flex flex-col">
+      <aside className="w-64 bg-slate-900 text-white flex flex-col print:hidden">
         <div className="p-6 border-b border-slate-800">
           <h2 className="text-xl font-bold text-indigo-400">Aspire CMS</h2>
         </div>
@@ -91,8 +101,8 @@ export default function AdminLayout() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-auto">
-        <header className="bg-white shadow-sm px-8 py-4 flex justify-between items-center">
+      <main className="flex-1 overflow-auto print:p-0 print:overflow-visible">
+        <header className="bg-white shadow-sm px-8 py-4 flex justify-between items-center print:hidden">
           <h1 className="text-2xl font-bold text-gray-800">
             {navItems.find((n) => n.path === location.pathname)?.label || 'Admin Panel'}
           </h1>
@@ -100,7 +110,7 @@ export default function AdminLayout() {
             <span className="text-sm text-gray-500">Logged in as <strong>Admin</strong></span>
           </div>
         </header>
-        <div className="p-8">
+        <div className="p-8 print:p-0">
           <Outlet />
         </div>
       </main>

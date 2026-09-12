@@ -7,6 +7,7 @@ export default function Admissions() {
   const { addEnquiry } = useCMSStore();
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
   const steps = [
@@ -19,12 +20,14 @@ export default function Admissions() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage('');
 
     // 1. Save to Supabase
     const success = await addEnquiry(formData);
 
     // 2. Send Email via Web3Forms
     try {
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "51c5040d-d42f-4137-969c-0c33a9486c91";
       await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
@@ -32,7 +35,7 @@ export default function Admissions() {
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          access_key: "51c5040d-d42f-4137-969c-0c33a9486c91",
+          access_key: accessKey,
           ...formData,
           subject: "New Admissions Enquiry",
           from_name: "Aspire School Admissions"
@@ -45,6 +48,8 @@ export default function Admissions() {
     if (success) {
       setSubmitted(true);
       setFormData({ name: '', email: '', phone: '', message: '' });
+    } else {
+      setErrorMessage('Failed to submit enquiry. Please check your internet connection and try again.');
     }
     setLoading(false);
   };
@@ -115,6 +120,11 @@ export default function Admissions() {
 
               <div className="bg-gray-50 p-8 rounded-2xl">
                 <h4 className="text-xl font-bold text-gray-900 mb-4">Submit an Enquiry</h4>
+                {errorMessage && (
+                  <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-4 text-sm font-medium">
+                    {errorMessage}
+                  </div>
+                )}
                 {submitted ? (
                   <div className="bg-green-100 text-green-700 p-4 rounded-lg font-medium">
                     Thank you! Your enquiry has been submitted successfully to the administration.
@@ -122,11 +132,11 @@ export default function Admissions() {
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <input required type="text" placeholder="Parent/Student Name" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 outline-none" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
-                      <input required type="tel" placeholder="Phone Number" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 outline-none" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} />
+                      <input required type="text" placeholder="Parent/Student Name *" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 outline-none" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
+                      <input required type="tel" pattern="[0-9]{10}" title="Please enter a 10-digit mobile number" placeholder="Phone Number (10 digits) *" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 outline-none" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} />
                     </div>
                     <input type="email" placeholder="Email Address (Optional)" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 outline-none" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
-                    <textarea required placeholder="Your Message or Query" rows={3} className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 outline-none" value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})}></textarea>
+                    <textarea required placeholder="Your Message or Query *" rows={3} className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 outline-none" value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})}></textarea>
                     <button type="submit" disabled={loading} className="w-full bg-yellow-400 hover:bg-yellow-500 text-blue-900 px-8 py-4 rounded-full font-bold text-lg shadow-lg transition-all disabled:opacity-50">
                       {loading ? 'Submitting...' : 'Enquire Now'}
                     </button>
