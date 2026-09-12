@@ -46,7 +46,7 @@ export default function Navbar() {
       ]
     },
     { name: 'Admissions', href: '/admissions' },
-    { name: 'Registration', href: 'https://forms.gle/oXNPCNR6Zd2wTGZF8' },
+    { name: 'Registration', href: 'https://forms.gle/oXNPCNR6Zd2wTGZF8', badge: 'New' },
     { name: 'Contact', href: '/contact' },
   ];
 
@@ -119,18 +119,28 @@ export default function Navbar() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-bold transition-colors text-sm uppercase tracking-wide text-secondary hover:text-primary"
+                      className="font-bold transition-colors text-sm uppercase tracking-wide text-secondary hover:text-primary relative inline-flex items-center"
                     >
                       {item.name}
+                      {item.badge && (
+                        <span className="absolute -top-3.5 -right-5 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full animate-pulse shadow-sm">
+                          {item.badge}
+                        </span>
+                      )}
                     </a>
                   ) : (
                     <Link
                       to={item.href}
-                      className={`font-bold transition-colors text-sm uppercase tracking-wide ${
+                      className={`font-bold transition-colors text-sm uppercase tracking-wide relative inline-flex items-center ${
                         location.pathname === item.href ? 'text-primary' : 'text-secondary hover:text-primary'
                       }`}
                     >
                       {item.name}
+                      {item.badge && (
+                        <span className="absolute -top-3.5 -right-5 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full animate-pulse shadow-sm">
+                          {item.badge}
+                        </span>
+                      )}
                     </Link>
                   )
                 ) : (
@@ -203,20 +213,30 @@ export default function Navbar() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block px-3 py-4 text-base font-bold rounded-md text-secondary hover:text-primary"
+                      className="px-3 py-4 text-base font-bold rounded-md text-secondary hover:text-primary flex items-center gap-2"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {item.name}
+                      {item.badge && (
+                        <span className="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full animate-pulse shadow-sm">
+                          {item.badge}
+                        </span>
+                      )}
                     </a>
                   ) : (
                     <Link
                       to={item.href}
-                      className={`block px-3 py-4 text-base font-bold rounded-md ${
+                      className={`px-3 py-4 text-base font-bold rounded-md flex items-center gap-2 ${
                         location.pathname === item.href ? 'text-primary bg-primary/5' : 'text-secondary hover:text-primary'
                       }`}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {item.name}
+                      {item.badge && (
+                        <span className="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full animate-pulse shadow-sm">
+                          {item.badge}
+                        </span>
+                      )}
                     </Link>
                   )
                 ) : (
