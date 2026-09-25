@@ -46,7 +46,7 @@ export default function Navbar() {
       ]
     },
     { name: 'Admissions', href: '/admissions' },
-    { name: 'Registration', href: 'https://forms.gle/oXNPCNR6Zd2wTGZF8', badge: 'New' },
+    { name: 'Registration', href: 'https://forms.gle/qEsqVvwBYcMEZbaF7', badge: 'New' },
     { name: 'Contact', href: '/contact' },
   ];
 
