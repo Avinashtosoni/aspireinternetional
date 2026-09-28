@@ -10,6 +10,33 @@ export interface TeamMember {
   display_order: number;
 }
 
+export const DEFAULT_TEAM_MEMBERS: TeamMember[] = [
+  {
+    id: 'team-1',
+    name: 'Vishwanath Das',
+    role: 'Patron / Chairman',
+    image_url: '/team/vishwanath-das.jpg',
+    bio: 'Dedicated to cultivating an inspiring educational environment with visionary leadership and an unwavering commitment to holistic academic excellence.',
+    display_order: 1
+  },
+  {
+    id: 'team-2',
+    name: 'D. K. Vidyarthi',
+    role: 'Director',
+    image_url: '/team/dk-vidyarthi.jpg',
+    bio: 'Guiding Aspire Universal International School towards global benchmarks in modern education, innovation, and character building.',
+    display_order: 2
+  },
+  {
+    id: 'team-3',
+    name: 'Rakesh Kumar Ranjan',
+    role: 'Principal / Head of Academics',
+    image_url: '/team/rakesh-kumar-ranjan.jpg',
+    bio: 'Seasoned educationalist committed to research-driven pedagogy, active mentoring, student empowerment, and national development.',
+    display_order: 3
+  }
+];
+
 export interface Facility {
   id: string;
   title: string;
@@ -140,7 +167,7 @@ interface CMSStore {
 }
 
 export const useCMSStore = create<CMSStore>((set, get) => ({
-  team: [],
+  team: DEFAULT_TEAM_MEMBERS,
   facilities: [],
   stats: [],
   enquiries: [],
@@ -159,7 +186,7 @@ export const useCMSStore = create<CMSStore>((set, get) => ({
     'welcome_message_1': 'We are thrilled to announce the launch of Aspire Universal International School. Our brand new campus is designed to provide a safe, stimulating, and inclusive environment where students can discover their passions and reach their full potential.',
     'welcome_message_2': 'Opening our doors on April 1st, 2026, we blend traditional values with modern educational practices to prepare our students for the challenges of tomorrow. Join us in shaping the leaders, innovators, and compassionate citizens of the future.',
     'director_name': 'Mr. Deepak Kumar Vidyarthi',
-    'director_image_url': 'https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+    'director_image_url': '/team/dk-vidyarthi.jpg',
     'principal_name': 'Dr. APJ Kalam',
     'principal_message': 'Welcome to Aspire Universal International School. Our mission is to provide quality education and foster a nurturing environment for every student.',
     'principal_image_url': 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&h=800&fit=crop',
@@ -195,9 +222,16 @@ export const useCMSStore = create<CMSStore>((set, get) => ({
 
   fetchTeam: async () => {
     set({ isLoading: true });
-    const { data, error } = await supabase.from('team_members').select('*').order('display_order', { ascending: true });
-    if (error) set({ error: error.message, isLoading: false });
-    else set({ team: data as TeamMember[], isLoading: false });
+    try {
+      const { data, error } = await supabase.from('team_members').select('*').order('display_order', { ascending: true });
+      if (error || !data || data.length === 0) {
+        set({ team: DEFAULT_TEAM_MEMBERS, isLoading: false });
+      } else {
+        set({ team: data as TeamMember[], isLoading: false });
+      }
+    } catch {
+      set({ team: DEFAULT_TEAM_MEMBERS, isLoading: false });
+    }
   },
 
   fetchFacilities: async () => {
